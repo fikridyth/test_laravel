@@ -45,8 +45,15 @@ class AuthController extends Controller
                     'ip_address' => $ipAddress
                 ]);
 
-                Session::put('errorLogin', 0);
+                $todayDate = Carbon::now()->toDateString();
+                $expiredPassword = auth()->user()->expired_password;
+                if ($todayDate >= $expiredPassword) { //jika password expired
+                    return redirect(route('auth.change-password'));
+                } else {
+                    Session::put('errorLogin', 0);
 
+                    return redirect(route('index'));
+                }
                 return redirect(route('index'));
             }
         } else { //jika salah password / keblokir
@@ -58,7 +65,7 @@ class AuthController extends Controller
                 if ($sessionErrorLogin >= $max_fail) {
                     error_log($request->email);
                     User::where('nrik', $request->nrik)->update([
-                        'password' => bcrypt($request->nrik . '@bdki'),
+                        'password' => bcrypt(hash("sha256", rand())),
                         'expired_password' => '1970-01-01',
                         'is_blokir' => '1'
                     ]);

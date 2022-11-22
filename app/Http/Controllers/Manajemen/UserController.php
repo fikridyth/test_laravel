@@ -54,7 +54,7 @@ class UserController extends Controller
         User::where('id', $user->id)
             ->update([
                 'password' => bcrypt($resetPassword),
-                'is_blokir' => 0
+                'is_blokir' => null
             ]);
 
         createLogActivity("Membuka blokir user {$user->name}");

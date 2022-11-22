@@ -48,12 +48,14 @@ This repo requires PHP >= 7.3.
 2. Change remote url git : `git remote set-url origin {url_destination_git}`
    - Example : `git remote set-url origin https://github.com/USERNAME/REPOSITORY.git`
 3. Edit your own config in `/.env`.
-4. Run `composer install`.
-5. Download this template `https://drive.google.com/file/d/1moQX2a4aibF99870p4JxwO6kLedBS1Ox/view`
-6. copy folder `assets` in `demo2/dist` to `laravel-apps-v3/public/metronic/demo2`
-7. Run `php artisan migrate:fresh --seed`.
-8. Run `php artisan serve`.
-9. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
+4. Add folder `framework` in `storage`
+5. Add folder `sessions` `views` `cache` in `storage/framework`
+6. Run `composer install`.
+7. Download this template `https://drive.google.com/file/d/1moQX2a4aibF99870p4JxwO6kLedBS1Ox/view`
+8. copy folder `assets` in `demo2/dist` to `laravel-apps-v3/public/metronic/demo2`
+9. Run `php artisan migrate:fresh --seed`.
+10. Run `php artisan serve`.
+11. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
    - Login with:
    - `username`: `28451215`
    - `password`: `28451215@bdki`
