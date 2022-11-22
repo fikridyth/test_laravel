@@ -118,10 +118,10 @@
                                     <td>{{ $user->unitKerja->nama }}</td>
                                     <td class="text-center">
                                         <span
-                                            class="{{ $user->is_blokir === 1 || $user->is_blokir === '0' ? 'badge badge-light-danger' : '' }}">
+                                            class="{{ $user->is_blokir === 1 || ? 'badge badge-light-danger' : '' }}">
                                             <a href="{{ route('manajemen-user.buka-blokir', $user->id) }}"
                                                 style="color:inherit; text-decoration: none">
-                                                {{ $user->is_blokir === 1 || $user->is_blokir === '0' ? 'User Terblokir' : '-' }}
+                                                {{ $user->is_blokir === 1 || ? 'User Terblokir' : '-' }}
                                             </a>
                                         </span>
                                     </td>

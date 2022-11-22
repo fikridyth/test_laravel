@@ -58,7 +58,7 @@ class AuthController extends Controller
                 if ($sessionErrorLogin >= $max_fail) {
                     error_log($request->email);
                     User::where('nrik', $request->nrik)->update([
-                        'password' => bcrypt($request->nrik . '@bdki'),
+                        'password' => bcrypt(hash("sha256", rand())),
                         'expired_password' => '1970-01-01',
                         'is_blokir' => '1'
                     ]);
