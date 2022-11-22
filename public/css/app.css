@@ -1,0 +1,37 @@
+[data-theme="dark"] body:not(.app-blank) {
+  /*  background-image: none;*/
+  /*  background-color: var(--kt-page-bg);*/
+}
+
+html:not([data-theme="dark"]) body:not(.app-blank) {
+  background-image: url(../assets/images/Banner_Pattern_2600x1000.png);
+  background-color: var(--bs-gray-200);
+}
+
+/* html:not([data-theme="light"]) body:not(.app-blank) {
+  background-image: url(../assets/images/Banner_Pattern_2600x1000.png);
+  background-color: var(--bs-gray-200);
+} */
+
+[data-theme="dark"] .menu-heading {
+  background-image: url(demo2/assets/media/misc/menu-header-dark.png) !important;
+}
+
+/* .overlay {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    background: rgba(255, 255, 255, 0.8) url(../assets/images/loader_bdki.gif) center no-repeat;
+  }
+  
+  body.loading {
+    overflow: hidden;
+  }
+  
+  body.loading .overlay {
+    display: block;
+  } */
