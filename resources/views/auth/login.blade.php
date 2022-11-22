@@ -6,22 +6,22 @@
     <title>{{ config('app.name') }}</title>
     <meta charset="utf-8" />
     <meta name="description" content="Portal Bansos." />
-    <meta name="keywords" content="e-learning, lms, bank-dki, dki, bank" />
+    <meta name="keywords" content="tsi, teknologi, informasi, bank-dki, dki, bank" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ config('app.name') }} | Portal Bansos" />
+    <meta property="og:title" content="{{ config('app.name') }}" />
     <meta property="og:url" content="http://localhost" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     @include('layouts.styles')
     <style>
-        body {
-            background-image: url({{ asset('metronic/demo2/assets/media/auth/bg10.jpeg') }});
-        }
+    body {
+        background-image: url('metronic/demo2/assets/media/auth/bg10.jpeg');
+    }
 
-        [data-theme="dark"] body {
-            background-image: url({{ asset('metronic/demo2/assets/media/auth/bg10-dark.jpeg') }});
-        }
+    [data-theme="dark"] body {
+        background-image: url('metronic/demo2/assets/media/auth/bg10-dark.jpeg');
+    }
     </style>
 
     <script src="{{ asset('js/theme.js') }}" defer></script>
@@ -54,9 +54,8 @@
                                 <div class="text-gray-500 fw-semibold fs-6">Temukan Berbagai Pelatihan</div>
                             </div>
                             <div class="fv-row mb-8">
-                                <input type="text" placeholder="NRIK" name="nrik" maxlength="8"
-                                    autocomplete="off" class="form-control bg-transparent" value="{{ old('nrik') }}"
-                                    autofocus />
+                                <input type="text" placeholder="NRIK" name="nrik" maxlength="8" autocomplete="off"
+                                    class="form-control bg-transparent" value="{{ old('nrik') }}" autofocus />
                             </div>
                             <div class="fv-row mb-3">
                                 <input type="password" placeholder="Password" name="password" autocomplete="off"
