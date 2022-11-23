@@ -60,7 +60,7 @@
                                             </select>
                                         </div>
                                         <div class="mb-10">
-                                            <label class="form-check form-check-custom form-check-solid"
+                                            <label class="form-check form-switch form-check-custom form-check-solid"
                                                 for="status_blokir">
                                                 <input class="form-check-input" type="checkbox" value="1"
                                                     id="status_blokir" name="status_blokir"
@@ -118,10 +118,10 @@
                                     <td>{{ $user->unitKerja->nama }}</td>
                                     <td class="text-center">
                                         <span
-                                            class="{{ $user->is_blokir === 1 || ? 'badge badge-light-danger' : '' }}">
+                                            class="{{ $user->is_blokir === 1 ? 'badge badge-light-danger' : '' }}">
                                             <a href="{{ route('manajemen-user.buka-blokir', $user->id) }}"
                                                 style="color:inherit; text-decoration: none">
-                                                {{ $user->is_blokir === 1 || ? 'User Terblokir' : '-' }}
+                                                {{ $user->is_blokir === 1 ? 'User Terblokir' : '-' }}
                                             </a>
                                         </span>
                                     </td>
