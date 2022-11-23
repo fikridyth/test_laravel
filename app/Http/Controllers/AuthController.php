@@ -48,7 +48,7 @@ class AuthController extends Controller
                 $todayDate = Carbon::now()->toDateString();
                 $expiredPassword = auth()->user()->expired_password;
                 if ($todayDate >= $expiredPassword) { //jika password expired
-                    return redirect(route('auth.change-password'));
+                    return redirect(route('auth.expired-password'));
                 } else {
                     Session::put('errorLogin', 0);
 
@@ -157,5 +157,10 @@ class AuthController extends Controller
                 ->with('alert.status', '00')
                 ->with('alert.message', "Berhasil mengganti password");
         }
+    }
+
+    public function expiredPassword()
+    {
+        return view('auth.expired-password');
     }
 }

@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     //untuk ganti password
     Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
     Route::post('/change-password/proses', [AuthController::class, 'changePasswordSubmit'])->name('auth.change-password-submit');
+    Route::get('/expired-password', [AuthController::class, 'expiredPassword'])->name('auth.expired-password');
 
     //last seen
     Route::get('/last-seen', [KonfigurasiController::class, 'lastSeen'])->name('konfigurasi.last-seen');

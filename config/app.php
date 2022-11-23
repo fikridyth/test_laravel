@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Portal Bansos'),
+    'name' => env('APP_NAME', 'Example Project'),
 
     /*
     |--------------------------------------------------------------------------

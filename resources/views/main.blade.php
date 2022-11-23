@@ -9,10 +9,10 @@
     <meta name="description" content="Portal Bansos." />
     <meta name="keywords" content="bantuan sosial, bansos, subsidi, bank-dki, dki, bank" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="{{ config('app.faker_locale') }}" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ config('app.name') }} | Portal Bansos" />
-    <meta property="og:url" content="http://localhost" />
+    <meta property="og:url" content="{{ config('app.url') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     @include('layouts.styles')
     @yield('styles')
