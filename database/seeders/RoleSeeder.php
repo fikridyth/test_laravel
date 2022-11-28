@@ -64,8 +64,8 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$UTILITY, 'name' => 'Manajemen', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 4],
             ['id' => StaticMenu::$UTILITY_USER, 'name' => 'Manajemen User', 'route' => 'manajemen-user.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 1],
             ['id' => StaticMenu::$UTILITY_MENU, 'name' => 'Manajemen Menu', 'route' => 'v2.menu.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 2],
-            ['id' => StaticMenu::$UTILITY_ROLE, 'name' => 'Managemen Role', 'route' => 'v2.role.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 3],
-            ['id' => StaticMenu::$UTILITY_PERMISSION, 'name' => 'Managemen Akses', 'route' => 'v2.permission.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 4],
+            ['id' => StaticMenu::$UTILITY_ROLE, 'name' => 'Manajemen Role', 'route' => 'v2.role.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 3],
+            ['id' => StaticMenu::$UTILITY_PERMISSION, 'name' => 'Manajemen Akses', 'route' => 'v2.permission.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 4],
             ['id' => StaticMenu::$UTILITY_SECURITY, 'name' => 'Manajemen Keamanan', 'route' => 'manajemen-sekuriti', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 5],
             
             ['id' => StaticMenu::$USERS_ACTIVITY, 'name' => 'Aktifitas User', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 5],

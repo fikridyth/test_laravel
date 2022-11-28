@@ -15,15 +15,15 @@
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     @include('layouts.styles')
     <style>
-        body {
-            height: 100%;
-            background-size: cover;
-            background-image: url({{ asset('assets/images/Banner_Pattern_2600x1000.png') }});
-        }
+    body {
+        height: 100%;
+        background-size: cover;
+        background-image: url('assets/images/Banner_Pattern_2600x1000.png');
+    }
 
-        [data-theme="dark"] body {
-            background-image: url({{ asset('metronic/demo2/assets/media/auth/bg5-dark.jpg') }});
-        }
+    [data-theme="dark"] body {
+        background-image: url('metronic/demo2/assets/media/auth/bg5-dark.jpg');
+    }
     </style>
     <script src="{{ asset('js/theme.js') }}" defer></script>
 </head>
@@ -41,17 +41,17 @@
                                     <img alt="Logo" src="{{ asset('assets/images/logo_bank_dki.png') }}"
                                         class="h-40px" />
                                 </div>
-                                <h1 class="fw-bolder text-gray-900 mb-2">Change Password</h1>
-                                <p class="text-gray-400 fw-semibold fs-5">Your password is expired!</p>
+                                <h1 class="fw-bolder text-gray-900 mb-2">Ubah Password</h1>
+                                <p class="text-gray-400 fw-semibold fs-5">Password Anda sudah kadaluarsa</p>
                             </div>
                             <div class="form-group mb-4">
                                 <label class="form-label fw-semibold fs-6 mb-2" for="password">Password Lama</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     name="password" id="password">
                                 @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="fv-row" data-kt-password-meter="true">
@@ -65,9 +65,9 @@
                                             type="password" name="password_baru" autocomplete="off"
                                             id="password_baru" />
                                         @error('password_baru')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                         @enderror
 
                                         <span
@@ -102,9 +102,9 @@
                                     class="form-control @error('konfirmasi_password') is-invalid @enderror"
                                     name="konfirmasi_password" id="konfirmasi_password">
                                 @error('konfirmasi_password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                             <div class="d-flex justify-content-end">

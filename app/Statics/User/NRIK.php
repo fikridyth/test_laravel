@@ -4,8 +4,8 @@ namespace App\Statics\User;
 
 class NRIK
 {
-    public static $SUPER_ADMIN = '77777777';
-    public static $DEVELOPER = '99999999';
+    public static $SUPER_ADMIN = '11111111';
+    public static $DEVELOPER = '22222222';
     public static $KUSDHIAN = '28451215';
     public static $FIQQI = '42101120';
     public static $RENDY = '26011214';
