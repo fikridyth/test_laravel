@@ -37,7 +37,7 @@ class PermissionController extends Controller
 
         public function add()
         {
-                $title = 'Manajemen Akses';
+                $title = 'Tambah Akses Baru';
 
                 $breadcrumbs = [
                         HomeController::breadcrumb(),
@@ -60,14 +60,16 @@ class PermissionController extends Controller
 
                 Permission::create(['id' => $request->id, 'name' => $request->name]);
 
+                createLogActivity('Membuat Akses Baru');
+
                 return redirect(route('v2.permission.index'))
                         ->with('alert.status', '00')
-                        ->with('alert.message', "Add Permission {$request->name} successful");
+                        ->with('alert.message', "Akses {$request->name} berhasil ditambahkan.");
         }
 
         public function edit($id)
         {
-                $title = 'Manajemen Akses';
+                $title = 'Ubah Akses';
 
                 $permission = Permission::find($id);
 
@@ -91,8 +93,10 @@ class PermissionController extends Controller
                 $permission->name = $request->name;
                 $permission->save();
 
+                createLogActivity("Memperbarui Akses {$permission->name}");
+
                 return redirect(route('v2.permission.index'))
                         ->with('alert.status', '00')
-                        ->with('alert.message', "Edit Permission {$request->name} successful");
+                        ->with('alert.message', "Permission {$request->name} berhasil diperbarui.");
         }
 }

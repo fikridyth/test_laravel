@@ -13,7 +13,7 @@
                                 <span class="svg-icon svg-icon-1 me-2">
                                     {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/coding/cod001.svg') !!}
                                 </span>
-                                <h2> {{ $permission->id == null ? 'Tambah Permission' : 'Edit Permission' }} </h2>
+                                <h2> {{ $permission->id == null ? 'Tambah Akses' : 'Ubah Akses' }} </h2>
                             </div>
                         </div>
                         <div class="card-body">

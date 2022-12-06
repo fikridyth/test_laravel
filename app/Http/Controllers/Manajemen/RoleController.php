@@ -36,7 +36,7 @@ class RoleController extends Controller
 
     public function add()
     {
-        $title = 'Manajemen Role';
+        $title = 'Tambah Role Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -62,15 +62,17 @@ class RoleController extends Controller
         $role = Role::create(['id' => $request->id, 'name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
+        createLogActivity('Membuat Role Baru');
+
         return redirect(route('v2.role.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', 'Add Role ' . $request->name . ' successful!');
+            ->with('alert.message', 'Role ' . $request->name . ' berhasil ditambahkan.');
     }
 
 
     public function edit($id)
     {
-        $title = 'Manajemen Role';
+        $title = 'Ubah Role';
 
         $role = Role::with(['permissions'])->find($id);
 
@@ -104,8 +106,10 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->permissions);
 
+        createLogActivity("Memperbarui Role {$role->name}");
+
         return redirect(route('v2.role.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', 'Edit Role ' . $request->name . ' successful!');
+            ->with('alert.message', 'Role ' . $request->name . ' berhasil diperbarui.');
     }
 }

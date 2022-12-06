@@ -64,8 +64,8 @@ class MenuController extends Controller
                 . '<td>' . implode(", ", $child['roleNames']) . '</td>'
                 . '<td>' . $child['order'] . '</td>'
                 . '<td>'
-                . '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('v2.menu.edit', ['id' => $child['id']]) . '\'>Edit</a>'
-                . '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('v2.menu.del', ['id' => $child['id']]) . '\'>Delete</a>'
+                . '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('v2.menu.edit', ['id' => $child['id']]) . '\'>Ubah</a>'
+                . '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('v2.menu.del', ['id' => $child['id']]) . '\'>Hapus</a>'
                 . '</td>'
                 . '</tr>';
             $html .= $this->printMenu($child, $titlePadding + 5);
@@ -99,7 +99,7 @@ class MenuController extends Controller
 
     public function add()
     {
-        $title = 'Add Menu';
+        $title = 'Tambah Menu Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -119,7 +119,7 @@ class MenuController extends Controller
 
     public function edit($id)
     {
-        $title = 'Edit Menu';
+        $title = 'Ubah Menu';
 
         $query = Menu::with(['roles']);
         $menu = $query->find($id);
@@ -183,7 +183,7 @@ class MenuController extends Controller
 
         createLogActivity('Membuat Menu Baru');
 
-        $message = 'Menu ' . $request->name . ' added. ';
+        $message = 'Menu ' . $request->name . ' berhasil ditambahkan. ';
 
         return redirect(route('v2.menu.index'))
             ->with('alert.status', '00')
@@ -213,7 +213,7 @@ class MenuController extends Controller
 
         createLogActivity("Memperbarui Menu {$menu->name}");
 
-        $message = 'Menu ' . $request->name . ' updated. ';
+        $message = 'Menu ' . $request->name . ' berhasil diperbarui. ';
 
         return redirect(route('v2.menu.index'))
             ->with('alert.status', '00')

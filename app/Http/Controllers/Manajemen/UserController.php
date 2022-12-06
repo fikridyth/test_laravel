@@ -40,7 +40,7 @@ class UserController extends Controller
 
         $stmtRole = Role::orderBy('id')->get();
 
-        $stmtUser = User::with(['roles'])
+        $stmtUser = User::with('roles', 'unitKerja')
             ->searchByName(request(['nama']))
             ->filter(request(['role', 'status_blokir']))
             ->orderBy('name')
@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = 'Create ' . self::$title;
+        $title = 'Tambah ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -152,18 +152,12 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->nrik = $request->nrik;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->nrik . '@bdki');
-        $user->tanggal_lahir = $request->tanggal_lahir;
-        $user->id_unit_kerja = $request->id_unit_kerja;
-        $user->status_data = 1;
-        $user->expired_password = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
-        $user->updated_by = Auth::id();
-        $user->save();
-
+        $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY');
+        $user =  User::create($request->validated() + [
+            'password' => bcrypt($password),
+            'expired_password' => '1970-01-01',
+            'created_by' => Auth::id(),
+        ]);
         $user->assignRole($request->id_role);
 
         createLogActivity('Membuat User Baru');
@@ -192,7 +186,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $title = 'Edit ' . self::$title;
+        $title = 'Ubah ' . self::$title;
 
         $breadcrumbs = [
             HomeController::breadcrumb(),

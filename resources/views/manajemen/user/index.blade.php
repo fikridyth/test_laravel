@@ -21,9 +21,9 @@
                                     <div class="me-4">
                                         <input type="search" name="nama"
                                             class="form-control form-control-solid w-290px ps-14"
-                                            placeholder="Search By Name" autocomplete="off" value="{{ request('nama') }}">
+                                            placeholder="Cari berdasarkan nama" autocomplete="off" value="{{ request('nama') }}">
                                     </div>
-                                    <button type="submit" class="btn btn-secondary btn-lg">Search</button>
+                                    <button type="submit" class="btn btn-secondary btn-lg">Cari</button>
                                 </div>
                             </form>
                         </div>
@@ -85,7 +85,7 @@
                                 <span class="svg-icon svg-icon-2">
                                     {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
                                 </span>
-                                Add User
+                                Tambah User
                             </a>
                         </div>
                     </div>
@@ -97,6 +97,7 @@
                                 <th>No.</th>
                                 <th>NRIK</th>
                                 <th>Nama</th>
+                                <th>Tanggal Lahir</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Unit Kerja</th>
@@ -111,6 +112,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->nrik }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ Carbon::parse($user->tanggal_lahir)->locale('id')->translatedFormat('j F Y') }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->roles->pluck('name')->implode(', ') }}</td>
                                     <td>{{ $user->unitKerja->nama }}</td>
@@ -129,7 +131,7 @@
                                                 href="{{ route('manajemen-user.lepas-ip', $user->id) }}">{{ $user->ip_address }}</a>
                                         </span>
                                     </td>
-                                    <td><a href="{{ route('manajemen-user.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                                    <td><a href="{{ route('manajemen-user.edit', $user->id) }}" class="btn btn-primary btn-sm">Ubah</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

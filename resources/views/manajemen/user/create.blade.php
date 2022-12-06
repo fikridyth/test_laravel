@@ -13,7 +13,7 @@
                                 <span class="svg-icon svg-icon-1 me-2">
                                     {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/communication/com006.svg') !!}
                                 </span>
-                                <h2>Add New User</h2>
+                                <h2>Tambah User Baru</h2>
                             </div>
                         </div>
                         <div class="card-body pt-5">

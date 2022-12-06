@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\Manajemen\UserController;
-use App\Http\Controllers\BatchController;
 use App\Http\Controllers\Manajemen\MenuController;
 use App\Http\Controllers\Manajemen\PermissionController;
 use App\Http\Controllers\Manajemen\RoleController;
@@ -22,13 +21,13 @@ use App\Http\Controllers\Manajemen\RoleController;
 */
 
 // login
-Route::middleware(['guest'])->group(function () {
+Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
         Route::post('/login-submit', [AuthController::class, 'loginSubmit'])->name('auth.login-submit');
 });
 
 // routes di web/user.php yang digunakan oleh semua role
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
         // logout
         Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
