@@ -22,4 +22,11 @@ class LogActivity extends Model
     {
         return $query->latest()->get();
     }
+
+    public function scopeSearchByUser($query, array $filters)
+    {
+        $query->when($filters['user'] ?? false, function ($query, $user) {
+            return $query->where('id_user', $user);
+        });
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LogActivity;
+use App\DataTables\LogActivityDataTable;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,17 +30,18 @@ class KonfigurasiController extends Controller
         return view('konfigurasi.last-seen', compact('title', 'breadcrumbs', 'stmtRole', 'stmtUser'));
     }
 
-    public function userActivity()
+    public function userActivity(LogActivityDataTable $dataTable)
     {
-        $title = 'Users Log Activity';
+        $title = 'Catatan Aktivitas User';
 
         $breadcrumbs = [
+            HomeController::breadcrumb(),
             [$title, route('konfigurasi.log-activity')]
         ];
 
-        $stmtUsersLogActivities = LogActivity::with('user', 'user.roles')->orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('id')->get();
 
-        return view('konfigurasi.log-activity', compact('title', 'breadcrumbs', 'stmtUsersLogActivities'));
+        return $dataTable->render('konfigurasi.log-activity', compact('title', 'breadcrumbs', 'users'));
     }
 
     public function sekuriti()

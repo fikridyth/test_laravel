@@ -68,9 +68,9 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$UTILITY_PERMISSION, 'name' => 'Manajemen Akses', 'route' => 'v2.permission.index', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 4],
             ['id' => StaticMenu::$UTILITY_SECURITY, 'name' => 'Manajemen Keamanan', 'route' => 'manajemen-sekuriti', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$UTILITY, 'order' => 5],
             
-            ['id' => StaticMenu::$USERS_ACTIVITY, 'name' => 'Aktifitas User', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 5],
+            ['id' => StaticMenu::$USERS_ACTIVITY, 'name' => 'Aktivitas User', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 5],
             ['id' => StaticMenu::$USERS_ACTIVITY_LAST_SEEN, 'name' => 'Users Last Seen', 'route' => 'konfigurasi.last-seen', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$USERS_ACTIVITY, 'order' => 1],
-            ['id' => StaticMenu::$USERS_ACTIVITY_LOG_ACTIVITY, 'name' => 'Catatan Aktifitas User', 'route' => 'konfigurasi.log-activity', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$USERS_ACTIVITY, 'order' => 2],
+            ['id' => StaticMenu::$USERS_ACTIVITY_LOG_ACTIVITY, 'name' => 'Catatan Aktivitas User', 'route' => 'konfigurasi.log-activity', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$USERS_ACTIVITY, 'order' => 2],
         ];
 
         collect($collections)->each(function ($data) {

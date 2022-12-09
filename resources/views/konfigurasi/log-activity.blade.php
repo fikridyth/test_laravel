@@ -8,56 +8,61 @@
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/general/gen021.svg') !!}
-                            </span>
-                            <input type="search" data-kt-filter="search"
-                                class="form-control form-control-solid w-250px ps-14" placeholder="Cari" />
-                        </div>
+                        <span class="svg-icon svg-icon-1 me-2">
+                            {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/technology/teh009.svg') !!}
+                        </span>
+                        <h2>{{ $title }}</h2>
                     </div>
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        {{-- @include('layouts.export-datatable') --}}
+                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                            data-kt-menu-placement="bottom-end">
+                            <span class="svg-icon svg-icon-2">
+                                {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/general/gen031.svg') !!}
+                            </span>
+                        </button>
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                            </div>
+                            <div class="separator border-gray-200"></div>
+                            <div class="px-7 py-5">
+                                <form action="{{ route('konfigurasi.log-activity') }}">
+                                    <div class="mb-10">
+                                        <label for="user" class="form-label fs-6 fw-semibold">User :</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih User" data-allow-clear="true" id="user"
+                                            data-hide-search="true" name="user">
+                                            <option></option>
+                                            @foreach ($users as $user)
+                                                @if (request('user') == $user->id)
+                                                    <option value="{{ $user->id }}" selected>{{ $user->name }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset"
+                                            class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
+                                            data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                        <button type="submit" class="btn btn-primary fw-semibold px-6"
+                                            data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body py-4">
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 kt_datatable_responsive kt_datatable_dynamic_search"
-                        id="">
-                        <thead>
-                            <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th>No.</th>
-                                <th>ID - User</th>
-                                <th>Role</th>
-                                <th>Activity</th>
-                                <th>IP Adress</th>
-                                <th>URL</th>
-                                <th>Method</th>
-                                <th>Operating System</th>
-                                <th>Device Type</th>
-                                <th>Browser</th>
-                                <th>Dibuat Pada</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-600 fw-semibold">
-                            @foreach ($stmtUsersLogActivities as $item)
-                                <tr>
-                                    <td class="d-flex align-items-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $item->id_user . ' - ' . $item->user->name }}</td>
-                                    <td>{{ $item->user->roles->pluck('name')[0] }}</td>
-                                    <td>{{ $item->activity_content }}</td>
-                                    <td>{{ $item->ip_access }}</td>
-                                    <td>{{ $item->url }}</td>
-                                    <td>{{ $item->method }}</td>
-                                    <td>{{ $item->operating_system }}</td>
-                                    <td>{{ $item->device_type }}</td>
-                                    <td>{{ $item->browser_name }}</td>
-                                    <td>{{ $item->created_at }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    {{ $dataTable->table() }}
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('content_scripts')
+    {{ $dataTable->scripts() }}
+@endpush
