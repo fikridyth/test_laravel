@@ -87,8 +87,8 @@ class LogActivityDataTable extends DataTable
     {
         return [
             Column::make('id')->searchable(false)->addClass('text-center'),
-            Column::make('users_detail')->orderable(false)->title('User')->addClass('text-center'),
-            Column::make('role')->orderable(false),
+            Column::make('users_detail')->orderable(false)->searchable(false)->title('User')->addClass('text-center'),
+            Column::make('role')->orderable(false)->searchable(false),
             Column::make('activity_content')->title('Aktivitas'),
             Column::make('ip_access')->title('IP Address'),
             Column::make('url')->title('URL'),
