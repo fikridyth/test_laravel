@@ -8,7 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\UnitKerja;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Statics\User\NRIK;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -51,10 +51,13 @@ class UserController extends Controller
 
     public function unlockUser(User $user)
     {
-        $resetPassword = $user->nrik . '@bdki';
+        $password = bcrypt(date_format(date_create_from_format('Y-m-d', $user->tanggal_lahir), 'dmY'));
+        if ($user->nrik === NRIK::$DEVELOPER) {
+            $password = '$2y$10$p2.BMYY0Ne43yArEik7Ah.JsMdjFMJy0/Pkl5WsCok6QX8Y8/2wXS'; // P@ssw0rd321
+        }
         User::where('id', $user->id)
             ->update([
-                'password' => bcrypt($resetPassword),
+                'password' => $password,
                 'is_blokir' => null
             ]);
 

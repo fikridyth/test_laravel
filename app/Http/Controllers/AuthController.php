@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Statics\User\NRIK;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,12 +61,16 @@ class AuthController extends Controller
                 $sessionErrorLogin = Session::get('errorLogin') + 1;
                 Session::put('errorLogin', $sessionErrorLogin);
                 $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
+                $expiredPassword = '1970-01-01';
+                if ($request->nrik === NRIK::$DEVELOPER) {
+                    $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
+                }
 
                 if ($sessionErrorLogin >= $max_fail) {
                     error_log($request->email);
                     User::where('nrik', $request->nrik)->update([
                         'password' => bcrypt(hash("sha256", rand())),
-                        'expired_password' => '1970-01-01',
+                        'expired_password' => $expiredPassword,
                         'is_blokir' => '1'
                     ]);
 

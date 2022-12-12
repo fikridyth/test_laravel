@@ -18,6 +18,7 @@
                             data-kt-menu-placement="bottom-end">
                             <span class="svg-icon svg-icon-2">
                                 {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/general/gen031.svg') !!}
+                                Filter
                             </span>
                         </button>
                         <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
@@ -31,7 +32,7 @@
                                         <label for="user" class="form-label fs-6 fw-semibold">User :</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Pilih User" data-allow-clear="true" id="user"
-                                            data-hide-search="true" name="user">
+                                            name="user">
                                             <option></option>
                                             @foreach ($users as $user)
                                                 @if (request('user') == $user->id)
