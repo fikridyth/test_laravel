@@ -22,6 +22,7 @@ class LogActivityDataTable extends DataTable
                 $query
                     ->with('user', 'user.roles')
                     ->searchByUser(request(['user']))
+                    ->searchByRole(request(['role']))
             )
             ->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->locale('id')->translatedFormat('j F Y, H:i:s');

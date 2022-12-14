@@ -29,6 +29,22 @@
                             <div class="px-7 py-5">
                                 <form action="{{ route('konfigurasi.log-activity') }}">
                                     <div class="mb-10">
+                                        <label for="role" class="form-label fs-6 fw-semibold">Role :</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih Role" data-allow-clear="true" id="role"
+                                            data-control="select2" name="role">
+                                            <option></option>
+                                            @foreach ($roles as $role)
+                                                @if (request('role') === $role->name)
+                                                    <option value="{{ $role->name }}" selected>{{ $role->name }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-10">
                                         <label for="user" class="form-label fs-6 fw-semibold">User :</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Pilih User" data-allow-clear="true" id="user"
