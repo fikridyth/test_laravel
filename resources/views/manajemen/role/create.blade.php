@@ -22,7 +22,7 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST"
-                                action="{{ $role->id == null ? route('v2.role.store') : route('v2.role.update', ['id' => $role->id]) }}">
+                                action="{{ $role->id == null ? route('role.store') : route('role.update', ['id' => $role->id]) }}">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="id" class="fs-6 fw-semibold form-label mt-3">

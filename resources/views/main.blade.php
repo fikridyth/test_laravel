@@ -5,7 +5,7 @@
     <base href="" />
     <title>{{ $title ? $title . ' | ' . config('app.name') : config('app.name') }}</title>
     <meta charset="utf-8" />
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Portal Bansos." />
     <meta name="keywords" content="bank-dki, dki, bank, bansos, bantuan sosial, subsidi" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,6 @@
 </head>
 
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
-
 
     <div class="d-flex flex-column flex-root">
         <div class="page d-flex flex-row flex-column-fluid">

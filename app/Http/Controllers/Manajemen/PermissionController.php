@@ -15,7 +15,7 @@ class PermissionController extends Controller
         public static function breadcrumb()
         {
                 return [
-                        self::$title, route('v2.permission.index')
+                        self::$title, route('permission.index')
                 ];
         }
 
@@ -42,7 +42,7 @@ class PermissionController extends Controller
                 $breadcrumbs = [
                         HomeController::breadcrumb(),
                         self::breadcrumb(),
-                        [$title, route('v2.permission.create')],
+                        [$title, route('permission.create')],
                 ];
 
                 $permission = new Permission();
@@ -62,7 +62,7 @@ class PermissionController extends Controller
 
                 createLogActivity('Membuat Akses Baru');
 
-                return redirect(route('v2.permission.index'))
+                return redirect(route('permission.index'))
                         ->with('alert.status', '00')
                         ->with('alert.message', "Akses {$request->name} berhasil ditambahkan.");
         }
@@ -76,7 +76,7 @@ class PermissionController extends Controller
                 $breadcrumbs = [
                         HomeController::breadcrumb(),
                         self::breadcrumb(),
-                        [$title, route('v2.role.edit', $permission->id)],
+                        [$title, route('role.edit', $permission->id)],
                 ];
 
                 return View::make('manajemen.permission.create', compact('title', 'breadcrumbs', 'permission'));
@@ -95,7 +95,7 @@ class PermissionController extends Controller
 
                 createLogActivity("Memperbarui Akses {$permission->name}");
 
-                return redirect(route('v2.permission.index'))
+                return redirect(route('permission.index'))
                         ->with('alert.status', '00')
                         ->with('alert.message', "Permission {$request->name} berhasil diperbarui.");
         }

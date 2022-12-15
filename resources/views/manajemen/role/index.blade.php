@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                             <div class="card-toolbar">
-                                <a href="{{ route('v2.role.create') }}" type="button" class="btn btn-primary">
+                                <a href="{{ route('role.create') }}" type="button" class="btn btn-primary">
                                     <span class="svg-icon svg-icon-2">
                                         {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
                                     </span>
@@ -50,7 +50,7 @@
                                             <td>{{ $role->updated_at }}</td>
                                             <td>
                                                 <a class="btn btn-secondary"
-                                                    href="{{ route('v2.role.edit', $role->id) }}">Ubah</a>
+                                                    href="{{ route('role.edit', $role->id) }}">Ubah</a>
                                             </td>
                                         </tr>
                                     @empty

@@ -34,7 +34,7 @@
                                             data-placeholder="Pilih Role" data-allow-clear="true" id="role"
                                             data-control="select2" name="role">
                                             <option></option>
-                                            @foreach ($roles as $role)
+                                            @foreach ($stmtRole as $role)
                                                 @if (request('role') === $role->name)
                                                     <option value="{{ $role->name }}" selected>{{ $role->name }}
                                                     </option>
@@ -50,7 +50,7 @@
                                             data-placeholder="Pilih User" data-allow-clear="true" id="user"
                                             name="user">
                                             <option></option>
-                                            @foreach ($users as $user)
+                                            @foreach ($stmtUser as $user)
                                                 @if (request('user') == $user->id)
                                                     <option value="{{ $user->id }}" selected>{{ $user->name }}
                                                     </option>

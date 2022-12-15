@@ -16,7 +16,7 @@ class RoleController extends Controller
     public static function breadcrumb()
     {
         return [
-            self::$title, route('v2.role.index')
+            self::$title, route('role.index')
         ];
     }
 
@@ -41,7 +41,7 @@ class RoleController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('v2.role.create')],
+            [$title, route('role.create')],
         ];
 
         $permissions = Permission::all();
@@ -64,7 +64,7 @@ class RoleController extends Controller
 
         createLogActivity('Membuat Role Baru');
 
-        return redirect(route('v2.role.index'))
+        return redirect(route('role.index'))
             ->with('alert.status', '00')
             ->with('alert.message', 'Role ' . $request->name . ' berhasil ditambahkan.');
     }
@@ -79,7 +79,7 @@ class RoleController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('v2.role.edit', $role->id)],
+            [$title, route('role.edit', $role->id)],
         ];
 
         $rolePermissions = [];
@@ -108,7 +108,7 @@ class RoleController extends Controller
 
         createLogActivity("Memperbarui Role {$role->name}");
 
-        return redirect(route('v2.role.index'))
+        return redirect(route('role.index'))
             ->with('alert.status', '00')
             ->with('alert.message', 'Role ' . $request->name . ' berhasil diperbarui.');
     }

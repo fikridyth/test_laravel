@@ -59,26 +59,26 @@ Route::middleware('auth')->group(function () {
 
         //////// V2 
         // untuk manajemen menu
-        Route::get('/menus', [MenuController::class, 'index'])->name('v2.menu.index')->middleware('permission:Menu List');
-        Route::get('/menus/create', [MenuController::class, 'add'])->name('v2.menu.create')->middleware('permission:Menu Create');
-        Route::post('/menus/store', [MenuController::class, 'store'])->name('v2.menu.store')->middleware('permission:Menu Create');
-        Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('v2.menu.edit')->middleware('permission:Menu Edit');
-        Route::post('/menus/{id}/update', [MenuController::class, 'update'])->name('v2.menu.update')->middleware('permission:Menu Edit');
-        Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('v2.menu.del')->middleware('permission:Menu Delete');
+        Route::get('/menus', [MenuController::class, 'index'])->name('menu.index')->middleware('permission:Menu List');
+        Route::get('/menus/create', [MenuController::class, 'add'])->name('menu.create')->middleware('permission:Menu Create');
+        Route::post('/menus/store', [MenuController::class, 'store'])->name('menu.store')->middleware('permission:Menu Create');
+        Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit')->middleware('permission:Menu Edit');
+        Route::post('/menus/{id}/update', [MenuController::class, 'update'])->name('menu.update')->middleware('permission:Menu Edit');
+        Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('menu.del')->middleware('permission:Menu Delete');
 
         // untuk manajemen role
-        Route::get('/roles', [RoleController::class, 'index'])->name('v2.role.index')->middleware('permission:Role List');
-        Route::get('/roles/create', [RoleController::class, 'add'])->name('v2.role.create')->middleware('permission:Role Create');
-        Route::post('/roles/store', [RoleController::class, 'store'])->name('v2.role.store')->middleware('permission:Role Create');
-        Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('v2.role.edit')->middleware('permission:Role Edit');
-        Route::post('/roles/{id}/update', [RoleController::class, 'update'])->name('v2.role.update')->middleware('permission:Role Edit');
-        Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('v2.role.del')->middleware('permission:Role Delete');
+        Route::get('/roles', [RoleController::class, 'index'])->name('role.index')->middleware('permission:Role List');
+        Route::get('/roles/create', [RoleController::class, 'add'])->name('role.create')->middleware('permission:Role Create');
+        Route::post('/roles/store', [RoleController::class, 'store'])->name('role.store')->middleware('permission:Role Create');
+        Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('role.edit')->middleware('permission:Role Edit');
+        Route::post('/roles/{id}/update', [RoleController::class, 'update'])->name('role.update')->middleware('permission:Role Edit');
+        Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('role.del')->middleware('permission:Role Delete');
 
         // untuk manajemen permission
-        Route::get('/permissions', [PermissionController::class, 'index'])->name('v2.permission.index')->middleware('permission:Permission List');
-        Route::get('/permissions/create', [PermissionController::class, 'add'])->name('v2.permission.create')->middleware('permission:Permission Create');
-        Route::post('/permissions/store', [PermissionController::class, 'store'])->name('v2.permission.store')->middleware('permission:Permission Create');
-        Route::get('/permissions/{id}/edit', [PermissionController::class, 'edit'])->name('v2.permission.edit')->middleware('permission:Permission Edit');
-        Route::post('/permissions/{id}/update', [PermissionController::class, 'update'])->name('v2.permission.update')->middleware('permission:Permission Edit');
-        Route::get('/permissions/{id}/delete', [PermissionController::class, 'delete'])->name('v2.permission.del')->middleware('permission:Permission Delete');
+        Route::get('/permissions', [PermissionController::class, 'index'])->name('permission.index')->middleware('permission:Permission List');
+        Route::get('/permissions/create', [PermissionController::class, 'add'])->name('permission.create')->middleware('permission:Permission Create');
+        Route::post('/permissions/store', [PermissionController::class, 'store'])->name('permission.store')->middleware('permission:Permission Create');
+        Route::get('/permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware('permission:Permission Edit');
+        Route::post('/permissions/{id}/update', [PermissionController::class, 'update'])->name('permission.update')->middleware('permission:Permission Edit');
+        Route::get('/permissions/{id}/delete', [PermissionController::class, 'delete'])->name('permission.del')->middleware('permission:Permission Delete');
 });

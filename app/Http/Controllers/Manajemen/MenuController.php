@@ -19,7 +19,7 @@ class MenuController extends Controller
     public static function breadcrumb()
     {
         return [
-            self::$title, route('v2.menu.index')
+            self::$title, route('menu.index')
         ];
     }
 
@@ -64,8 +64,8 @@ class MenuController extends Controller
                 . '<td>' . implode(", ", $child['roleNames']) . '</td>'
                 . '<td>' . $child['order'] . '</td>'
                 . '<td>'
-                . '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('v2.menu.edit', ['id' => $child['id']]) . '\'>Ubah</a>'
-                . '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('v2.menu.del', ['id' => $child['id']]) . '\'>Hapus</a>'
+                . '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menu.edit', ['id' => $child['id']]) . '\'>Ubah</a>'
+                . '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menu.del', ['id' => $child['id']]) . '\'>Hapus</a>'
                 . '</td>'
                 . '</tr>';
             $html .= $this->printMenu($child, $titlePadding + 5);
@@ -104,7 +104,7 @@ class MenuController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('v2.menu.create')],
+            [$title, route('menu.create')],
         ];
 
         $menu = new Menu();
@@ -127,7 +127,7 @@ class MenuController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('v2.menu.edit', $menu->id)],
+            [$title, route('menu.edit', $menu->id)],
         ];
 
 
@@ -152,7 +152,7 @@ class MenuController extends Controller
 
         createLogActivity("Menghapus Menu {$menu->name}");
 
-        return redirect(route('v2.menu.index'))
+        return redirect(route('menu.index'))
             ->with('alert.status', '00')
             ->with('alert.message', 'Delete successful');
     }
@@ -185,7 +185,7 @@ class MenuController extends Controller
 
         $message = 'Menu ' . $request->name . ' berhasil ditambahkan. ';
 
-        return redirect(route('v2.menu.index'))
+        return redirect(route('menu.index'))
             ->with('alert.status', '00')
             ->with('alert.message', $message);
     }
@@ -215,7 +215,7 @@ class MenuController extends Controller
 
         $message = 'Menu ' . $request->name . ' berhasil diperbarui. ';
 
-        return redirect(route('v2.menu.index'))
+        return redirect(route('menu.index'))
             ->with('alert.status', '00')
             ->with('alert.message', $message);
     }

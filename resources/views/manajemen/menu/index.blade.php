@@ -10,7 +10,7 @@
                         <div class="card-header border-0 pt-6">
                             <div class="card-title"></div>
                             <div class="card-toolbar">
-                                <a href="{{ route('v2.menu.create') }}" type="button" class="btn btn-primary">
+                                <a href="{{ route('menu.create') }}" type="button" class="btn btn-primary">
                                     <span class="svg-icon svg-icon-2">
                                         {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
                                     </span>

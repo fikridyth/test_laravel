@@ -11,7 +11,7 @@
                         <div class="card-header border-0 pt-6">
                             <div class="card-title">
                                 <div class="d-flex align-items-center position-relative my-1">
-                                    <form action="{{ route('v2.permission.index') }}">
+                                    <form action="{{ route('permission.index') }}">
                                         <div class="d-flex align-items-center position-relative my-1">
                                             <span class="svg-icon svg-icon-1 position-absolute ms-4">
                                                 {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/general/gen021.svg') !!}
@@ -29,7 +29,7 @@
                             </div>
                             <div class="card-toolbar">
                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                    <a href="{{ route('v2.permission.create') }}" type="button" class="btn btn-primary">
+                                    <a href="{{ route('permission.create') }}" type="button" class="btn btn-primary">
                                         <span class="svg-icon svg-icon-2">
                                             {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
                                         </span>
@@ -60,7 +60,7 @@
                                             <td>{{ $permission->created_at }}</td>
                                             <td>{{ $permission->updated_at }}</td>
                                             <td><a class="btn btn-secondary"
-                                                    href="{{ route('v2.permission.edit', $permission->id) }}">Ubah</a></td>
+                                                    href="{{ route('permission.edit', $permission->id) }}">Ubah</a></td>
                                         </tr>
                                     @empty
                                         <tr>

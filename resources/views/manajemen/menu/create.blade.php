@@ -18,7 +18,7 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST"
-                                action="{{ $menu->id == null ? route('v2.menu.store') : route('v2.menu.update', ['id' => $menu->id]) }}">
+                                action="{{ $menu->id == null ? route('menu.store') : route('menu.update', ['id' => $menu->id]) }}">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="id" class="fs-6 fw-semibold form-label mt-3">

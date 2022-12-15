@@ -18,7 +18,7 @@
                         </div>
                         <div class="card-body">
                             <form role="form" method="POST"
-                                action="{{ $permission->id == null ? route('v2.permission.store') : route('v2.permission.update', ['id' => $permission->id]) }}">
+                                action="{{ $permission->id == null ? route('permission.store') : route('permission.update', ['id' => $permission->id]) }}">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="id" class="fs-6 fw-semibold form-label mt-3">

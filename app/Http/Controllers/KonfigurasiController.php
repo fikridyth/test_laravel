@@ -39,11 +39,11 @@ class KonfigurasiController extends Controller
             [$title, route('konfigurasi.log-activity')]
         ];
 
-        $roles = Role::orderBy('name')->get();
+        $stmtRole = Role::orderBy('name')->get();
 
-        $users = User::orderBy('id')->get();
+        $stmtUser = User::orderBy('id')->get();
 
-        return $dataTable->render('konfigurasi.log-activity', compact('title', 'breadcrumbs', 'roles', 'users'));
+        return $dataTable->render('konfigurasi.log-activity', compact('title', 'breadcrumbs', 'stmtRole', 'stmtUser'));
     }
 
     public function sekuriti()
