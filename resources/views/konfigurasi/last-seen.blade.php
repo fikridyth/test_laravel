@@ -75,6 +75,7 @@
                         <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                 <th>No.</th>
+                                <th>NRIK</th>
                                 <th>Nama</th>
                                 <th>Role</th>
                                 <th>Last Seen</th>
@@ -85,6 +86,7 @@
                             @foreach ($stmtUser as $user)
                                 <tr>
                                     <td class="d-flex align-items-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $user->nrik }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->roles->pluck('name')[0] }}</td>
                                     <td>{{ Carbon\Carbon::parse($user->last_seen)->diffForHumans(['parts' => 2]) }}</td>
