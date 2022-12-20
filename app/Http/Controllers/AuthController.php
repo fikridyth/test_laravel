@@ -74,15 +74,15 @@ class AuthController extends Controller
                         'is_blokir' => '1'
                     ]);
 
-                    return redirect()->back()->withInput()->withErrors(["Akun anda keblokir karena sudah {$max_fail} kali "
-                        . "melakukan kesalahan"]);
+                    return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
                 }
             } else {
                 Session::put('errorLogin', 1);
                 $sessionErrorLogin = Session::get('errorLogin');
             }
 
-            return redirect()->back()->withInput()->withErrors(["Username atau password salah"]);
+            $change = 3 - $sessionErrorLogin;
+            return redirect()->back()->withInput()->withErrors(["NRIK atau password salah. Tersisa {$change} kesempatan sebelum akun Anda terblokir"]);
         }
     }
 
