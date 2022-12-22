@@ -14,6 +14,9 @@
                         <h2>{{ $title }}</h2>
                     </div>
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                        <button type="button" id="btnModalDecrypt" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDekrypt">
+                            Decrypt
+                        </button>
                         <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
                             <span class="svg-icon svg-icon-2">
@@ -48,7 +51,7 @@
                                         <label for="user" class="form-label fs-6 fw-semibold">User :</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Pilih User" data-allow-clear="true" id="user"
-                                            name="user">
+                                            data-control="select2" name="user">
                                             <option></option>
                                             @foreach ($stmtUser as $user)
                                                 @if (request('user') == $user->id)
@@ -78,8 +81,29 @@
             </div>
         </div>
     </div>
+    @include('konfigurasi.modal.decrypt')
 @endsection
 
 @push('content_scripts')
+    <script>
+        $('#btnModalDecrypt').on('click',function(){
+            $('#encrypt').val('');
+            $('#decrypt').val('');
+        });
+        $('#btnDecrypt').on('click', function() {
+            let dataBody = {
+                'encrypt': $('#encrypt').val()
+            }
+            $.ajax({
+                url: `{{ route('konfigurasi.decrypt') }}`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataBody),
+                success: (data) => {
+                    $('#decrypt').val(data);
+                }
+            });
+        });
+    </script>
     {{ $dataTable->scripts() }}
 @endpush

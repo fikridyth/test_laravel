@@ -1,9 +1,9 @@
 $(function () {
-  // $.ajaxSetup({
-  //   headers: {
-  //     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-  //   },
-  // });
+  $.ajaxSetup({
+    headers: {
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+  });
 
   $(".kt_default_datatable").DataTable({
     responsive: true,

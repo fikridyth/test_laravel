@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class KonfigurasiController extends Controller
 {
+    public function decrypt(Request $request)
+    {
+        return dekrip($request->encrypt);
+    }
+    
     public function lastSeen()
     {
         $title = 'Last Seen User';

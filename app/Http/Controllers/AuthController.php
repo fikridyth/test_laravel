@@ -7,6 +7,7 @@ use App\Statics\User\NRIK;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -69,7 +70,7 @@ class AuthController extends Controller
                 if ($sessionErrorLogin >= $max_fail) {
                     error_log($request->email);
                     User::where('nrik', $request->nrik)->update([
-                        'password' => bcrypt(hash("sha256", rand())),
+                        'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
                         'expired_password' => $expiredPassword,
                         'is_blokir' => '1'
                     ]);

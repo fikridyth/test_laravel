@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
         //untuk log activity
         Route::get('/user-activity', [KonfigurasiController::class, 'userActivity'])->name('konfigurasi.log-activity')->middleware('permission:Users Log Activity');
+        Route::post('/decrypt', [KonfigurasiController::class, 'decrypt'])->name('konfigurasi.decrypt')->middleware('permission:Users Log Activity');
 
         //untukManajemenSekuriti
         Route::get('/manajemen-sekuriti', [KonfigurasiController::class, 'sekuriti'])->name('manajemen-sekuriti')->middleware('permission:Security');
