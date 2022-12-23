@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="{{ config('app.name') }}." />
-    <meta name="keywords" content="bank-dki, dki, bank, bansos, bantuan sosial, subsidi" />
+    <meta name="keywords" content="bank-dki, dki, bank" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="{{ config('app.faker_locale') }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ config('app.name') }} | Portal Bansos" />
+    <meta property="og:title" content="{{ config('app.name') }} | Template Apps V3" />
     <meta property="og:url" content="{{ config('app.url') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     @include('layouts.styles')
