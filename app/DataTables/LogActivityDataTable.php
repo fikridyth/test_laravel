@@ -25,7 +25,7 @@ class LogActivityDataTable extends DataTable
                     ->searchByRole(request(['role']))
             )
             ->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->locale('id')->translatedFormat('j F Y, H:i:s');
+                return Carbon::parse($row->created_at)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
             })
             ->addColumn('users_detail', function ($row) {
                 $routeUser = route('manajemen-user.show', $row->id_user);

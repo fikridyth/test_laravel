@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manajemen;
 
+use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest;
@@ -29,9 +30,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        $title = self::$title;
+        $title = self::$title . 's';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -40,13 +41,7 @@ class UserController extends Controller
 
         $stmtRole = Role::orderBy('id')->get();
 
-        $stmtUser = User::with('roles', 'unitKerja')
-            ->searchByName(request(['nama']))
-            ->filter(request(['role', 'status_blokir']))
-            ->orderBy('name')
-            ->paginate(10);
-
-        return view('manajemen.user.index', compact('title', 'breadcrumbs', 'stmtRole', 'stmtUser'));
+        return $dataTable->render('manajemen.user.index', compact('title', 'breadcrumbs', 'stmtRole'));
     }
 
     public function unlockUser(User $user)

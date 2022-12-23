@@ -58,7 +58,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/profil', [UserController::class, 'changeProfil'])->name('auth.change-profil');
         Route::put('/update-profil', [UserController::class, 'updateProfil'])->name('auth.update-profil');
 
-        //////// V2 
         // untuk manajemen menu
         Route::get('/menus', [MenuController::class, 'index'])->name('menu.index')->middleware('permission:Menu List');
         Route::get('/menus/create', [MenuController::class, 'add'])->name('menu.create')->middleware('permission:Menu Create');
