@@ -10,7 +10,7 @@ class LogActivity extends Model
 {
     use HasFactory;
 
-    protected $table = 'users_activity_log';
+    protected $table = 'users_log_activities';
 
     protected $guarded = ['id'];
 

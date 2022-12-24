@@ -221,11 +221,11 @@ class UserController extends Controller
 
         $user->syncRoles($request->id_role);
 
-        createLogActivity("Memperbarui User {$user->nama}");
+        createLogActivity("Memperbarui User {$user->name}");
 
         return Redirect::route('manajemen-user.index')
             ->with('alert.status', '00')
-            ->with('alert.message', "User {$user->nama} berhasil diperbarui");
+            ->with('alert.message', "User {$user->name} berhasil diperbarui");
     }
 
     /**

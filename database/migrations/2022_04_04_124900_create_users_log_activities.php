@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersActivityLog extends Migration
+class CreateUsersLogActivities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersActivityLog extends Migration
      */
     public function up()
     {
-        Schema::create('users_activity_log', function (Blueprint $table) {
+        Schema::create('users_log_activities', function (Blueprint $table) {
             $table->id();
             $table->string('ip_access');
             $table->foreignId('id_user');
@@ -35,6 +35,6 @@ class CreateUsersActivityLog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_activity_log');
+        Schema::dropIfExists('users_log_activities');
     }
 }
