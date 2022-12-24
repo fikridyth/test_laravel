@@ -113,7 +113,7 @@ class UserController extends Controller
         ]);
 
 
-        createLogActivity("User {$user->nama} memperbarui profil");
+        createLogActivity("Memperbarui profil");
 
         return Redirect::route('auth.change-profil')
             ->with('alert.status', '00')
