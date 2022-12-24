@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function loginSubmit(Request $request)
     {
-        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $recentIpAddress = $_SERVER['REMOTE_ADDR'];
 
         $request->validate([
             'nrik' => 'required',
@@ -30,21 +30,17 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) { //berhasil login
 
             // cek dulu sedang login di IP lain atau tidak
-            $stmtCekIP = User::where('nrik', $request->nrik)
-                ->get();
-            foreach ($stmtCekIP as $dataCekIP) {
-                $lastIP = $dataCekIP->ip_address;
-            }
+            $user = User::where('nrik', $request->nrik)->first();
 
-            if (isset($lastIP) && $ipAddress <> $lastIP) { // jika last IP dan IP saat ini berbeda, maka tidak bisa login
+            if (isset($user->ip_address) && $recentIpAddress != $user->ip_address) { // jika last IP dan IP saat ini berbeda, maka tidak bisa login
                 Session::flush();
                 Auth::logout();
 
-                return redirect()->back()->withInput()->withErrors(["User sedang login di IP {$lastIP}"]);
+                return redirect()->back()->withInput()->withErrors(["User sedang login di IP {$user->ip_address}"]);
             } else { // berhasil login
                 // update IP Address
                 User::where('nrik', $request->nrik)->update([
-                    'ip_address' => $ipAddress
+                    'ip_address' => $recentIpAddress
                 ]);
 
                 $todayDate = Carbon::now()->toDateString();
@@ -75,7 +71,7 @@ class AuthController extends Controller
                         'is_blokir' => '1'
                     ]);
 
-                    return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                    return redirect()->back()->withInput()->withErrors(["Akun anda keblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
                 }
             } else {
                 Session::put('errorLogin', 1);
@@ -83,7 +79,8 @@ class AuthController extends Controller
             }
 
             $change = 3 - $sessionErrorLogin;
-            return redirect()->back()->withInput()->withErrors(["NRIK atau password salah. Tersisa {$change} kesempatan sebelum akun Anda terblokir"]);
+
+            return redirect()->back()->withInput()->withErrors(["Username atau password salah. Tersisa {$change} kesempatan sebelum akun Anda terblokir"]);
         }
     }
 
@@ -160,7 +157,7 @@ class AuthController extends Controller
 
             return redirect(route('index'))
                 ->with('alert.status', '00')
-                ->with('alert.message', "Berhasil mengganti password");
+                ->with('alert.message', "Password berhasil diperbarui");
         }
     }
 
