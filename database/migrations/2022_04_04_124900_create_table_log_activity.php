@@ -13,7 +13,7 @@ class CreateTableLogActivity extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_user_activity_log', function (Blueprint $table) {
+        Schema::create('users_activity_log', function (Blueprint $table) {
             $table->id();
             $table->string('ip_access');
             $table->foreignId('id_user');
