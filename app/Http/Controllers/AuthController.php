@@ -20,18 +20,23 @@ class AuthController extends Controller
     public function loginSubmit(Request $request)
     {
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
+        $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
+        $expiredPassword = '1970-01-01';
+        $user = User::where('nrik', $request->nrik)->first();
 
         $request->validate([
             'nrik' => 'required',
             'password' => 'required',
         ]);
 
+        if ($user->is_blokir == 1) {
+            return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+        }
+
         $credentials = $request->only('nrik', 'password');
         if (Auth::attempt($credentials)) { //berhasil login
 
             // cek dulu sedang login di IP lain atau tidak
-            $user = User::where('nrik', $request->nrik)->first();
-
             if (isset($user->ip_address) && $recentIpAddress != $user->ip_address) { // jika last IP dan IP saat ini berbeda, maka tidak bisa login
                 Session::flush();
                 Auth::logout();
@@ -57,8 +62,7 @@ class AuthController extends Controller
             if (Session::get('errorLogin') !== null) {
                 $sessionErrorLogin = Session::get('errorLogin') + 1;
                 Session::put('errorLogin', $sessionErrorLogin);
-                $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
-                $expiredPassword = '1970-01-01';
+
                 if ($request->nrik === NRIK::$DEVELOPER) {
                     $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
                 }
@@ -71,16 +75,14 @@ class AuthController extends Controller
                         'is_blokir' => '1'
                     ]);
 
-                    return redirect()->back()->withInput()->withErrors(["Akun anda keblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                    return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
                 }
             } else {
                 Session::put('errorLogin', 1);
                 $sessionErrorLogin = Session::get('errorLogin');
             }
 
-            $change = 3 - $sessionErrorLogin;
-
-            return redirect()->back()->withInput()->withErrors(["Username atau password salah. Tersisa {$change} kesempatan sebelum akun Anda terblokir"]);
+            return redirect()->back()->withInput()->withErrors(["NRIK atau password salah"]);
         }
     }
 
