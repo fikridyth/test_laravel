@@ -48,8 +48,9 @@ class UserController extends Controller
     {
         $password = bcrypt(date_format(date_create_from_format('Y-m-d', $user->tanggal_lahir), 'dmY'));
         if ($user->nrik === NRIK::$DEVELOPER) {
-            $password = '$2y$10$p2.BMYY0Ne43yArEik7Ah.JsMdjFMJy0/Pkl5WsCok6QX8Y8/2wXS'; // P@ssw0rd321
+            $password = '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG';
         }
+        
         User::where('id', $user->id)
             ->update([
                 'password' => $password,

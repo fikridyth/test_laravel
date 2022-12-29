@@ -44,7 +44,7 @@ class KonfigurasiController extends Controller
             [$title, route('konfigurasi.log-activity')]
         ];
 
-        $stmtRole = Role::orderBy('name')->get();
+        $stmtRole = Role::orderBy('id')->get();
 
         $stmtUser = User::orderBy('id')->get();
 

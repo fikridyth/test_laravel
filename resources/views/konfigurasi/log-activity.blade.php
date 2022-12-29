@@ -14,9 +14,6 @@
                         <h2>{{ $title }}</h2>
                     </div>
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        <button type="button" id="btnModalDecrypt" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDekrypt">
-                            Decrypt
-                        </button>
                         <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
                             <span class="svg-icon svg-icon-2">
@@ -73,6 +70,9 @@
                                 </form>
                             </div>
                         </div>
+                        <button type="button" id="btnModalDecrypt" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDekrypt">
+                            Decrypt
+                        </button>
                     </div>
                 </div>
                 <div class="card-body py-4">

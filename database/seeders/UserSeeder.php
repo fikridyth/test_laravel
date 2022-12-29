@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
                 'name' => 'Developer',
                 'nrik' => NRIK::$DEVELOPER,
                 'email' => 'noncoredev@gmail.com',
-                'password' => '$2y$10$p2.BMYY0Ne43yArEik7Ah.JsMdjFMJy0/Pkl5WsCok6QX8Y8/2wXS', // P@ssw0rd321
+                'password' => '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG',
                 'tanggal_lahir' => '1999-09-09',
                 'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
                 'expired_password' => Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP')),

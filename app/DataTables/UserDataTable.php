@@ -23,19 +23,11 @@ class UserDataTable extends DataTable
                 $query->with('roles', 'unitKerja')
                     ->filter(request(['role', 'status_blokir']))
             )
-            ->addColumn('aksi', function ($row) {
-                $btnUpdate = '-';
-                $routeEdit = route('manajemen-user.edit', $row->id);
-                if (Gate::allows('User Edit')) {
-                    $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-primary btn-sm">Ubah</a>';
-                }
-                return $btnUpdate;
+            ->editColumn('tanggal_lahir', function ($row) {
+                return Carbon::parse($row->tanggal_lahir)->locale(config('app.locale'))->translatedFormat('j F Y');
             })
             ->addColumn('role', function ($row) {
                 return $row->roles->pluck('name')->implode(', ');
-            })
-            ->editColumn('tanggal_lahir', function ($row) {
-                return Carbon::parse($row->tanggal_lahir)->locale(config('app.locale'))->translatedFormat('j F Y');
             })
             ->editColumn('is_blokir', function ($row) {
                 $btnUnblock = '-';
@@ -62,7 +54,18 @@ class UserDataTable extends DataTable
                 }
                 return $btnIp;
             })
-            ->rawColumns(['aksi', 'role', 'is_blokir', 'ip_address']);
+            ->addColumn('aksi', function ($row) {
+                $btnUpdate = '-';
+                $routeEdit = route('manajemen-user.edit', $row->id);
+                if (Gate::allows('User Edit')) {
+                    $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-primary btn-sm">Ubah</a>';
+                }
+                return $btnUpdate;
+            })
+            ->editColumn('id_unit_kerja', function ($row) {
+                return $row->unitKerja->nama;
+            })
+            ->rawColumns(['role', 'is_blokir', 'ip_address', 'aksi']);
     }
 
     /**
@@ -84,7 +87,7 @@ class UserDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('logactivity-table')
+            ->setTableId('user-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom("<'row'<'col-sm-2'f><'col-sm-10'>>" . "<'row'<'col-sm-12'tr>>" . "<'row'<'col-sm-1 mt-1'l><'col-sm-4 mt-3'i><'col-sm-7'p>>")
@@ -117,8 +120,8 @@ class UserDataTable extends DataTable
             Column::make('tanggal_lahir'),
             Column::make('email'),
             Column::make('role')->searchable(false),
-            Column::make('unit_kerja.nama')->title('Unit Kerja'),
-            Column::make('is_blokir')->title('Status Blokir')
+            Column::make('id_unit_kerja')->title('Unit Kerja'),
+            Column::computed('is_blokir')->title('Status Blokir')
                 ->searchable(false)
                 ->orderable(false)
                 ->exportable(false)
