@@ -50,6 +50,9 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
+            // uncomment this when use slack
+            // 'channels' => ['single', 'slack'],
+            // comment this when use slack
             'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
