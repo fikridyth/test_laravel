@@ -56,7 +56,7 @@ class KonfigurasiController extends Controller
         $title = 'Konfigurasi Keamanan';
 
         $breadcrumbs = [
-            [$title, route('manajemen-sekuriti')]
+            [$title, route('manajemen-sekuriti.index')]
         ];
 
         return view('manajemen.sekuriti', compact('title', 'breadcrumbs'));
@@ -85,7 +85,7 @@ class KonfigurasiController extends Controller
 
         createLogActivity('Memperbarui konfigurasi keamanan');
 
-        return Redirect::route('manajemen-sekuriti')
+        return Redirect::route('manajemen-sekuriti.index')
             ->with('alert.status', '00')
             ->with('alert.message', "Keamanan berhasil diperbarui");
     }

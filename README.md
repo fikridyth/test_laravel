@@ -44,7 +44,7 @@ This repo requires PHP >= 7.3.
 ### Step To Run
 
 1. Clone this repository to your local run `git clone http://10.100.111.95/noncore/laravel-apps-v3.git {project-name}`
-   - Example : `git clone http://10.100.111.95/noncore/laravel-apps-v3.git rm-tools`
+   - Example : `git clone http://10.100.111.95/noncore/laravel-apps-v3.git portal-bansos`
 2. Change remote url git : `git remote set-url origin {url_destination_git}`
    - Example : `git remote set-url origin https://github.com/USERNAME/REPOSITORY.git`
 3. Edit your own config in `.env`, just copy `.env.example`.
@@ -56,8 +56,8 @@ This repo requires PHP >= 7.3.
 9. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
 
 - Login with:
-- `username`: `46050522`
-- `password`: `46050522@bdki`
+- `username`: `28451215`
+- `password`: `28451215@bdki`
 
 ### Step To Push Gitlab
 

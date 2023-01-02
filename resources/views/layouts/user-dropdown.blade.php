@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="menu-item px-5 my-1">
-            <a href="{{ route('auth.change-profil') }}" class="menu-link px-5">Ubah Profil</a>
+            <a href="{{ route('manajemen-user.change-profil') }}" class="menu-link px-5">Ubah Profil</a>
         </div>
         <div class="menu-item px-5 my-1">
             <a href="{{ route('auth.change-password') }}" class="menu-link px-5">Ganti Password</a>

@@ -80,10 +80,10 @@ class UserController extends Controller
         $title = 'Ubah Profil';
 
         $breadcrumbs = [
-            [$title, route('auth.change-profil')]
+            [$title, route('manajemen-user.change-profil')]
         ];
 
-        return view('auth.change-profil', compact('title', 'breadcrumbs'));
+        return view('manajemen.user.change-profil', compact('title', 'breadcrumbs'));
     }
 
     public function updateProfil(Request $request)
@@ -116,7 +116,7 @@ class UserController extends Controller
 
         createLogActivity("Memperbarui profil");
 
-        return Redirect::route('auth.change-profil')
+        return Redirect::route('manajemen-user.change-profil')
             ->with('alert.status', '00')
             ->with('alert.message', "Profil Anda berhasil diperbarui");
     }

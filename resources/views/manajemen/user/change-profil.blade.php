@@ -16,7 +16,7 @@
                                 <h2>Ubah Profil</h2>
                             </div>
                         </div>
-                        <form id="kt_modal_add_user_form" class="form" action="{{ route('auth.update-profil') }}"
+                        <form id="kt_modal_add_user_form" class="form" action="{{ route('manajemen-user.update-profil') }}"
                             method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
