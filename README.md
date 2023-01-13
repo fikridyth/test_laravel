@@ -48,12 +48,13 @@ This repo requires PHP >= 7.3.
 2. Change remote url git : `git remote set-url origin {url_destination_git}`
    - Example : `git remote set-url origin https://github.com/USERNAME/REPOSITORY.git`
 3. Edit your own config in `.env`, just copy `.env.example`.
-4. Run `composer install`.
-5. Run `php artisan key:generate`.
-6. Run `php artisan storage:link`.
-7. Run `php artisan migrate:fresh --seed`.
-8. Run `php artisan serve`.
-9. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
+4. Add file `secure.php` in `config`.
+5. Run `composer install`.
+6. Run `php artisan key:generate`.
+7. Run `php artisan storage:link`.
+8. Run `php artisan migrate:fresh --seed`.
+9. Run `php artisan serve`.
+10. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
 
 - Login with:
 - `username`: `28451215`

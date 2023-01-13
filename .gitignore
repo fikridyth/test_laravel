@@ -14,8 +14,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+config/secure.php
 .env
 .env.dev
 .env.prod
-.env.willy
 composer.lock
