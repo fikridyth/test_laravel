@@ -5,7 +5,7 @@ namespace App\Statics\User;
 class Menu
 {
     public static $DASHBOARD = 1000;
-    
+
     public static $UTILITY = 8000;
     public static $UTILITY_USER = 8100;
     public static $UTILITY_MENU = 8200;

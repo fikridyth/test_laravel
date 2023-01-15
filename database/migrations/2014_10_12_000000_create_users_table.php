@@ -21,15 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('tanggal_lahir');
             $table->text('foto')->nullable();
-            $table->integer('id_unit_kerja');
-            $table->integer('status_data')->default(1);
+            $table->foreignId('id_unit_kerja')->references('id_unit_kerja')->on('tbl_master_unit_kerja');
+            $table->smallInteger('status_data')->default(1);
             $table->smallInteger('is_blokir')->nullable();
             $table->string('ip_address')->nullable();
             $table->timestamp('last_seen')->nullable();
             $table->dateTime('last_activity')->nullable();
             $table->date('expired_password')->default('1970-01-01');
             $table->timestamp('email_verified_at')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
         });

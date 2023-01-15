@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-user.store') }}" class="form" method="POST">
+                            <form action="{{ route('manajemen-user.store') }}" class="form" method="POST" id="form">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="nrik" class="fs-6 fw-semibold form-label mt-3">
@@ -105,11 +105,13 @@
                                         <span class="required">Role</span>
                                     </label>
                                     <select class="form-select @error('id_role') is-invalid @enderror" id="id_role"
-                                        name="id_role[]" data-control="select2" multiple data-placeholder="---Pilih Role---">
+                                        name="id_role[]" data-control="select2" multiple
+                                        data-placeholder="---Pilih Role---">
                                         <option></option>
                                         @foreach ($stmtRole as $role)
                                             <option value="{{ $role->id }}"
-                                                    {{ in_array($role->id, old('id_role')??[])?'selected' : '' }}>{{ $role->name }}
+                                                {{ in_array($role->id, old('id_role') ?? []) ? 'selected' : '' }}>
+                                                {{ $role->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -124,8 +126,6 @@
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
                                     <button type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Simpan</span>
-                                        <span class="indicator-progress">Harap tunggu...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
                             </form>
@@ -135,4 +135,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            const container = document.querySelector("#kt_content");
+
+            const blockContainer = new KTBlockUI(container, {
+                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
+            });
+
+            $('#form').on('submit', function() {
+                if (!blockContainer.isBlocked()) {
+                    blockContainer.block();
+                }
+            });
+        });
+    </script>
 @endsection

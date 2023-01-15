@@ -12,19 +12,21 @@ class Menu extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'menus';
+
     public $incrementing = false;
 
-    protected $guarded = ['id'];
-    
+    protected $fillable = ['id', 'name', 'route', 'icon', 'parent_id', 'order'];
+
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_has_roles')->using(MenuHasRole::class);
+        return $this->belongsToMany(Role::class, 'menu_role')->using(MenuHasRole::class);
     }
 
     public function scopeFilterByRoles($query, $parent_id = 0, array $roles = [])
     {
-        $query->where('parent_id', $parent_id)
-            ->whereHas('roles', function(Builder $query) use ($roles){
+        $query->with('roles')
+            ->where('parent_id', $parent_id)
+            ->whereHas('roles', function (Builder $query) use ($roles) {
                 $query->whereIn('roles.id', $roles);
             })
             ->orderBy('order');

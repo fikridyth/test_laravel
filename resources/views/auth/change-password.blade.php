@@ -67,9 +67,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label fw-semibold fs-6 mb-2"
-                                        for="konfirmasi_password">Konfirmasi Password</label>
-                                    <input type="password" class="form-control @error('konfirmasi_password') is-invalid @enderror"
+                                    <label class="form-label fw-semibold fs-6 mb-2" for="konfirmasi_password">Konfirmasi
+                                        Password</label>
+                                    <input type="password"
+                                        class="form-control @error('konfirmasi_password') is-invalid @enderror"
                                         name="konfirmasi_password" id="konfirmasi_password">
                                     @error('konfirmasi_password')
                                         <div class="invalid-feedback">
@@ -90,5 +91,4 @@
             </div>
         </div>
     </div>
-    
 @endsection

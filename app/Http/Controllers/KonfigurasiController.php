@@ -14,7 +14,7 @@ class KonfigurasiController extends Controller
     {
         return dekrip($request->encrypt);
     }
-    
+
     public function lastSeen()
     {
         $title = 'Last Seen User';

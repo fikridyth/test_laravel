@@ -70,9 +70,12 @@
                                 </form>
                             </div>
                         </div>
-                        <button type="button" id="btnModalDecrypt" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDekrypt">
-                            Decrypt
-                        </button>
+                        @can('decrypt')
+                            <button type="button" id="btnModalDecrypt" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalDekrypt">
+                                Decrypt
+                            </button>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body py-4">
@@ -85,25 +88,27 @@
 @endsection
 
 @push('content_scripts')
-    <script>
-        $('#btnModalDecrypt').on('click',function(){
-            $('#encrypt').val('');
-            $('#decrypt').val('');
-        });
-        $('#btnDecrypt').on('click', function() {
-            let dataBody = {
-                'encrypt': $('#encrypt').val()
-            }
-            $.ajax({
-                url: `{{ route('konfigurasi.decrypt') }}`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(dataBody),
-                success: (data) => {
-                    $('#decrypt').val(data);
-                }
+    @can('decrypt')
+        <script>
+            $('#btnModalDecrypt').on('click', function() {
+                $('#encrypt').val('');
+                $('#decrypt').val('');
             });
-        });
-    </script>
+            $('#btnDecrypt').on('click', function() {
+                let dataBody = {
+                    'encrypt': $('#encrypt').val()
+                }
+                $.ajax({
+                    url: `{{ route('konfigurasi.decrypt') }}`,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dataBody),
+                    success: (data) => {
+                        $('#decrypt').val(data);
+                    }
+                });
+            });
+        </script>
+    @endcan
     {{ $dataTable->scripts() }}
 @endpush

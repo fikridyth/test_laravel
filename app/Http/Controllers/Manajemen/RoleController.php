@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Manajemen;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 
@@ -34,7 +34,7 @@ class RoleController extends Controller
         return View::make('manajemen.role.index', compact('title', 'breadcrumbs', 'roles'));
     }
 
-    public function add()
+    public function create()
     {
         $title = 'Tambah Role Baru';
 
@@ -51,15 +51,9 @@ class RoleController extends Controller
         return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'permissions', 'role', 'rolePermissions'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $this->validate($request, [
-            'id' => ['required', 'numeric', 'unique:roles,id', 'min:1', 'max:50'],
-            'name' => ['required', 'string', 'unique:roles,name', 'min:2', 'max:50'],
-            'guard_name' => ['required', 'string', 'min:2', 'max:50'],
-        ]);
-
-        $role = Role::create(['id' => $request->id, 'name' => $request->name]);
+        $role = Role::create($request->validated());
         $role->syncPermissions($request->permissions);
 
         createLogActivity('Membuat Role Baru');
@@ -91,18 +85,12 @@ class RoleController extends Controller
         return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'permissions', 'role', 'rolePermissions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'unique:roles,name,' . $id, 'min:2', 'max:50'],
-            'guard_name' => ['required', 'string'],
-            'permissions' => ['required', 'array'],
-        ]);
-
         $role = Role::find($id);
-        $role->name = $request->name;
-        $role->updated_at = date('Y-m-d H:i:s');
-        $role->save();
+        $role->update([
+            'name' => $request->name
+        ]);
 
         $role->syncPermissions($request->permissions);
 

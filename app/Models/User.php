@@ -60,7 +60,7 @@ class User extends Authenticatable
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['role'] ?? false, function ($query, $role) {
-            return $query->whereHas('roles', function(Builder $query) use ($role){
+            return $query->whereHas('roles', function (Builder $query) use ($role) {
                 $query->where('name', $role);
             });
         })->when($filters['status_blokir'] ?? false, function ($query, $status_blokir) {

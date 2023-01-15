@@ -17,25 +17,26 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form role="form" method="POST"
+                            <form role="form" method="POST" id="form"
                                 action="{{ $menu->id == null ? route('menu.store') : route('menu.update', ['id' => $menu->id]) }}">
                                 @csrf
-                                <div class="fv-row mb-7">
-                                    <label for="id" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">id</span>
-                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Id Wajib diisi"></i>
-                                    </label>
-                                    <input type="number" min="1"
-                                        class="form-control form-control-solid @error('id') is-invalid @enderror"
-                                        name="id" value="{{ old('id', $menu->id) }}" id="id"
-                                        {{ $menu->id == null ? '' : 'readonly' }} />
-                                    @error('id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                @if ($menu->id == null)
+                                    <div class="fv-row mb-7">
+                                        <label for="id" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">id</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                title="Id Wajib diisi"></i>
+                                        </label>
+                                        <input type="number" min="1"
+                                            class="form-control form-control-solid @error('id') is-invalid @enderror"
+                                            name="id" value="{{ old('id', $menu->id) }}" id="id" />
+                                        @error('id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                @endif
                                 <div class="fv-row mb-7">
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama Menu</span>
@@ -55,11 +56,12 @@
                                     <label for="route" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Route</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Masukkan 'index' jika menu ini memiliki submenu"></i>
+                                            title="Masukkan 'index' jika route belum dibuat"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('route') is-invalid @enderror"
-                                        name="route" value="{{ old('route', $menu->route) }}" id="route" />
+                                        name="route" value="{{ old('route', $menu->route) }}" id="route"
+                                        placeholder="index" />
                                     @error('route')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -74,7 +76,7 @@
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('icon') is-invalid @enderror"
-                                        name="icon" value="{{ old('icon', $menu->icon) }}" id="icon"
+                                        name="icon" value="{{ old('icon', 'fa-dashboard', $menu->icon) }}" id="icon"
                                         placeholder="fa-dashboard" />
                                     @error('icon')
                                         <div class="invalid-feedback">
@@ -101,9 +103,9 @@
                                     <label for="roles" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Role</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Role hanya bisa dipilih 1"></i>
+                                            title="Role bisa dipilih lebih dari 1"></i>
                                     </label>
-                                    <select class="form-select form-select-solid" multiple="multiple" data-control="select2"
+                                    <select class="form-select form-select-solid" multiple data-control="select2"
                                         data-placeholder="Pilih Role" id="roles" name="roles[]">
                                         <option></option>
                                         @foreach ($roles as $role)
@@ -120,13 +122,13 @@
                                     @enderror
                                 </div>
                                 <div class="fv-row mb-7">
-                                    <label for="parent" class="fs-6 fw-semibold form-label mt-3">
+                                    <label for="parent_id" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Parent</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Parent wajib dipilih, default '--Root--'"></i>
+                                            title="Parent_id wajib dipilih, default '--Root--'"></i>
                                     </label>
-                                    <select class="form-select form-select-solid" data-control="select2" id="parent"
-                                        name="parent">
+                                    <select class="form-select form-select-solid" data-control="select2" id="parent_id"
+                                        name="parent_id">
                                         <option value="0" {{ 0 == $menu->parent_id ? 'selected' : '' }}>--Root--
                                         </option>
                                         @foreach ($menus as $item)
@@ -136,7 +138,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('parent')
+                                    @error('parent_id')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -146,10 +148,9 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
                                     <button type="submit" class="btn btn-primary">
-                                        <span
-                                            class="indicator-label">{{ $menu->id == null ? 'Simpan' : 'Perbarui' }}</span>
-                                        <span class="indicator-progress">Harap tunggu...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <span class="indicator-label">
+                                            {{ $menu->id == null ? 'Simpan' : 'Perbarui' }}
+                                        </span>
                                     </button>
                                 </div>
                             </form>
@@ -166,6 +167,18 @@
     <script>
         $(document).ready(function() {
             $('#parent, #roles').select2({});
+
+            const container = document.querySelector("#kt_content");
+
+            const blockContainer = new KTBlockUI(container, {
+                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
+            });
+
+            $('#form').on('submit', function() {
+                if (!blockContainer.isBlocked()) {
+                    blockContainer.block();
+                }
+            });
         });
     </script>
 @endpush

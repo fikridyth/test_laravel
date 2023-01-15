@@ -13,6 +13,10 @@ class Permission extends SpatiePermission
 
     public $incrementing = false;
 
+    protected $fillable = ['id', 'name'];
+
+    protected $guard_name = 'web';
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['name'] ?? false, function ($query, $name) {

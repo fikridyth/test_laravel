@@ -14,10 +14,10 @@ class CreateMenusTable extends Migration
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('name');
-            $table->string('route')->nullable();
-            $table->string('icon')->nullable();
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('route');
+            $table->string('icon')->default('fa-dashboard');
             $table->integer('parent_id');
             $table->integer('order');
             $table->timestamps();

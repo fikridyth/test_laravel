@@ -4,18 +4,17 @@ namespace App\Services;
 
 use App\Models\Menu;
 
-class MenuService {
-    
+class MenuService
+{
     public static function getMenus($parentId = 0, $roles = [])
     {
         $arrMenu = [];
-        
-        $menus = Menu::with(['roles'])->filterByRoles($parentId, $roles)->orderBy('order')->get();
-        
-        if(count($menus) == 0) return [];
-        
-        foreach($menus as $menu)
-        {       
+
+        $menus = Menu::filterByRoles($parentId, $roles)->orderBy('order')->get();
+
+        if (count($menus) == 0) return [];
+
+        foreach ($menus as $menu) {
             $childrenMenu = self::getMenus($menu->id, $roles);
             $arrMenu[] = [
                 'id' => $menu->id,
@@ -28,7 +27,7 @@ class MenuService {
                 'children' => $childrenMenu,
             ];
         }
-        
+
         return $arrMenu;
     }
 }

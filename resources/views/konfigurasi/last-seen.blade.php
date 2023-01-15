@@ -17,7 +17,8 @@
                                     <div class="me-4">
                                         <input type="search" name="nama"
                                             class="form-control form-control-solid w-290px ps-14"
-                                            placeholder="Cari berdasarkan nama" autocomplete="off" value="{{ request('nama') }}">
+                                            placeholder="Cari berdasarkan nama" autocomplete="off"
+                                            value="{{ request('nama') }}">
                                     </div>
                                     <button type="submit" class="btn btn-secondary btn-lg">Cari</button>
                                 </div>
@@ -43,8 +44,7 @@
                                         <div class="mb-10">
                                             <label class="form-label fs-6 fw-semibold">Role :</label>
                                             <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                                data-placeholder="Pilih Role" data-allow-clear="true"
-                                                name="role">
+                                                data-placeholder="Pilih Role" data-allow-clear="true" name="role">
                                                 <option></option>
                                                 @foreach ($stmtRole as $role)
                                                     @if (request('role') === $role->name)

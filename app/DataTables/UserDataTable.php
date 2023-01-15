@@ -57,7 +57,7 @@ class UserDataTable extends DataTable
             ->addColumn('aksi', function ($row) {
                 $btnUpdate = '-';
                 $routeEdit = route('manajemen-user.edit', $row->id);
-                if (Gate::allows('User Edit')) {
+                if (Gate::allows('user_edit')) {
                     $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-primary btn-sm">Ubah</a>';
                 }
                 return $btnUpdate;

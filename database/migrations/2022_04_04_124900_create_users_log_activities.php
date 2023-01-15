@@ -16,8 +16,7 @@ class CreateUsersLogActivities extends Migration
         Schema::create('users_log_activities', function (Blueprint $table) {
             $table->id();
             $table->string('ip_access');
-            $table->foreignId('id_user');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreignId('id_user')->references('id')->on('users');
             $table->text('activity_content');
             $table->text('url');
             $table->text('operating_system');

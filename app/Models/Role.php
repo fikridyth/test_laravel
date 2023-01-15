@@ -11,10 +11,15 @@ class Role extends SpatieRole
     use HasFactory;
 
     protected $table = 'roles';
+
     public $incrementing = false;
-    
+
+    protected $fillable = ['id', 'name'];
+
+    protected $guard_name = 'web';
+
     public function menus()
     {
-        return $this->belongsToMany(Menu::class, 'menu_has_roles')->using(MenuHasRole::class);
+        return $this->belongsToMany(Menu::class, 'menu_role')->using(MenuHasRole::class);
     }
 }

@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-user.update', $stmtUser->id) }}" class="form"
+                            <form action="{{ route('manajemen-user.update', $stmtUser->id) }}" class="form" id="form"
                                 method="POST">
                                 @method('put')
                                 @csrf
@@ -107,13 +107,18 @@
                                         <span class="required">Role</span>
                                     </label>
                                     <select class="form-select @error('id_role') is-invalid @enderror" id="id_role"
-                                        name="id_role[]" data-control="select2" multiple data-placeholder="---Pilih Role---">
+                                        name="id_role[]" data-control="select2" multiple
+                                        data-placeholder="---Pilih Role---">
                                         <option></option>
                                         @foreach ($stmtRole as $role)
                                             <option value="{{ $role->id }}"
-                                                {{ old('_token') !== null 
-                                                  ? (in_array($role->id, old('id_role')??[]) ? 'selected' : '') 
-                                                  : (in_array($role->id, $stmtUser->roles->pluck('id')->toArray())?'selected':'') }}>
+                                                {{ old('_token') !== null
+                                                    ? (in_array($role->id, old('id_role') ?? [])
+                                                        ? 'selected'
+                                                        : '')
+                                                    : (in_array($role->id, $stmtUser->roles->pluck('id')->toArray())
+                                                        ? 'selected'
+                                                        : '') }}>
                                                 {{ $role->name }}
                                             </option>
                                         @endforeach
@@ -129,8 +134,6 @@
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
                                     <button type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Perbarui</span>
-                                        <span class="indicator-progress">Harap tunggu...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
                             </form>
@@ -140,4 +143,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            const container = document.querySelector("#kt_content");
+
+            const blockContainer = new KTBlockUI(container, {
+                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
+            });
+
+            $('#form').on('submit', function() {
+                if (!blockContainer.isBlocked()) {
+                    blockContainer.block();
+                }
+            });
+        });
+    </script>
 @endsection

@@ -21,30 +21,31 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form role="form" method="POST"
+                            <form role="form" method="POST" id="form"
                                 action="{{ $role->id == null ? route('role.store') : route('role.update', ['id' => $role->id]) }}">
                                 @csrf
-                                <div class="fv-row mb-7">
-                                    <label for="id" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">id</span>
-                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Id Wajib diisi"></i>
-                                    </label>
-                                    <input type="number" min="1"
-                                        class="form-control form-control-solid @error('id') is-invalid @enderror"
-                                        name="id" value="{{ old('id', $role->id) }}" id="id"
-                                        {{ $role->id == null ? '' : 'readonly' }} />
-                                    @error('id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                @if ($role->id == null)
+                                    <div class="fv-row mb-7">
+                                        <label for="id" class="fs-6 fw-semibold form-label mt-3">
+                                            <span class="required">id</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                title="Id Wajib diisi"></i>
+                                        </label>
+                                        <input type="number" min="1"
+                                            class="form-control form-control-solid @error('id') is-invalid @enderror"
+                                            name="id" value="{{ old('id', $role->id) }}" id="id" />
+                                        @error('id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                @endif
                                 <div class="fv-row mb-7">
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama Role</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama Role tidak boleh sama dengan yang sudah ada, minimal berisi 2 karakter dan maksimal 50 karakter"></i>
+                                            title="Nama role tidak boleh sama dengan yang sudah ada, minimal berisi 2 karakter dan maksimal 50 karakter"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"
@@ -55,25 +56,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="fv-row mb-7">
-                                    <label for="guard_name" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Nama Guard</span>
-                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Guard Name minimal berisi 2 karakter dan maksimal 50 karakter"></i>
-                                    </label>
-                                    <input type="text"
-                                        class="form-control form-control-solid @error('guard_name') is-invalid @enderror"
-                                        name="guard_name" value="{{ old('guard_name', $role->guard_name) }}"
-                                        id="guard_name" />
-                                    @error('guard_name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
                                 <div class="form-group">
                                     <label class="form-label required">Permissions</label>
-                                    <select class="form-control" id="permissions" name="permissions[]" multiple="">
+                                    <select class="form-control" id="permissions" name="permissions[]" multiple>
                                         @foreach ($permissions as $item)
                                             <option value="{{ $item->name }}"
                                                 {{ in_array($item->name, old('permissions') ?? []) ? 'selected' : (in_array($item->name, $rolePermissions) ? 'selected' : '') }}>
@@ -85,10 +70,9 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
                                     <button type="submit" class="btn btn-primary">
-                                        <span
-                                            class="indicator-label">{{ $role->id == null ? 'Simpan' : 'Perbarui' }}</span>
-                                        <span class="indicator-progress">Harap tunggu...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <span class="indicator-label">
+                                            {{ $role->id == null ? 'Simpan' : 'Perbarui' }}
+                                        </span>
                                     </button>
                                 </div>
                             </form>
@@ -105,6 +89,18 @@
     <script>
         $(document).ready(function() {
             let dlb1 = new DualListbox('#permissions');
+
+            const container = document.querySelector("#kt_content");
+
+            const blockContainer = new KTBlockUI(container, {
+                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
+            });
+
+            $('#form').on('submit', function() {
+                if (!blockContainer.isBlocked()) {
+                    blockContainer.block();
+                }
+            });
         });
     </script>
 @endpush

@@ -10,6 +10,6 @@ class UnitKerja extends Model
     use HasFactory;
 
     protected $table = 'tbl_master_unit_kerja';
-    
+
     protected $guarded = ['id'];
 }

@@ -16,8 +16,9 @@
                                 <h2>Ubah Profil</h2>
                             </div>
                         </div>
-                        <form id="kt_modal_add_user_form" class="form" action="{{ route('manajemen-user.update-profil') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form id="kt_modal_add_user_form" class="form"
+                            action="{{ route('manajemen-user.update-profil') }}" method="POST"
+                            enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <div class="card-body">
@@ -32,7 +33,8 @@
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                             data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Ganti foto">
                                             <i class="bi bi-pencil-fill fs-7"></i>
-                                            <input type="file" id="foto" name="foto" accept=".png, .jpg, .jpeg" />
+                                            <input type="file" id="foto" name="foto"
+                                                accept=".png, .jpg, .jpeg" />
                                         </label>
                                         <span
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -82,8 +84,6 @@
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
                                     <button type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Perbarui</span>
-                                        <span class="indicator-progress">Harap tunggu...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
             }
         });
 
-        $('#remove-avatar').on('click', function(){
+        $('#remove-avatar').on('click', function() {
             $('#preview-image').css('background-image', 'url(' + imageUrl + ')');
         });
     </script>

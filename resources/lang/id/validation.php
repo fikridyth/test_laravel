@@ -146,6 +146,7 @@ return [
     */
 
     'attributes' => [
-        'id_menu' => 'Menu'
+        'id' => 'Id',
+        'id_menu' => 'Menu',
     ],
 ];
