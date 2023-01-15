@@ -19,9 +19,8 @@ class DatabaseSeeder extends Seeder
             DivisiSeeder::class,
             DepartemenSeeder::class,
             UserSeeder::class,
-
-            // Data Role V2
             RoleSeeder::class,
+
         ]);
     }
 }

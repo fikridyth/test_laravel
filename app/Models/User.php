@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function unitKerja()
     {
-        return $this->belongsTo(UnitKerja::class, 'id_unit_kerja', 'id');
+        return $this->belongsTo(UnitKerja::class, 'id_unit_kerja', 'id_unit_kerja');
     }
 
     public function scopeSearchByName($query, array $filters)

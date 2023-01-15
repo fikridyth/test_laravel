@@ -20,6 +20,6 @@ class Role extends SpatieRole
 
     public function menus()
     {
-        return $this->belongsToMany(Menu::class, 'menu_role')->using(MenuHasRole::class);
+        return $this->belongsToMany(Menu::class, 'menu_role')->using(MenuRole::class);
     }
 }

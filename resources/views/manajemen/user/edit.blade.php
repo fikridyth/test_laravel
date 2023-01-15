@@ -90,8 +90,8 @@
                                         data-placeholder="---Pilih Unit Kerja---">
                                         <option></option>
                                         @foreach ($stmtUnitKerja as $unitKerja)
-                                            <option value="{{ $unitKerja->id }}"
-                                                {{ old('id_unit_kerja', $stmtUser->id_unit_kerja) == $unitKerja->id ? 'selected' : '' }}>
+                                            <option value="{{ $unitKerja->id_unit_kerja }}"
+                                                {{ old('id_unit_kerja', $stmtUser->id_unit_kerja) == $unitKerja->id_unit_kerja ? 'selected' : '' }}>
                                                 {{ $unitKerja->nama }}
                                             </option>
                                         @endforeach

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class MenuHasRole extends Pivot
+class MenuRole extends Pivot
 {
     protected $table = 'menu_role';
 
