@@ -1,6 +1,11 @@
 const rupiahIndonesia = Intl.NumberFormat("id-ID");
 
 $(function () {
+  $(".numeric").numeric({});
+  $(".positive-numeric").numeric({
+    negative: false,
+  }); // do not allow negative values
+
   $.ajaxSetup({
     headers: {
       "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
