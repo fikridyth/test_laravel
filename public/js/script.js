@@ -1,3 +1,5 @@
+const rupiahIndonesia = Intl.NumberFormat("id-ID");
+
 $(function () {
   $.ajaxSetup({
     headers: {
@@ -14,35 +16,11 @@ $(function () {
     order: [],
   });
 
-  $(".kt_fixed_columns").DataTable({
-    fixedColumns: {
-      left: 3,
-    },
-  });
-
-  $(".kt_scroll_vertical").DataTable({
-    scrollY: 760,
-  });
-
   $(".kt_datatable_responsive").DataTable({
     responsive: true,
     lengthChange: true,
     autoWidth: false,
     order: [],
-  });
-
-  $(".kt_datatable_responsive_with_actions").DataTable({
-    responsive: true,
-    lengthChange: true,
-    autoWidth: false,
-    paging: true,
-    order: [],
-    columnDefs: [
-      {
-        orderable: false,
-        targets: -1,
-      },
-    ],
   });
 
   let dynamicSearchTable = $(".kt_datatable_dynamic_search").DataTable();
@@ -75,45 +53,30 @@ $("#kt_default_daterangepicker").daterangepicker({
   },
 });
 
-// $(document).on({
-//   ajaxStart: function () {
-//     $("body").addClass("loading");
-//   },
-//   ajaxStop: function () {
-//     $("body").removeClass("loading");
-//   },
-// });
-
 function show_alert_dialog(status, message) {
-  if (!(typeof message === "string" || message instanceof String))
+  if (!(typeof message === "string" || message instanceof String)) {
     message = message.responseText;
+  }
 
   message = message.replace(/(\r\n|\n|\r)/g, " ");
 
-  if (status == "00")
+  if (status == "00") {
     Swal.fire({
       title: "Berhasil",
       html: message,
       icon: "success",
     });
-  else if (status == "000")
+  } else if (status == "000") {
     Swal.fire({
       title: "Info",
       html: message,
       icon: "info",
     });
-  else
+  } else {
     Swal.fire({
       title: "Proses Gagal",
       html: message,
       icon: "warning",
     });
-}
-
-function start_loading() {
-  $("#loading-dialog").modal("show");
-}
-
-function stop_loading() {
-  $("#loading-dialog").modal("hide");
+  }
 }
