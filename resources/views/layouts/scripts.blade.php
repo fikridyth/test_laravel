@@ -14,6 +14,9 @@
 <script src="{{ asset('metronic/demo2/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 <script src="{{ asset('js/datatable.js') }}"></script>
+{{-- input only can numeric --}}
+{{-- example : https://github.com/SamWM/jquery-numeric/blob/master/test.html --}}
+<script src="{{ asset('js/numeric.js') }}"></script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!}
 </script>
