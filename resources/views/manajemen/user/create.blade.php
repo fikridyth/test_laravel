@@ -41,7 +41,7 @@
                                             title="Masukkan nama lengkap"></i>
                                     </label>
                                     <input type="text"
-                                        class="form-control form-control-solid @error('name') is-invalid @enderror"
+                                        class="text-uppercase form-control form-control-solid @error('name') is-invalid @enderror"
                                         name="name" value="{{ old('name') }}" id="name" />
                                     @error('name')
                                         <div class="invalid-feedback">

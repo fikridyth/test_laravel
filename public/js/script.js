@@ -6,6 +6,14 @@ $(function () {
     negative: false,
   }); // do not allow negative values
 
+  $(".text-uppercase").on("keyup", function () {
+    this.value = this.value.toUpperCase();
+  }); // force value to upper
+
+  $(".text-uppercase").on("change", function () {
+    this.value = this.value.toUpperCase();
+  }); // force value to upper
+
   $.ajaxSetup({
     headers: {
       "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
