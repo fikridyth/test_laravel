@@ -31,7 +31,7 @@ function createLogActivity(string $activity)
 {
     $log = [
         'ip_access' => Request::ip(),
-        'id_user' => Auth::check() ? Auth::user()->id : 0,
+        'user_id' => Auth::check() ? Auth::user()->id : 0,
         'activity_content' => $activity,
         'url' => Request::fullUrl(),
         'operating_system' => Browser::platformName(),

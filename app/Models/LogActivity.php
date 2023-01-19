@@ -16,7 +16,7 @@ class LogActivity extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     static function scopeLogActivityLists($query)
@@ -27,7 +27,7 @@ class LogActivity extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['user'] ?? false, function ($query, $user) {
-            return $query->where('id_user', $user);
+            return $query->where('user_id', $user);
         })->when($filters['role'] ?? false, function ($query, $role) {
             return $query->with('user', 'user.roles')->whereHas('user.roles', function (Builder $q) use ($role) {
                 $q->where('name', $role);

@@ -23,8 +23,8 @@ class LogActivityDataTable extends DataTable
                     ->with('user', 'user.roles')
                     ->filter(request(['user', 'role']))
             )
-            ->editColumn('id_user', function ($row) {
-                $routeUser = route('manajemen-user.show', $row->id_user);
+            ->editColumn('user_id', function ($row) {
+                $routeUser = route('manajemen-user.show', $row->user_id);
                 return '<a href="' . $routeUser . '" target="_blank" rel="noopener noreferrer">' . $row->user->name . '</a>';
             })
             ->addColumn('role', function ($row) {
@@ -37,7 +37,7 @@ class LogActivityDataTable extends DataTable
             ->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
             })
-            ->rawColumns(['id_user', 'role']);
+            ->rawColumns(['user_id', 'role']);
     }
 
     /**
@@ -87,7 +87,7 @@ class LogActivityDataTable extends DataTable
     {
         return [
             Column::make('id')->searchable(false)->addClass('text-center'),
-            Column::make('id_user')->orderable(false)->searchable(false)->title('User')->addClass('text-center'),
+            Column::make('user_id')->orderable(false)->searchable(false)->title('User')->addClass('text-center'),
             Column::make('role')->orderable(false)->searchable(false),
             Column::make('activity_content')->title('Aktivitas'),
             Column::make('ip_access')->title('IP Address'),
