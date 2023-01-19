@@ -232,13 +232,7 @@ class UserController extends Controller
             $file_name = $user->id . '.' . $extension;
             $fotoPath = $request->file('foto')->storeAs("users/{$user->id}", $file_name, 'public');
 
-            $file = HistoryFile::create([
-                'kode_file' => 'PP',
-                'path_file' => $fotoPath,
-                'keterangan' => "Profile picture user {$user->name}",
-                'status_upload' => 1,
-                'created_by' => $user->id,
-            ]);
+            $file = createFile('PP', $fotoPath, "Profile picture user {$user->name}");
         }
 
         $user->update([
