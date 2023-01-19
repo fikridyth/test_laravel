@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->belongsTo(UnitKerja::class, 'id_unit_kerja', 'id_unit_kerja');
     }
 
+    public function foto()
+    {
+        return $this->belongsTo(HistoryFile::class, 'id_file_foto', 'id');
+    }
+
     public function scopeSearchByName($query, array $filters)
     {
         $query->when($filters['nama'] ?? false, function ($query, $nama) {

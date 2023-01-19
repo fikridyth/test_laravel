@@ -17,6 +17,7 @@ class CreateTblMasterDivisi extends Migration
             $table->id();
             $table->foreignId('unit_kerja_id')->references('id_unit_kerja')->on('tbl_master_unit_kerja');
             $table->string('nama_divisi');
+            $table->smallInteger('status_data')->default(1);
             $table->timestamps();
         });
     }

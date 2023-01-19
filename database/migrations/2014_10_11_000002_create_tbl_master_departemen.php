@@ -17,6 +17,7 @@ class CreateTblMasterDepartemen extends Migration
             $table->id();
             $table->bigInteger('id_departemen')->unique();
             $table->text('nama_departemen');
+            $table->smallInteger('status_data')->default(1);
             $table->timestamps();
         });
     }

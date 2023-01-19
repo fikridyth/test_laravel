@@ -19,7 +19,7 @@ class LogActivity extends Model
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    public static function scopeLogActivityLists($query)
+    static function scopeLogActivityLists($query)
     {
         return $query->latest()->get();
     }

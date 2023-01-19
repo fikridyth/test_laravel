@@ -6,6 +6,7 @@ use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest;
+use App\Models\HistoryFile;
 use App\Models\Role;
 use App\Models\UnitKerja;
 use App\Models\User;
@@ -19,7 +20,7 @@ class UserController extends Controller
 {
     private static $title = 'User';
 
-    public static function breadcrumb()
+    static function breadcrumb()
     {
         return [
             self::$title, route('manajemen-user.index')
@@ -229,16 +230,23 @@ class UserController extends Controller
             $file_original = $request->foto->getClientOriginalName();
             $extension = pathinfo($file_original, PATHINFO_EXTENSION);
             $file_name = $user->id . '.' . $extension;
-            $fotoPath = $request->file('foto')->storeAs('files/users', $file_name, 'public');
+            $fotoPath = $request->file('foto')->storeAs("users/{$user->id}", $file_name, 'public');
+
+            $file = HistoryFile::create([
+                'kode_file' => 'PP',
+                'path_file' => $fotoPath,
+                'keterangan' => "Profile picture user {$user->name}",
+                'status_upload' => 1,
+                'created_by' => $user->id,
+            ]);
         }
 
-        User::where('id', $user->id)->update([
-            'foto' => $request->foto ? $fotoPath : $user->foto,
+        $user->update([
+            'id_file_foto' => $file->id ?? $user->id_file_foto,
             'name' => $request->name,
             'email' => $request->email,
             'tanggal_lahir' => $request->tanggal_lahir,
         ]);
-
 
         createLogActivity("Memperbarui profil");
 

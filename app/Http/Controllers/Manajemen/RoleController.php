@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     private static $title = 'Role';
 
-    public static function breadcrumb()
+    static function breadcrumb()
     {
         return [
             self::$title, route('role.index')

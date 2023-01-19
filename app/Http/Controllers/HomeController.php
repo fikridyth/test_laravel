@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     private static $title = 'Dashboard';
 
-    public static function breadcrumb()
+    static function breadcrumb()
     {
         return [
             self::$title, route('index')

@@ -27,7 +27,7 @@
                                     <div class="image-input image-input-outline image-input-placeholder"
                                         data-kt-image-input="true">
                                         <div id="preview-image" class="image-input-wrapper w-125px h-125px"
-                                            style="background-image: url({{ auth()->user()->foto ? asset('storage/' . auth()->user()->foto) : 'metronic/demo2/assets/media/avatars/blank.png' }});">
+                                            style="background-image: url({{ auth()->user()->id_file_foto ? asset('storage/' . auth()->user()->foto->path_file) : 'metronic/demo2/assets/media/avatars/blank.png' }});">
                                         </div>
                                         <label
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -36,12 +36,6 @@
                                             <input type="file" id="foto" name="foto"
                                                 accept=".png, .jpg, .jpeg" />
                                         </label>
-                                        <span
-                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                            title="Batal ganti foto">
-                                            <i class="bi bi-x fs-2"></i>
-                                        </span>
                                         <span id="remove-avatar"
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                             data-kt-image-input-action="remove-avatar" data-bs-toggle="tooltip"
@@ -121,6 +115,7 @@
 
         $('#remove-avatar').on('click', function() {
             $('#preview-image').css('background-image', 'url(' + imageUrl + ')');
+            $('#foto').val(null);
         });
     </script>
 @endsection

@@ -4,16 +4,16 @@ namespace App\Statics\User;
 
 class NRIK
 {
-    public static $SUPER_ADMIN = '00000000';
-    public static $DEVELOPER = '99999999';
-    public static $ADI = '99999998';
-    public static $RENDY = '26011214';
-    public static $KUSDHIAN = '28451215';
-    public static $FIQQI = '42101120';
-    public static $KAUTSAR = '46050522';
-    public static $WILDAN = '47071022';
+    static $SUPER_ADMIN = '00000000';
+    static $DEVELOPER = '99999999';
+    static $ADI = '99999998';
+    static $RENDY = '26011214';
+    static $KUSDHIAN = '28451215';
+    static $FIQQI = '42101120';
+    static $KAUTSAR = '46050522';
+    static $WILDAN = '47071022';
 
-    public static function getAllForCreate()
+    static function getAllForCreate()
     {
         return [
             [

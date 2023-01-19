@@ -12,7 +12,7 @@ class PermissionController extends Controller
 {
     private static $title = 'Akses';
 
-    public static function breadcrumb()
+    static function breadcrumb()
     {
         return [
             self::$title, route('permission.index')

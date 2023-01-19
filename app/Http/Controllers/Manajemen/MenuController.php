@@ -16,7 +16,7 @@ class MenuController extends Controller
 
     private static $title = 'Menu';
 
-    public static function breadcrumb()
+    static function breadcrumb()
     {
         return [
             self::$title, route('menu.index')

@@ -4,10 +4,10 @@ namespace App\Statics\User;
 
 class Role
 {
-    public static $SUPER_ADMIN = 1;
-    public static $DEVELOPER = 2;
+    static $SUPER_ADMIN = 1;
+    static $DEVELOPER = 2;
 
-    public static function getAll()
+    static function getAll()
     {
         return [
             self::$SUPER_ADMIN,
@@ -15,7 +15,7 @@ class Role
         ];
     }
 
-    public static function getAllForCreate()
+    static function getAllForCreate()
     {
         return [
             [

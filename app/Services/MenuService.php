@@ -6,7 +6,7 @@ use App\Models\Menu;
 
 class MenuService
 {
-    public static function getMenus($parentId = 0, $roles = [])
+    static function getMenus($parentId = 0, $roles = [])
     {
         $arrMenu = [];
 
