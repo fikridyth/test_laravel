@@ -49,6 +49,6 @@ function createFile(string $kodeFile, string $pathFile, string $keterangan): His
         'path_file' => $pathFile,
         'keterangan' => $keterangan,
         'status_upload' => 1,
-        'created_by' => Auth::check() ? Auth::user()->id : 0,
+        'created_by' => Auth::check() ? Auth::user()->id : null,
     ]);
 }
