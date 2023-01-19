@@ -42,7 +42,7 @@ function createLogActivity(string $activity)
     LogActivity::create($log);
 }
 
-function createFile(string $kodeFile, string $pathFile, string $keterangan): HistoryFile
+function createHistoryFile(string $kodeFile, string $pathFile, string $keterangan): HistoryFile
 {
     return HistoryFile::create([
         'kode_file' => $kodeFile,
