@@ -20,9 +20,16 @@ class UserDataTable extends DataTable
     {
         return datatables()
             ->eloquent(
-                $query->with('roles', 'unitKerja')
+                $query->with(['roles', 'unitKerja', 'foto'])
                     ->filter(request(['role', 'status_blokir']))
             )
+            ->editColumn('id_file_foto', function ($row) {
+                if (!$row->id_file_foto) {
+                    return '-';
+                }
+                $path = "/storage/" . $row->foto?->path_file;
+                return '<a href="' . $path . '" target="blank">' . $row->name . '</a>';
+            })
             ->editColumn('tanggal_lahir', function ($row) {
                 return Carbon::parse($row->tanggal_lahir)->locale(config('app.locale'))->translatedFormat('j F Y');
             })
@@ -65,7 +72,7 @@ class UserDataTable extends DataTable
             ->editColumn('id_unit_kerja', function ($row) {
                 return $row->unitKerja->nama;
             })
-            ->rawColumns(['role', 'is_blokir', 'ip_address', 'aksi']);
+            ->rawColumns(['id_file_foto', 'role', 'is_blokir', 'ip_address', 'aksi']);
     }
 
     /**
@@ -117,6 +124,12 @@ class UserDataTable extends DataTable
             Column::make('id')->searchable(false)->addClass('text-center'),
             Column::make('nrik')->title('NRIK'),
             Column::make('name')->title('Nama'),
+            Column::make('id_file_foto')
+                ->title('Foto')
+                ->searchable(false)
+                ->orderable(false)
+                ->width(100)
+                ->addClass('text-center min-w-100px'),
             Column::make('tanggal_lahir'),
             Column::make('email'),
             Column::make('role')->searchable(false),

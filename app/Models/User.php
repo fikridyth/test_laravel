@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Dyrynda\Database\Support\NullableFields;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,7 +51,12 @@ class User extends Authenticatable
 
     public function foto()
     {
-        return $this->belongsTo(HistoryFile::class, 'id_file_foto', 'id');
+        return $this->belongsTo(HistoryFile::class, 'id_file_foto');
+    }
+
+    function updater()
+    {
+        return $this->belongsTo(self::class, 'updated_by');
     }
 
     public function scopeSearchByName($query, array $filters)
