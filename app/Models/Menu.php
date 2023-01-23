@@ -19,7 +19,7 @@ class Menu extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_role')->using(MenuRole::class);
+        return $this->belongsToMany(Role::class, 'menu_has_role')->using(MenuHasRole::class);
     }
 
     public function scopeFilterByRoles($query, $parent_id = 0, array $roles = [])

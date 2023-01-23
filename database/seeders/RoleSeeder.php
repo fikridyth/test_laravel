@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        $collections = [
+        $permissions = [
             ['id' => StaticPermission::$USER_ACCESS, 'name' => 'user_access'],
             ['id' => StaticPermission::$USER_SHOW, 'name' => 'user_show'],
             ['id' => StaticPermission::$USER_CREATE, 'name' => 'user_create'],
@@ -54,12 +54,12 @@ class RoleSeeder extends Seeder
             ['id' => StaticPermission::$SECURITY, 'name' => 'security'],
         ];
 
-        collect($collections)->each(function ($data) {
+        collect($permissions)->each(function ($data) {
             Permission::create($data);
         });
 
         // create menus
-        $collections = [
+        $menus = [
             ['id' => StaticMenu::$DASHBOARD, 'name' => 'Dashboard', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 1],
 
             ['id' => StaticMenu::$UTILITY, 'name' => 'Manajemen', 'route' => 'index', 'icon' => 'fa-dashboard', 'parent_id' => 0, 'order' => 4],
@@ -74,7 +74,7 @@ class RoleSeeder extends Seeder
             ['id' => StaticMenu::$USERS_ACTIVITY_LOG_ACTIVITY, 'name' => 'Catatan Aktivitas User', 'route' => 'konfigurasi.log-activity', 'icon' => 'fa-dashboard', 'parent_id' => StaticMenu::$USERS_ACTIVITY, 'order' => 2],
         ];
 
-        collect($collections)->each(function ($data) {
+        collect($menus)->each(function ($data) {
             Menu::create($data);
         });
 

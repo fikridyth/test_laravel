@@ -13,8 +13,7 @@ class CreateMenuRole extends Migration
      */
     public function up()
     {
-        Schema::create('menu_role', function (Blueprint $table) {
-            $table->id();
+        Schema::create('menu_has_role', function (Blueprint $table) {
             $table->foreignId('menu_id')->constrained();
             $table->foreignId('role_id')->constrained();
         });
@@ -27,6 +26,6 @@ class CreateMenuRole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_role');
+        Schema::dropIfExists('menu_has_role');
     }
 }
