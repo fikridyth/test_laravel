@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
+use App\Models\Menu;
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -45,16 +46,19 @@ class RoleController extends Controller
         ];
 
         $permissions = Permission::all();
+        $menus = Menu::all();
         $role = new Role();
         $rolePermissions = [];
+        $roleMenus = [];
 
-        return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'permissions', 'role', 'rolePermissions'));
+        return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'menus', 'permissions', 'role', 'rolePermissions', 'roleMenus'));
     }
 
     public function store(RoleRequest $request)
     {
         $role = Role::create($request->validated());
         $role->syncPermissions($request->permissions);
+        $role->menus()->sync($request->menus);
 
         createLogActivity('Membuat Role Baru');
 
@@ -68,7 +72,7 @@ class RoleController extends Controller
     {
         $title = 'Ubah Role';
 
-        $role = Role::with(['permissions'])->find($id);
+        $role = Role::with(['permissions', 'menus'])->find($id);
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -80,9 +84,14 @@ class RoleController extends Controller
         foreach ($role->permissions as $item)
             $rolePermissions[] = $item->name;
 
-        $permissions = Permission::all();
+        $roleMenus = [];
+        foreach ($role->menus as $item)
+            $roleMenus[] = $item->name;
 
-        return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'permissions', 'role', 'rolePermissions'));
+        $permissions = Permission::all();
+        $menus = Menu::all();
+
+        return View::make('manajemen.role.create', compact('title', 'breadcrumbs', 'menus', 'permissions', 'role', 'rolePermissions', 'roleMenus'));
     }
 
     public function update(RoleRequest $request, $id)
@@ -93,6 +102,7 @@ class RoleController extends Controller
         ]);
 
         $role->syncPermissions($request->permissions);
+        $role->menus()->sync($request->menus);
 
         createLogActivity("Memperbarui Role {$role->name}");
 

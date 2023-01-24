@@ -19,3 +19,4 @@ config/secure.php
 .env.dev
 .env.prod
 composer.lock
+/nbproject/private/
