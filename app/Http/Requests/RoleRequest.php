@@ -49,6 +49,7 @@ class RoleRequest extends FormRequest
             'id' => $id,
             'name' => $name,
             'permissions' => 'required|array',
+            'menus' => 'required|array',
         ];
     }
 
@@ -57,6 +58,7 @@ class RoleRequest extends FormRequest
         return [
             'name' => 'Nama role',
             'permissions' => 'Permission',
+            'menus' => 'Menu',
         ];
     }
 
@@ -64,6 +66,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'permissions.required' => 'Permission wajib dipilih minimal 1.',
+            'menus.required' => 'Menu wajib dipilih minimal 1.',
             'name.regex' => 'Nama role hanya boleh diisi menggunakan huruf, angka atau spasi saja.'
         ];
     }
