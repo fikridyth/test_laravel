@@ -66,6 +66,16 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label required">Menus</label>
+                                    <select class="form-control" id="menus" name="menus[]" multiple>
+                                        @foreach ($menus as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ in_array($item->name, old('menus') ?? []) ? 'selected' : (in_array($item->name, $roleMenus) ? 'selected' : '') }}>
+                                                {{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-light me-3">Reset</button>
@@ -88,7 +98,8 @@
     <script src="{{ asset('dual-listbox/dual-listbox.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            let dlb1 = new DualListbox('#permissions');
+            let dlbPermission = new DualListbox('#permissions');
+            let dlbMenu = new DualListbox('#menus');
 
             const container = document.querySelector("#kt_content");
 
