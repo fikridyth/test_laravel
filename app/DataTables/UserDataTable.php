@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -31,7 +30,7 @@ class UserDataTable extends DataTable
                 return '<a href="' . $path . '" target="blank">' . $row->name . '</a>';
             })
             ->editColumn('tanggal_lahir', function ($row) {
-                return Carbon::parse($row->tanggal_lahir)->locale(config('app.locale'))->translatedFormat('j F Y');
+                return dateWithFullMonthFormat($row->tanggal_lahir);
             })
             ->addColumn('role', function ($row) {
                 return $row->roles->pluck('name')->implode(', ');

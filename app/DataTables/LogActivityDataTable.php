@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\LogActivity;
-use Carbon\Carbon;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -35,7 +34,7 @@ class LogActivityDataTable extends DataTable
                 return implode(', ', $roles);
             })
             ->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
+                return dateWithFullMonthAndTimeFormat($row->created_at);
             })
             ->rawColumns(['user_id', 'role']);
     }

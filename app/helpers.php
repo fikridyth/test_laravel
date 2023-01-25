@@ -2,6 +2,7 @@
 
 use App\Models\HistoryFile;
 use App\Models\LogActivity;
+use Carbon\Carbon;
 use hisorange\BrowserDetect\Parser as Browser;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
@@ -19,6 +20,18 @@ function number2df($number)
 function formatRupiah($number)
 {
     return 'Rp ' . number_format((float)$number, 2, ',', '.');
+}
+
+// reformat date to 'd-MMM-Y' -> Ex : 1 Januari 2023
+function dateWithFullMonthFormat($date)
+{
+    return Carbon::parse($date)->locale(config('app.locale'))->translatedFormat('j F Y');
+}
+
+// reformat date to 'd-MMM-Y, h:i:s' -> Ex : 1 Januari 2023, 12:30:00
+function dateWithFullMonthAndTimeFormat($date)
+{
+    return Carbon::parse($date)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
 }
 
 // encrypting a value
