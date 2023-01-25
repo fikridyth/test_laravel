@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Request;
 
+// reformat number to float with 2 decimal format
+function number2df($number)
+{
+    return number_format((float)$number, 2, '.', '');
+}
+
+// reformat to rupiah format
+function formatRupiah($number)
+{
+    return 'Rp ' . number_format((float)$number, 2, ',', '.');
+}
+
+// encrypting a value
 function enkrip(string $value)
 {
     try {
@@ -18,6 +31,7 @@ function enkrip(string $value)
     }
 }
 
+// decrypting a value
 function dekrip(string $value)
 {
     try {
@@ -27,6 +41,7 @@ function dekrip(string $value)
     }
 }
 
+// create log activity user
 function createLogActivity(string $activity)
 {
     $log = [
@@ -42,6 +57,7 @@ function createLogActivity(string $activity)
     LogActivity::create($log);
 }
 
+// create log file
 function createHistoryFile(string $kodeFile, string $pathFile, string $keterangan): HistoryFile
 {
     return HistoryFile::create([
