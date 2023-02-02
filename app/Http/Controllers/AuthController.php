@@ -61,13 +61,19 @@ class AuthController extends Controller
         } else { //jika salah password / keblokir
             if (Session::get('errorLogin') !== null) {
                 $sessionErrorLogin = Session::get('errorLogin') + 1;
+                $sessionErrorLoginNRIK = Session::get('errorLoginNRIK');
                 Session::put('errorLogin', $sessionErrorLogin);
 
                 if ($request->nrik === NRIK::$DEVELOPER) {
                     $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
                 }
 
-                if ($sessionErrorLogin >= $max_fail) {
+                // jika yg login sekarang berbeda dengan yg login sebelumnya, session error login kembalikan ke 1
+                if ($request->nrik != $sessionErrorLoginNRIK) {
+                    Session::put('errorLogin', 1);
+                }
+
+                if ($sessionErrorLogin >= $max_fail && $sessionErrorLoginNRIK == $request->nrik) {
                     //cek NRIK ada / tidak di DB
                     $countNRIK = User::where('nrik', $request->nrik)->count();
                     if ($countNRIK > 0) {
@@ -81,8 +87,10 @@ class AuthController extends Controller
                         return redirect()->back()->withInput()->withErrors(["Akun tidak ditemukan"]);
                     }
                 }
+                Session::put('errorLoginNRIK', $request->nrik);
             } else {
                 Session::put('errorLogin', 1);
+                Session::put('errorLoginNRIK', $request->nrik);
                 $sessionErrorLogin = Session::get('errorLogin');
             }
 
