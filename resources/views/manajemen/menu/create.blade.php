@@ -18,14 +18,17 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST" id="form"
-                                action="{{ $menu->id == null ? route('menu.store') : route('menu.update', ['id' => $menu->id]) }}">
+                                action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => $menu->id]) }}">
                                 @csrf
+                                @if ($menu->id != null)
+                                    @method('put')
+                                @endif
                                 @if ($menu->id == null)
                                     <div class="fv-row mb-7">
                                         <label for="id" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">id</span>
+                                            <span class="required">Id</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                                title="Id Wajib diisi"></i>
+                                                title="Id hanya dapat diisi dengan angka, harus berbeda dengan yang sudah ada dan harus bernilai antara 1 sampai 100.000"></i>
                                         </label>
                                         <input type="number" min="1"
                                             class="form-control form-control-solid @error('id') is-invalid @enderror"
@@ -41,7 +44,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama Menu</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama Menu tidak boleh sama dengan yang sudah ada dan minimal berisi 2 karakter"></i>
+                                            title="Nama menu harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"
@@ -70,7 +73,7 @@
                                 </div>
                                 <div class="fv-row mb-7">
                                     <label for="icon" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Ikon</span>
+                                        <span class="required">Icon</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Icon wajib diisi"></i>
                                     </label>
@@ -88,7 +91,7 @@
                                     <label for="order" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Order</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Order adalah urutan menu. Order hanya bisa diisi dengan angka, minimal 1"></i>
+                                            title="Order adalah urutan menus. Order hanya dapat diisi dengan angka, minimal 1"></i>
                                     </label>
                                     <input type="number" min="1"
                                         class="form-control form-control-solid @error('order') is-invalid @enderror"
@@ -103,14 +106,15 @@
                                     <label for="roles" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Role</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Role bisa dipilih lebih dari 1"></i>
+                                            title="Role wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
                                     </label>
-                                    <select class="form-select form-select-solid" multiple data-control="select2"
-                                        data-placeholder="Pilih Role" id="roles" name="roles[]">
+                                    <select class="form-select form-select-solid @error('roles') is-invalid @enderror"
+                                        id="roles" name="roles[]" data-control="select2" multiple
+                                        data-placeholder="Pilih Role">
                                         <option></option>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}"
-                                                {{ in_array($role->id, $menuRoles) ? 'selected' : '' }}>
+                                                {{ in_array($role->id, old('roles', $menuRoles)) ? 'selected' : '' }}>
                                                 {{ $role->name }}
                                             </option>
                                         @endforeach
@@ -125,15 +129,15 @@
                                     <label for="parent_id" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Parent</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Parent_id wajib dipilih, default '--Root--'"></i>
+                                            title="Parent wajib dipilih, pilih '--Root--' jika ingin membuat menu"></i>
                                     </label>
-                                    <select class="form-select form-select-solid" data-control="select2" id="parent_id"
-                                        name="parent_id">
+                                    <select class="form-select form-select-solid @error('parent_id') is-invalid @enderror"
+                                        data-control="select2" id="parent_id" name="parent_id">
                                         <option value="0" {{ 0 == $menu->parent_id ? 'selected' : '' }}>--Root--
                                         </option>
                                         @foreach ($menus as $item)
                                             <option value="{{ $item->id }}"
-                                                {{ $item->id == $menu->parent_id ? 'selected' : '' }}>
+                                                {{ $item->id == old('parent_id', $menu->parent_id) ? 'selected' : '' }}>
                                                 {!! $item->name !!}
                                             </option>
                                         @endforeach
@@ -166,8 +170,6 @@
 @push('content_scripts')
     <script>
         $(document).ready(function() {
-            $('#parent, #roles').select2({});
-
             const container = document.querySelector("#kt_content");
 
             const blockContainer = new KTBlockUI(container, {

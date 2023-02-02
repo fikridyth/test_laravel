@@ -24,23 +24,21 @@ class PermissionRequest extends FormRequest
      */
     public function rules()
     {
-        if (request()->routeIs('permission.store')) {
-            $id = 'required|numeric|min:1|max:100000|unique:permissions,id';
-            $name = 'required|string|alpha_dash|min:2|max:50|unique:permissions,name';
-        } elseif (request()->routeIs('permission.update')) {
+        if (request()->routeIs('permissions.store')) {
+            $id = 'required|numeric|between:1,100000|unique:permissions,id';
+            $name = 'required|string|alpha_dash|between:2,50|unique:permissions,name';
+        } elseif (request()->routeIs('permissions.update')) {
             $id = [
                 'required',
                 'numeric',
-                'min:1',
-                'max:100000',
+                'between:1,100000',
                 Rule::unique('permissions', 'id')->ignore($this->id)
             ];
             $name = [
                 'required',
                 'string',
                 'alpha_dash',
-                'min:2',
-                'max:50',
+                'between:2,50',
                 Rule::unique('permissions', 'name')->ignore($this->id)
             ];
         }
@@ -56,5 +54,18 @@ class PermissionRequest extends FormRequest
         return [
             'name' => 'Nama akses',
         ];
+    }
+
+    public function getValidatorInstance()
+    {
+        $this->reformatName();
+        return parent::getValidatorInstance();
+    }
+
+    public function reformatName()
+    {
+        if ($this->request->has('name')) {
+            $this->merge(['name' => str_replace(' ', '_', strtolower($this->request->get('name')))]);
+        }
     }
 }

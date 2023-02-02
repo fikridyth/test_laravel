@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Role;
 use App\Services\MenuService;
 use App\Statics\User\Role as UserRole;
+use Illuminate\Support\Facades\Gate;
 
 class MenuController extends Controller
 {
@@ -19,12 +20,13 @@ class MenuController extends Controller
     static function breadcrumb()
     {
         return [
-            self::$title, route('menu.index')
+            self::$title, route('menus.index')
         ];
     }
 
     public function index()
     {
+        $this->authorize('menu_access');
         $title = self::$title;
 
         $breadcrumbs = [
@@ -33,13 +35,11 @@ class MenuController extends Controller
         ];
 
         $html = '<table class=\'table align-middle table-row-dashed fs-6 gy-5 kt_default_datatable\'>'
-            . '<thead><tr class=\'text-start text-muted fw-bold fs-7 text-uppercase gs-0\'><th>Title</th><th>Route</th><th>Icon</th><th>Roles</th><th>Order</th><th>Action</th></tr></thead>';
-
+            . '<thead><tr class=\'text-muted fw-bold fs-7 text-uppercase gs-0\'><th>Title</th><th>Route</th><th>Icon</th><th>Roles</th><th>Order</th><th class=\'text-center\'>Action</th></tr></thead>';
         $menu = [
             'children' => MenuService::getMenus(0, UserRole::getAll()),
         ];
         $html .= $this->printMenu($menu);
-
         $html .= '</table>';
 
         return View::make('manajemen.menu.index', compact('title', 'breadcrumbs', 'html'));
@@ -47,12 +47,13 @@ class MenuController extends Controller
 
     public function create()
     {
-        $title = 'Tambah Menu Baru';
+        $this->authorize('menu_create');
+        $title = 'Tambah ' . self::$title . ' Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('menu.create')],
+            [$title, route('menus.create')],
         ];
 
         $menu = new Menu();
@@ -67,31 +68,22 @@ class MenuController extends Controller
 
     public function store(MenuRequest $request)
     {
-        $menu = new Menu();
-        $menu->id = $request->id;
-        $menu->route = $request->route;
-        $menu->name = $request->name;
-        $menu->icon = $request->icon;
-        $menu->order = $request->order;
-        $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->created_at = date('Y-m-d H:i:s');
-        $menu->parent_id = $request->parent_id;
-        $menu->save();
+        $this->authorize('menu_create');
+        $menu = Menu::create($request->validated());
 
         $menu->roles()->sync($request->roles);
 
-        createLogActivity('Membuat Menu Baru');
+        createLogActivity('Membuat menu baru');
 
-        $message = 'Menu ' . $request->name . ' berhasil ditambahkan. ';
-
-        return redirect(route('menu.index'))
+        return redirect(route('menus.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', $message);
+            ->with('alert.message', "Menu {$request->name} berhasil ditambahkan.");
     }
 
     public function edit($id)
     {
-        $title = 'Ubah Menu';
+        $this->authorize('menu_edit');
+        $title = 'Ubah ' . self::$title;
 
         $query = Menu::with(['roles']);
         $menu = $query->find($id);
@@ -99,9 +91,8 @@ class MenuController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('menu.edit', $menu->id)],
+            [$title, route('menus.edit', $menu->id)],
         ];
-
 
         $menus = $this->picklistMenu([
             'children' => MenuService::getMenus(0, UserRole::getAll())
@@ -118,25 +109,24 @@ class MenuController extends Controller
 
     public function update(MenuRequest $request, $id)
     {
+        $this->authorize('menu_edit');
         $menu = Menu::find($id);
-        $menu->id = $request->id;
-        $menu->route = $request->route;
-        $menu->name = $request->name;
-        $menu->icon = $request->icon;
-        $menu->order = $request->order;
-        $menu->updated_at = date('Y-m-d H:i:s');
-        $menu->parent_id = $request->parent_id;
-        $menu->save();
+        $menu->update([
+            'route' => $request->route,
+            'name' => $request->name,
+            'icon' => $request->icon,
+            'order' => $request->order,
+            'parent_id' => $request->parent_id,
+            'updated_at' => now(),
+        ]);
 
         $menu->roles()->sync($request->roles);
 
-        createLogActivity("Memperbarui Menu {$menu->name}");
+        createLogActivity("Memperbarui menu {$menu->name}");
 
-        $message = 'Menu ' . $request->name . ' berhasil diperbarui. ';
-
-        return redirect(route('menu.index'))
+        return redirect(route('menus.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', $message);
+            ->with('alert.message', "Menu {$request->name} berhasil diperbarui.");
     }
 
     public function delete($id)
@@ -145,11 +135,11 @@ class MenuController extends Controller
         $menu->roles()->sync([]);
         $menu->delete();
 
-        createLogActivity("Menghapus Menu {$menu->name}");
+        createLogActivity("Menghapus menu {$menu->name}");
 
-        return redirect(route('menu.index'))
+        return redirect(route('menus.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', 'Delete successful');
+            ->with('alert.message', "Menu {$menu->name} berhasil dihapus.");
     }
 
     private function picklistMenu($menu, $titlePadding = 0)
@@ -186,21 +176,25 @@ class MenuController extends Controller
 
         $html = '<tbody>';
         foreach ($menu['children'] as $child) {
-            $html .= '<tr>'
-                . '<td>' . $padding . $child['id'] . ' - ' . $child['title'] . '</td>'
-                . '<td>' . $child['route'] . '</td>'
-                . '<td>' . $child['icon'] . '</td>'
-                . '<td>' . implode(", ", $child['roleNames']) . '</td>'
-                . '<td>' . $child['order'] . '</td>'
-                . '<td>'
-                . '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menu.edit', ['id' => $child['id']]) . '\'>Ubah</a>'
-                . '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menu.delete', ['id' => $child['id']]) . '\'>Hapus</a>'
-                . '</td>'
-                . '</tr>';
-            $html .= $this->printMenu($child, $titlePadding + 5);
+            $html .= "<tr>
+                        <td>{$padding}{$child['id']} - {$child['title']} </td>
+                        <td>{$child['route']}</td>
+                        <td>{$child['icon']}</td>
+                        <td>" . implode(", ", $child['roleNames']) . "</td>
+                        <td class='text-center'>{$child['order']}</td>
+                        <td>";
+            if (Gate::allows('menu_edit')) {
+                $html .= '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menus.edit', ['id' => $child['id']]) . '\'>Ubah</a>';
+            }
+            if (Gate::allows('menu_delete')) {
+                $html .= '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menus.delete', ['id' => $child['id']]) . '\'>Hapus</a>';
+            }
+            $html .= "</td>
+                </tr>
+                {$this->printMenu($child,$titlePadding + 5)}
+            ";
         }
         $html .= '</tbody>';
-
         return $html;
     }
 }

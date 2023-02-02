@@ -46,6 +46,9 @@ class UserDataTable extends DataTable
                                         </a>
                                 </span>';
                 }
+                if (!Gate::allows('user_unblock')) {
+                    $btnUnblock = '-';
+                }
                 return $btnUnblock;
             })
             ->editColumn('ip_address', function ($row) {
@@ -57,6 +60,9 @@ class UserDataTable extends DataTable
                             <a href="' . $routeIp . '">' . $row->ip_address . '</a>
                         </span>
                     ';
+                }
+                if (!Gate::allows('user_remove_ip')) {
+                    $btnIp = '';
                 }
                 return $btnIp;
             })

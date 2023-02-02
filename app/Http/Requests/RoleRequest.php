@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Menu;
+use App\Models\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,32 +26,32 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
-        if (request()->routeIs('role.store')) {
-            $id = 'required|numeric|min:1|max:100|unique:roles,id';
-            $name = 'required|string|min:2|max:50|unique:roles,name|regex:/^[a-zA-Z0-9\s]+$/';
-        } elseif (request()->routeIs('role.update')) {
+        $permissionNames = implode(',', Permission::orderBy('name')->pluck('name')->toArray());
+        $menuIds = implode(',', Menu::orderBy('id')->pluck('id')->toArray());
+        if (request()->routeIs('roles.store')) {
+            $id = 'required|numeric|between:1,100|unique:roles,id';
+            $name = 'required|string|between:2,50|unique:roles,name|regex:/^[a-zA-Z0-9\s]+$/';
+        } elseif (request()->routeIs('roles.update')) {
             $id = [
                 'sometimes',
                 'numeric',
-                'min:1',
-                'max:100',
+                'between:1,100',
                 Rule::unique('roles', 'id')->ignore($this->id)
             ];
             $name = [
                 'required',
                 'string',
-                'min:2',
-                'max:50',
+                'between:2,50',
                 'regex:/^[a-zA-Z0-9\s]+$/',
                 Rule::unique('roles', 'name')->ignore($this->id)
             ];
         }
-        
+
         return [
             'id' => $id,
             'name' => $name,
-            'permissions' => 'required|array',
-            'menus' => 'required|array',
+            'permissions' => "required|array|min:1|in:{$permissionNames}",
+            'menus' => "required|array|min:1|in:{$menuIds}",
         ];
     }
 

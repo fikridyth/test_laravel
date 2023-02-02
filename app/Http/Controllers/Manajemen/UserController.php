@@ -6,7 +6,6 @@ use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest;
-use App\Models\HistoryFile;
 use App\Models\Role;
 use App\Models\UnitKerja;
 use App\Models\User;
@@ -65,7 +64,7 @@ class UserController extends Controller
 
         $stmtRole = Role::orderBy('id')->get();
 
-        $stmtUnitKerja = UnitKerja::orderBy('nama')->get();
+        $stmtUnitKerja = UnitKerja::aktif()->orderBy('nama')->get();
 
         return view('manajemen.user.create', compact('title', 'breadcrumbs', 'stmtRole', 'stmtUnitKerja'));
     }
@@ -143,13 +142,15 @@ class UserController extends Controller
     {
         $this->authorize('user_edit');
         $user = User::find($user->id);
-        $user->name = $request->name;
-        $user->nrik = $request->nrik;
-        $user->email = $request->email;
-        $user->tanggal_lahir = $request->tanggal_lahir;
-        $user->id_unit_kerja = $request->id_unit_kerja;
-        $user->updated_by = Auth::id();
-        $user->save();
+        $user->update([
+            'name' => $request->name,
+            'nrik' => $request->nrik,
+            'email' => $request->email,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'id_unit_kerja' => $request->id_unit_kerja,
+            'updated_at' => now(),
+            'updated_by' => Auth::id(),
+        ]);
 
         $user->syncRoles($request->id_role);
 

@@ -12,4 +12,9 @@ class Divisi extends Model
     protected $table = 'tbl_master_divisi';
 
     protected $guarded = ['id'];
+
+    function scopeAktif($query)
+    {
+        return $query->where('status_data', 1);
+    }
 }

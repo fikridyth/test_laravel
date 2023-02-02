@@ -9,14 +9,16 @@
                     <div class="card">
                         <div class="card-header border-0 pt-6">
                             <div class="card-title"></div>
-                            <div class="card-toolbar">
-                                <a href="{{ route('menu.create') }}" type="button" class="btn btn-primary">
-                                    <span class="svg-icon svg-icon-2">
-                                        {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
-                                    </span>
-                                    Tambah Menu
-                                </a>
-                            </div>
+                            @can('menu_create')
+                                <div class="card-toolbar">
+                                    <a href="{{ route('menus.create') }}" type="button" class="btn btn-primary">
+                                        <span class="svg-icon svg-icon-2">
+                                            {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
+                                        </span>
+                                        Tambah Menu
+                                    </a>
+                                </div>
+                            @endcan
                         </div>
                         <div class="card-body py-4">
                             {!! $html !!}

@@ -22,14 +22,17 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST" id="form"
-                                action="{{ $role->id == null ? route('role.store') : route('role.update', ['id' => $role->id]) }}">
+                                action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => $role->id]) }}">
                                 @csrf
+                                @if ($role->id != null)
+                                    @method('put')
+                                @endif
                                 @if ($role->id == null)
                                     <div class="fv-row mb-7">
                                         <label for="id" class="fs-6 fw-semibold form-label mt-3">
-                                            <span class="required">id</span>
+                                            <span class="required">Id</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                                title="Id Wajib diisi"></i>
+                                                title="Id hanya dapat diisi dengan angka, harus berbeda dengan yang sudah ada dan harus bernilai antara 1 sampai 100"></i>
                                         </label>
                                         <input type="number" min="1"
                                             class="form-control form-control-solid @error('id') is-invalid @enderror"
@@ -45,7 +48,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama Role</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama role tidak boleh sama dengan yang sudah ada, minimal berisi 2 karakter dan maksimal 50 karakter"></i>
+                                            title="Nama role harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"
@@ -56,25 +59,49 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label required">Permissions</label>
-                                    <select class="form-control" id="permissions" name="permissions[]" multiple>
-                                        @foreach ($permissions as $item)
-                                            <option value="{{ $item->name }}"
-                                                {{ in_array($item->name, old('permissions') ?? []) ? 'selected' : (in_array($item->name, $rolePermissions) ? 'selected' : '') }}>
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="fvrow mb-7">
+                                    <div class="form-group">
+                                        <label class="form-label">
+                                            <span class="required">Permission</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                title="Permission wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
+                                        </label>
+                                        <select class="form-control @error('permissions') is-invalid @enderror"
+                                            id="permissions" name="permissions[]" multiple>
+                                            @foreach ($permissions as $item)
+                                                <option value="{{ $item->name }}"
+                                                    {{ in_array($item->name, old('permissions') ?? []) ? 'selected' : (in_array($item->name, $rolePermissions) ? 'selected' : '') }}>
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('permissions')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label required">Menus</label>
-                                    <select class="form-control" id="menus" name="menus[]" multiple>
-                                        @foreach ($menus as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ in_array($item->name, old('menus') ?? []) ? 'selected' : (in_array($item->name, $roleMenus) ? 'selected' : '') }}>
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="fvrow mb-7">
+                                    <div class="form-group">
+                                        <label class="form-label">
+                                            <span class="required">Menu</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                title="Menu wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
+                                        </label>
+                                        <select class="form-control @error('menus') is-invalid @enderror" id="menus"
+                                            name="menus[]" multiple>
+                                            @foreach ($menus as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ in_array($item->name, old('menus') ?? []) ? 'selected' : (in_array($item->name, $roleMenus) ? 'selected' : '') }}>
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('menus')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
@@ -98,8 +125,8 @@
     <script src="{{ asset('dual-listbox/dual-listbox.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            let dlbPermission = new DualListbox('#permissions');
-            let dlbMenu = new DualListbox('#menus');
+            new DualListbox('#permissions');
+            new DualListbox('#menus');
 
             const container = document.querySelector("#kt_content");
 

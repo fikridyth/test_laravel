@@ -12,4 +12,9 @@ class Departemen extends Model
     protected $table = 'tbl_master_departemen';
 
     protected $guarded = ['id'];
+
+    function scopeAktif($query)
+    {
+        return $query->where('status_data', 1);
+    }
 }

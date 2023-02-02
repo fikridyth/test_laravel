@@ -18,13 +18,16 @@
                         </div>
                         <div class="card-body">
                             <form role="form" method="POST" id="form"
-                                action="{{ $permission->id == null ? route('permission.store') : route('permission.update', ['id' => $permission->id]) }}">
+                                action="{{ $permission->id == null ? route('permissions.store') : route('permissions.update', ['id' => $permission->id]) }}">
                                 @csrf
+                                @if ($permission->id != null)
+                                    @method('put')
+                                @endif
                                 <div class="fv-row mb-7">
                                     <label for="id" class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">id</span>
+                                        <span class="required">Id</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Id Wajib diisi"></i>
+                                            title="Id hanya dapat diisi dengan angka, harus berbeda dengan yang sudah ada dan harus bernilai antara 1 sampai 100.000"></i>
                                     </label>
                                     <input type="number" min="1"
                                         class="form-control form-control-solid @error('id') is-invalid @enderror"
@@ -39,7 +42,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama Akses</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama Role tidak boleh sama dengan yang sudah ada, minimal berisi 2 karakter dan maksimal 50 karakter"></i>
+                                            title="Nama akses harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"

@@ -15,12 +15,13 @@ class PermissionController extends Controller
     static function breadcrumb()
     {
         return [
-            self::$title, route('permission.index')
+            self::$title, route('permissions.index')
         ];
     }
 
     public function index()
     {
+        $this->authorize('permission_access');
         $title = 'Manajemen Akses';
 
         $breadcrumbs = [
@@ -37,12 +38,13 @@ class PermissionController extends Controller
 
     public function create()
     {
+        $this->authorize('permission_create');
         $title = 'Tambah Akses Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('permission.create')],
+            [$title, route('permissions.create')],
         ];
 
         $permission = new Permission();
@@ -52,17 +54,19 @@ class PermissionController extends Controller
 
     public function store(PermissionRequest $request)
     {
-        Permission::create(array_map('strtolower', $request->validated()));
+        $this->authorize('permission_create');
+        Permission::create($request->validated());
 
         createLogActivity('Membuat Akses Baru');
 
-        return redirect(route('permission.index'))
+        return redirect(route('permissions.index'))
             ->with('alert.status', '00')
             ->with('alert.message', "Akses {$request->name} berhasil ditambahkan.");
     }
 
     public function edit($id)
     {
+        $this->authorize('permission_edit');
         $title = 'Ubah Akses';
 
         $permission = Permission::find($id);
@@ -70,7 +74,7 @@ class PermissionController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('permission.edit', $permission->id)],
+            [$title, route('permissions.edit', $permission->id)],
         ];
 
         return View::make('manajemen.permission.create', compact('title', 'breadcrumbs', 'permission'));
@@ -78,16 +82,17 @@ class PermissionController extends Controller
 
     public function update(PermissionRequest $request, $id)
     {
+        $this->authorize('permission_edit');
         $permission = Permission::find($id);
-        $permission->update(array_map('strtolower', [
+        $permission->update([
             'id' => $request->id,
             'name' => $request->name,
-        ]));
+        ]);
 
         createLogActivity("Memperbarui Akses {$request->name}");
 
-        return redirect(route('permission.index'))
+        return redirect(route('permissions.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', "Permission {$request->name} berhasil diperbarui.");
+            ->with('alert.message', "Akses {$request->name} berhasil diperbarui.");
     }
 }

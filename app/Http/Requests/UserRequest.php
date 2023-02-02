@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
+use App\Models\UnitKerja;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,6 +26,8 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $unkerIds = implode(',', UnitKerja::aktif()->orderBy('id_unit_kerja')->pluck('id_unit_kerja')->toArray());
+        $roleIds = implode(',', Role::orderBy('id')->pluck('id')->toArray());
         if (request()->routeIs('manajemen-user.store')) {
             $nrik = 'required|digits:8|unique:users,nrik';
             $email = 'required|email|unique:users,email';
@@ -41,13 +45,13 @@ class UserRequest extends FormRequest
         }
 
         return [
-            'id_role' => 'required|array|min:1',
-            'id_role.*' => 'required|numeric',
+            'id_role' => "required|array|min:1|in:{$roleIds}",
+            'id_role.*' => "required|numeric",
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'nrik' => $nrik,
             'email' => $email,
             'tanggal_lahir' => 'required|date',
-            'id_unit_kerja' => 'required|numeric',
+            'id_unit_kerja' => "required|numeric|in:{$unkerIds}",
         ];
     }
 

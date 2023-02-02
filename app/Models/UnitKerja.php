@@ -12,4 +12,9 @@ class UnitKerja extends Model
     protected $table = 'tbl_master_unit_kerja';
 
     protected $guarded = ['id'];
+
+    function scopeAktif($query)
+    {
+        return $query->where('status_data', 1);
+    }
 }

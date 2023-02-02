@@ -14,7 +14,7 @@ class Role extends SpatieRole
 
     public $incrementing = false;
 
-    protected $fillable = ['id', 'name'];
+    protected $guarded = ['web'];
 
     protected $guard_name = 'web';
 

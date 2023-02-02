@@ -70,30 +70,12 @@ Route::middleware('auth')->group(function () {
     });
 
     // untuk manajemen menu
-    Route::prefix('menus')->name('menu.')->group(function () {
-        Route::get('/', [MenuController::class, 'index'])->name('index')->middleware('permission:menu_access');
-        Route::get('/create', [MenuController::class, 'create'])->name('create')->middleware('permission:menu_create');
-        Route::post('/store', [MenuController::class, 'store'])->name('store')->middleware('permission:menu_create');
-        Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('edit')->middleware('permission:menu_edit');
-        Route::post('/{id}/update', [MenuController::class, 'update'])->name('update')->middleware('permission:menu_edit');
-        Route::get('/{id}/delete', [MenuController::class, 'delete'])->name('delete')->middleware('permission:menu_delete');
-    });
+    Route::resource('/menus', MenuController::class, ['parameters' => ['menus' => 'id']])->except(['show', 'destroy']);
+    Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('menus.delete')->middleware('permission:menu_delete');
 
     // untuk manajemen role
-    Route::prefix('roles')->name('role.')->group(function () {
-        Route::get('/', [RoleController::class, 'index'])->name('index')->middleware('permission:role_access');
-        Route::get('/create', [RoleController::class, 'create'])->name('create')->middleware('permission:role_create');
-        Route::post('/store', [RoleController::class, 'store'])->name('store')->middleware('permission:role_create');
-        Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('edit')->middleware('permission:role_edit');
-        Route::post('/{id}/update', [RoleController::class, 'update'])->name('update')->middleware('permission:role_edit');
-    });
+    Route::resource('/roles', RoleController::class, ['parameters' => ['roles' => 'id']])->except(['show', 'destroy']);
 
     // untuk manajemen akses
-    Route::prefix('permissions')->name('permission.')->group(function () {
-        Route::get('/', [PermissionController::class, 'index'])->name('index')->middleware('permission:permission_access');
-        Route::get('/create', [PermissionController::class, 'create'])->name('create')->middleware('permission:permission_create');
-        Route::post('/store', [PermissionController::class, 'store'])->name('store')->middleware('permission:permission_create');
-        Route::get('/{id}/edit', [PermissionController::class, 'edit'])->name('edit')->middleware('permission:permission_edit');
-        Route::post('/{id}/update', [PermissionController::class, 'update'])->name('update')->middleware('permission:permission_edit');
-    });
+    Route::resource('/permissions', PermissionController::class, ['parameters' => ['permissions' => 'id']])->except(['show', 'destroy']);
 });

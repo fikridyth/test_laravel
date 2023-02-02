@@ -25,10 +25,10 @@
                                     <label for="nrik" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">NRIK</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="NRIK harus berbeda dengan yang sudah ada dan maksimal 8 karakter"></i>
+                                            title="NRIK hanya dapat diisi dengan angka, harus berbeda dengan yang sudah ada dan berisi 8 karakter"></i>
                                     </label>
-                                    <input type="text" maxlength="8"
-                                        class="form-control form-control-solid @error('nrik') is-invalid @enderror"
+                                    <input type="text" maxlength="8" autocomplete="off"
+                                        class="form-control form-control-solid positive-numeric @error('nrik') is-invalid @enderror"
                                         name="nrik" value="{{ old('nrik', $stmtUser->nrik) }}" id="nrik" />
                                     @error('nrik')
                                         <div class="invalid-feedback">
@@ -40,7 +40,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Masukkan nama lengkap"></i>
+                                            title="Nama hanya boleh diisi dengan huruf dan/atau spasi saja."></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"
@@ -55,7 +55,7 @@
                                     <label for="email" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Email</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Email harus berbeda dengan yang sudah ada"></i>
+                                            title="Email harus berbeda dengan yang sudah ada. Email wajib diisi menggunakan alamat surel yang valid"></i>
                                     </label>
                                     <input type="email"
                                         class="form-control form-control-solid @error('email') is-invalid @enderror"
@@ -84,8 +84,10 @@
                                 <div class="fv-row mb-7">
                                     <label for="id_unit_kerja" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Unit Kerja</span>
+                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                            title="Hanya unit kerja yang aktif saja yang dapat dipilih"></i>
                                     </label>
-                                    <select class="form-select @error('id_unit_kerja') is-invalid @enderror"
+                                    <select class="form-select form-select-solid @error('id_unit_kerja') is-invalid @enderror"
                                         id="id_unit_kerja" name="id_unit_kerja" data-control="select2"
                                         data-placeholder="---Pilih Unit Kerja---">
                                         <option></option>
@@ -105,8 +107,10 @@
                                 <div class="fv-row mb-7">
                                     <label for="id_role" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Role</span>
+                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                            title="Role wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
                                     </label>
-                                    <select class="form-select @error('id_role') is-invalid @enderror" id="id_role"
+                                    <select class="form-select form-select-solid @error('id_role') is-invalid @enderror" id="id_role"
                                         name="id_role[]" data-control="select2" multiple
                                         data-placeholder="---Pilih Role---">
                                         <option></option>
@@ -151,7 +155,7 @@
             const container = document.querySelector("#kt_content");
 
             const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
+                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang memperbarui data...</div>',
             });
 
             $('#form').on('submit', function() {

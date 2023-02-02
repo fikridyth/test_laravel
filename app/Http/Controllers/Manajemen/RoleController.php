@@ -17,12 +17,13 @@ class RoleController extends Controller
     static function breadcrumb()
     {
         return [
-            self::$title, route('role.index')
+            self::$title, route('roles.index')
         ];
     }
 
     public function index()
     {
+        $this->authorize('role_access');
         $title = 'Manajemen Role';
 
         $breadcrumbs = [
@@ -37,12 +38,13 @@ class RoleController extends Controller
 
     public function create()
     {
-        $title = 'Tambah Role Baru';
+        $this->authorize('role_create');
+        $title = 'Tambah ' . self::$title . ' Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('role.create')],
+            [$title, route('roles.create')],
         ];
 
         $permissions = Permission::all();
@@ -56,28 +58,30 @@ class RoleController extends Controller
 
     public function store(RoleRequest $request)
     {
+        $this->authorize('role_create');
         $role = Role::create($request->validated());
         $role->syncPermissions($request->permissions);
         $role->menus()->sync($request->menus);
 
-        createLogActivity('Membuat Role Baru');
+        createLogActivity('Membuat role baru');
 
-        return redirect(route('role.index'))
+        return redirect(route('roles.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', 'Role ' . $request->name . ' berhasil ditambahkan.');
+            ->with('alert.message', "Role {$request->name} berhasil ditambahkan.");
     }
 
 
     public function edit($id)
     {
-        $title = 'Ubah Role';
+        $this->authorize('role_edit');
+        $title = 'Ubah ' . self::$title;
 
         $role = Role::with(['permissions', 'menus'])->find($id);
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('role.edit', $role->id)],
+            [$title, route('roles.edit', $role->id)],
         ];
 
         $rolePermissions = [];
@@ -96,18 +100,17 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, $id)
     {
+        $this->authorize('role_edit');
         $role = Role::find($id);
-        $role->update([
-            'name' => $request->name
-        ]);
+        $role->update(['name' => $request->name, 'updated_at' => now()]);
 
         $role->syncPermissions($request->permissions);
         $role->menus()->sync($request->menus);
 
-        createLogActivity("Memperbarui Role {$role->name}");
+        createLogActivity("Memperbarui role {$role->name}");
 
-        return redirect(route('role.index'))
+        return redirect(route('roles.index'))
             ->with('alert.status', '00')
-            ->with('alert.message', 'Role ' . $request->name . ' berhasil diperbarui.');
+            ->with('alert.message', "Role {$request->name} berhasil diperbarui.");
     }
 }
