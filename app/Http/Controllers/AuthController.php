@@ -29,7 +29,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if ($user->is_blokir == 1) {
+        if (!empty($user) && $user->is_blokir == 1) {
             return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
         }
 
@@ -68,14 +68,18 @@ class AuthController extends Controller
                 }
 
                 if ($sessionErrorLogin >= $max_fail) {
-                    error_log($request->email);
-                    User::where('nrik', $request->nrik)->update([
-                        'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
-                        'expired_password' => $expiredPassword,
-                        'is_blokir' => '1'
-                    ]);
-
-                    return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                    //cek NRIK ada / tidak di DB
+                    $countNRIK = User::where('nrik', $request->nrik)->count();
+                    if ($countNRIK > 0) {
+                        User::where('nrik', $request->nrik)->update([
+                            'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
+                            'expired_password' => $expiredPassword,
+                            'is_blokir' => '1'
+                        ]);
+                        return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                    } else {
+                        return redirect()->back()->withInput()->withErrors(["Akun tidak ditemukan"]);
+                    }
                 }
             } else {
                 Session::put('errorLogin', 1);
