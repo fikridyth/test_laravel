@@ -29,7 +29,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if ($user->is_blokir == 1) {
+        if (!empty($user) && $user->is_blokir == 1) {
             return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
         }
 
@@ -61,24 +61,36 @@ class AuthController extends Controller
         } else { //jika salah password / keblokir
             if (Session::get('errorLogin') !== null) {
                 $sessionErrorLogin = Session::get('errorLogin') + 1;
+                $sessionErrorLoginNRIK = Session::get('errorLoginNRIK');
                 Session::put('errorLogin', $sessionErrorLogin);
 
                 if ($request->nrik === NRIK::$DEVELOPER) {
                     $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
                 }
 
-                if ($sessionErrorLogin >= $max_fail) {
-                    error_log($request->email);
-                    User::where('nrik', $request->nrik)->update([
-                        'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
-                        'expired_password' => $expiredPassword,
-                        'is_blokir' => '1'
-                    ]);
-
-                    return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                // jika yg login sekarang berbeda dengan yg login sebelumnya, session error login kembalikan ke 1
+                if ($request->nrik != $sessionErrorLoginNRIK) {
+                    Session::put('errorLogin', 1);
                 }
+
+                if ($sessionErrorLogin >= $max_fail && $sessionErrorLoginNRIK == $request->nrik) {
+                    //cek NRIK ada / tidak di DB
+                    $countNRIK = User::where('nrik', $request->nrik)->count();
+                    if ($countNRIK > 0) {
+                        User::where('nrik', $request->nrik)->update([
+                            'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
+                            'expired_password' => $expiredPassword,
+                            'is_blokir' => '1'
+                        ]);
+                        return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
+                    } else {
+                        return redirect()->back()->withInput()->withErrors(["Akun tidak ditemukan"]);
+                    }
+                }
+                Session::put('errorLoginNRIK', $request->nrik);
             } else {
                 Session::put('errorLogin', 1);
+                Session::put('errorLoginNRIK', $request->nrik);
                 $sessionErrorLogin = Session::get('errorLogin');
             }
 
