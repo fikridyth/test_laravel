@@ -3,10 +3,6 @@
 @section('content')
     @include('layouts.toolbar')
 
-    @php
-        use Illuminate\Support\Carbon;
-    @endphp
-
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             <div class="card">
@@ -70,12 +66,14 @@
                                     </form>
                                 </div>
                             </div>
-                            <a href="{{ route('manajemen-user.create') }}" type="button" class="btn btn-primary">
-                                <span class="svg-icon svg-icon-2">
-                                    {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
-                                </span>
-                                Tambah User
-                            </a>
+                            @can('user_create')
+                                <a href="{{ route('manajemen-user.create') }}" type="button" class="btn btn-primary">
+                                    <span class="svg-icon svg-icon-2">
+                                        {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/arrows/arr075.svg') !!}
+                                    </span>
+                                    Tambah User
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
