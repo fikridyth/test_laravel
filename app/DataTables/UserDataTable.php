@@ -128,6 +128,7 @@ class UserDataTable extends DataTable
         return [
             Column::make('id')->searchable(false)->addClass('text-center'),
             Column::make('nrik')->title('NRIK'),
+            Column::make('user_bv')->title('User Bank Vision'),
             Column::make('name')->title('Nama'),
             Column::make('id_file_foto')
                 ->title('Foto')

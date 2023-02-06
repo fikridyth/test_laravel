@@ -85,6 +85,6 @@
     </div>
 @endsection
 
-@push('content_scripts')
+@section('scripts')
     {{ $dataTable->scripts() }}
-@endpush
+@endsection

@@ -19,12 +19,13 @@ class LogActivityDataTable extends DataTable
         return datatables()
             ->eloquent(
                 $query
-                    ->with('user', 'user.roles')
+                    ->with(['user', 'user.roles', 'user.unitKerja', 'user.foto'])
                     ->filter(request(['user', 'role']))
             )
             ->editColumn('user_id', function ($row) {
-                $routeUser = route('manajemen-user.show', $row->user_id);
-                return '<a href="' . $routeUser . '" target="_blank" rel="noopener noreferrer">' . $row->user->name . '</a>';
+                return '<a href="#" class="btnModalUser" data-bs-toggle="modal" data-bs-target="#modalUser" data-object="' . base64_encode($row->user) . '">
+                                ' . $row->user->name . '
+                            </a>';
             })
             ->addColumn('role', function ($row) {
                 $roles = [];
@@ -87,7 +88,6 @@ class LogActivityDataTable extends DataTable
         return [
             Column::make('id')->searchable(false)->addClass('text-center'),
             Column::make('user_id')->orderable(false)->searchable(false)->title('User')->addClass('text-center'),
-            Column::make('role')->orderable(false)->searchable(false),
             Column::make('activity_content')->title('Aktivitas'),
             Column::make('ip_access')->title('IP Address'),
             Column::make('url')->title('URL'),

@@ -85,9 +85,10 @@
         </div>
     </div>
     @include('konfigurasi.modal.decrypt')
+    @include('modals.detail-user')
 @endsection
 
-@push('content_scripts')
+@section('scripts')
     @can('decrypt')
         <script>
             $('#btnModalDecrypt').on('click', function() {
@@ -111,4 +112,38 @@
         </script>
     @endcan
     {{ $dataTable->scripts() }}
-@endpush
+    @can('user_show')
+        <script>
+            $(document).on('click', '.btnModalUser', function() {
+                const defaultBackgroundImage = '/metronic/demo2/assets/media/illustrations/sigma-1/20.png';
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+
+                let dataObject = JSON.parse(atob($(this).attr('data-object')));
+                let backgroundImage = dataObject.id_file_foto != null ? '/storage/' + dataObject.foto.path_file :
+                    defaultBackgroundImage;
+                let rolesName = [];
+                $.each(dataObject.roles, (key, value) => rolesName.push(value.name));
+
+                let tanggalLahir = new Date(dataObject.tanggal_lahir).toLocaleDateString('id-ID',
+                    options);
+                let expiredPassword = new Date(dataObject.expired_password).toLocaleDateString('id-ID',
+                    options);
+
+                $('#preview-image').css('background-image', 'url(' + backgroundImage + ')');
+                $('#nrik').text(`: ${dataObject.nrik}`);
+                $('#user_bv').text(`: ${dataObject.user_bv}`);
+                $('#roles').text(`: ${rolesName.join(', ')}`);
+                $('#name').text(`: ${dataObject.name}`);
+                $('#email').text(`: ${dataObject.email}`);
+                $('#tanggal_lahir').text(`: ${tanggalLahir}`);
+                $('#unit_kerja').text(`: ${dataObject.unit_kerja.nama}`);
+                $('#expired_password').text(`: ${expiredPassword}`);
+            });
+        </script>
+    @endcan
+@endsection

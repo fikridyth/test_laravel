@@ -4,7 +4,6 @@
             show_alert_dialog(`{{ session('alert.status') }}`, `{{ session('alert.message') }}`);
         @endif
 
-
         @if ($errors->any())
             var status = `01`;
             var message = ``;

@@ -167,7 +167,7 @@
 
 @endsection
 
-@push('content_scripts')
+@section('scripts')
     <script>
         $(document).ready(function() {
             const container = document.querySelector("#kt_content");
@@ -183,4 +183,4 @@
             });
         });
     </script>
-@endpush
+@endsection

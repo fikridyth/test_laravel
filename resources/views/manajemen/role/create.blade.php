@@ -121,7 +121,7 @@
     </div>
 @endsection
 
-@push('content_scripts')
+@section('scripts')
     <script src="{{ asset('dual-listbox/dual-listbox.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -141,4 +141,4 @@
             });
         });
     </script>
-@endpush
+@endsection

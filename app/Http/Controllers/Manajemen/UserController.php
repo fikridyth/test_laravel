@@ -78,8 +78,15 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $this->authorize('user_create');
+        $nama = explode(' ', $request->name);
+        $nrik = $request->nrik;
+        $userBV = strtoupper(substr($nama[0], 0, 2) . $nrik);
+        if (count($nama) >= 2) {
+            $userBV = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
+        }
         $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY');
         $user =  User::create($request->validated() + [
+            'user_bv' => $userBV,
             'password' => bcrypt($password),
             'expired_password' => '1970-01-01',
             'created_by' => Auth::id(),
@@ -142,9 +149,16 @@ class UserController extends Controller
     {
         $this->authorize('user_edit');
         $user = User::find($user->id);
+        $nama = explode(' ', $request->name);
+        $nrik = $request->nrik;
+        $userBV = strtoupper(substr($nama[0], 0, 2) . $nrik);
+        if (count($nama) >= 2) {
+            $userBV = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
+        }
         $user->update([
             'name' => $request->name,
-            'nrik' => $request->nrik,
+            'nrik' => $nrik,
+            'user_bv' => $userBV,
             'email' => $request->email,
             'tanggal_lahir' => $request->tanggal_lahir,
             'id_unit_kerja' => $request->id_unit_kerja,

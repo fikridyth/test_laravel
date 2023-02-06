@@ -31,7 +31,7 @@
     </div>
 @endsection
 
-@push('content_scripts')
+@section('scripts')
     <script>
         $(document).ready(function() {
             $('.select2').select2();
@@ -41,4 +41,4 @@
             });
         });
     </script>
-@endpush
+@endsection

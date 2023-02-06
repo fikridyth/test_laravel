@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'nrik' => NRIK::$SUPER_ADMIN,
+                'user_bv' => 'SA' . NRIK::$SUPER_ADMIN,
                 'email' => 'superadmin@example.com',
                 'password' => '$2y$10$p2.BMYY0Ne43yArEik7Ah.JsMdjFMJy0/Pkl5WsCok6QX8Y8/2wXS', // P@ssw0rd321
                 'tanggal_lahir' => '1999-09-09',
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Developer',
                 'nrik' => NRIK::$DEVELOPER,
+                'user_bv' => 'DE' . NRIK::$DEVELOPER,
                 'email' => 'noncoredev@gmail.com',
                 'password' => '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG',
                 'tanggal_lahir' => '1999-09-09',
@@ -38,6 +40,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Adi Nugroho',
                 'nrik' => NRIK::$ADI,
+                'user_bv' => 'AN' . NRIK::$ADI,
                 'email' => '99999998@example.com',
                 'password' => '$2y$10$PNNQcGIEAsN2pamkLWEtAOVcTPr6y/ypS1.AROh7g2mHxfww7CX0C', // 99999998@bdki
                 'tanggal_lahir' => '1996-04-10',
@@ -47,6 +50,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Rendy Agustian',
                 'nrik' => NRIK::$RENDY,
+                'user_bv' => 'RA' . NRIK::$RENDY,
                 'email' => 'rendy.bdki@gmail.com',
                 'password' => '$2y$10$8YZJ3Dv.gZkQ4kXw3X9aFu5bN5slAzPTHVOBJg2lMrAiGRSkV2kYG', // 26011214@bdki
                 'tanggal_lahir' => '1989-07-19',
@@ -55,6 +59,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Kusdhian Herlambang',
                 'nrik' => NRIK::$KUSDHIAN,
+                'user_bv' => 'KH' . NRIK::$KUSDHIAN,
                 'email' => 'kusdhian@gmail.com',
                 'password' => '$2y$10$UJF0jcUdyl..AeRTh7REgOCzVq0CyK2.qa7xxQSksFpCp.DbpQYjq', // 28451215@bdki
                 'tanggal_lahir' => '1991-06-13',
@@ -63,6 +68,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Fiqqi Nurrakhman',
                 'nrik' => NRIK::$FIQQI,
+                'user_bv' => 'FN' . NRIK::$FIQQI,
                 'email' => 'fiqqirahman@gmail.com',
                 'password' => '$2y$10$t520Y0ZzcZCo5NkVScmrcO8Lev4cFUXm5tqXf86dXNXX7WWdRZFVe', // 42101120@bdki
                 'tanggal_lahir' => '1994-04-19',
@@ -71,6 +77,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Kal Kausar',
                 'nrik' => NRIK::$KAUTSAR,
+                'user_bv' => 'KK' . NRIK::$KAUTSAR,
                 'email' => 'kalkausar98@gmail.com',
                 'password' => '$2y$10$dbhiOLNTtr/iiTo0hx9lBuuCaKmKvbBak6BOD7iyiXplj2L8u0Iaq', // 46050522@bdki
                 'tanggal_lahir' => '1998-08-30',
@@ -79,6 +86,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Wildan Afifi',
                 'nrik' => NRIK::$WILDAN,
+                'user_bv' => 'WA' . NRIK::$WILDAN,
                 'email' => 'wildan.afifi@gmail.com',
                 'password' => '$2y$10$be9d/cipKutFJGo2le7y1e2dv5Chj7nUrkBcx4TQvmGvsMElkLCl6', // 47071022@bdki
                 'tanggal_lahir' => '1993-05-13',
