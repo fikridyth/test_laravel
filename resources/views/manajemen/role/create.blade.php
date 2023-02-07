@@ -22,11 +22,8 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST" id="form"
-                                action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => $role->id]) }}">
+                                action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => enkrip($role->id)]) }}">
                                 @csrf
-                                @if ($role->id != null)
-                                    @method('put')
-                                @endif
                                 @if ($role->id == null)
                                     <div class="fv-row mb-7">
                                         <label for="id" class="fs-6 fw-semibold form-label mt-3">
@@ -43,6 +40,8 @@
                                             </div>
                                         @enderror
                                     </div>
+                                @else
+                                    @method('put')
                                 @endif
                                 <div class="fv-row mb-7">
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">

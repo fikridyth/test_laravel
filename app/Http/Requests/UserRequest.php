@@ -35,12 +35,12 @@ class UserRequest extends FormRequest
             $nrik = [
                 'required',
                 'digits:8',
-                Rule::unique('users', 'nrik')->ignore($this->user)
+                Rule::unique('users', 'nrik')->ignore(dekrip($this->id))
             ];
             $email = [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->user)
+                Rule::unique('users', 'email')->ignore(dekrip($this->id))
             ];
         }
 

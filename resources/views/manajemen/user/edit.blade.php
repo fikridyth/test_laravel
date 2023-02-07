@@ -17,8 +17,8 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-user.update', $stmtUser->id) }}" class="form" id="form"
-                                method="POST">
+                            <form action="{{ route('manajemen-user.update', enkrip($stmtUser->id)) }}" class="form"
+                                id="form" method="POST">
                                 @method('put')
                                 @csrf
                                 <div class="fv-row mb-7">
@@ -87,7 +87,8 @@
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Hanya unit kerja yang aktif saja yang dapat dipilih"></i>
                                     </label>
-                                    <select class="form-select form-select-solid @error('id_unit_kerja') is-invalid @enderror"
+                                    <select
+                                        class="form-select form-select-solid @error('id_unit_kerja') is-invalid @enderror"
                                         id="id_unit_kerja" name="id_unit_kerja" data-control="select2"
                                         data-placeholder="---Pilih Unit Kerja---">
                                         <option></option>
@@ -110,8 +111,8 @@
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Role wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
                                     </label>
-                                    <select class="form-select form-select-solid @error('id_role') is-invalid @enderror" id="id_role"
-                                        name="id_role[]" data-control="select2" multiple
+                                    <select class="form-select form-select-solid @error('id_role') is-invalid @enderror"
+                                        id="id_role" name="id_role[]" data-control="select2" multiple
                                         data-placeholder="---Pilih Role---">
                                         <option></option>
                                         @foreach ($stmtRole as $role)

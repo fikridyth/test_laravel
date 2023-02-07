@@ -103,37 +103,39 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
         abort_if(Gate::denies('user_show'), 403, "You Don't Have Permission.");
-        return $user;
+        $id = dekrip($id);
+        return User::with(['unitKerja', 'foto'])->find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         $this->authorize('user_edit');
         $title = 'Ubah ' . self::$title;
+        $id = dekrip($id);
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('manajemen-user.edit', $user)],
+            [$title, route('manajemen-user.edit', $id)],
         ];
 
         $stmtRole = Role::orderBy('id')->get();
 
         $stmtUnitKerja = UnitKerja::orderBy('nama')->get();
 
-        $stmtUser = $user;
+        $stmtUser = User::with(['unitKerja', 'foto'])->find($id);
 
         return view('manajemen.user.edit', compact('title', 'breadcrumbs', 'stmtRole', 'stmtUnitKerja', 'stmtUser'));
     }
@@ -142,13 +144,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\UserRequest  $request
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
         $this->authorize('user_edit');
-        $user = User::find($user->id);
+        $id = dekrip($id);
+        $user = User::find($id);
         $nama = explode(' ', $request->name);
         $nrik = $request->nrik;
         $userBV = strtoupper(substr($nama[0], 0, 2) . $nrik);
@@ -178,26 +181,27 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        return $user;
+        return;
     }
 
-    public function unlockUser(User $user)
+    public function unlockUser($id)
     {
+        $id = dekrip($id);
+        $user = User::find($id);
         $password = bcrypt(date_format(date_create_from_format('Y-m-d', $user->tanggal_lahir), 'dmY'));
         if ($user->nrik === NRIK::$DEVELOPER) {
             $password = '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG';
         }
 
-        User::where('id', $user->id)
-            ->update([
-                'password' => $password,
-                'is_blokir' => null
-            ]);
+        $user->update([
+            'password' => $password,
+            'is_blokir' => null
+        ]);
 
         createLogActivity("Membuka blokir user {$user->name}");
 
@@ -206,9 +210,11 @@ class UserController extends Controller
             ->with('alert.message', "Berhasil membuka blokir User {$user->name}");
     }
 
-    public function resetIPUser(User $user)
+    public function resetIPUser($id)
     {
-        User::where('id', $user->id)->update(['ip_address' => null]);
+        $id = dekrip($id);
+        $user = User::find($id);
+        $user->update(['ip_address' => null]);
 
         createLogActivity("Melepaskan IP Adress pada user {$user->name}");
 

@@ -36,14 +36,14 @@ class MenuRequest extends FormRequest
                 'sometimes',
                 'numeric',
                 'between:1,100000',
-                Rule::unique('menus', 'id')->ignore($this->id)
+                Rule::unique('menus', 'id')->ignore(dekrip($this->id))
             ];
             $name = [
                 'required',
                 'string',
                 'between:2,50',
                 'regex:/^[a-zA-Z0-9\s]+$/',
-                Rule::unique('menus', 'name')->ignore($this->id)
+                Rule::unique('menus', 'name')->ignore(dekrip($this->id))
             ];
         }
 

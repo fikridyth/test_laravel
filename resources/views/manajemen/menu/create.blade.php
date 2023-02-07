@@ -18,11 +18,8 @@
                         </div>
                         <div class="card-body pt-5">
                             <form role="form" method="POST" id="form"
-                                action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => $menu->id]) }}">
+                                action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => enkrip($menu->id)]) }}">
                                 @csrf
-                                @if ($menu->id != null)
-                                    @method('put')
-                                @endif
                                 @if ($menu->id == null)
                                     <div class="fv-row mb-7">
                                         <label for="id" class="fs-6 fw-semibold form-label mt-3">
@@ -39,6 +36,8 @@
                                             </div>
                                         @enderror
                                     </div>
+                                @else
+                                    @method('put')
                                 @endif
                                 <div class="fv-row mb-7">
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">

@@ -70,11 +70,11 @@ class RoleController extends Controller
             ->with('alert.message', "Role {$request->name} berhasil ditambahkan.");
     }
 
-
     public function edit($id)
     {
         $this->authorize('role_edit');
         $title = 'Ubah ' . self::$title;
+        $id = dekrip($id);
 
         $role = Role::with(['permissions', 'menus'])->find($id);
 
@@ -101,6 +101,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, $id)
     {
         $this->authorize('role_edit');
+        $id = dekrip($id);
         $role = Role::find($id);
         $role->update(['name' => $request->name, 'updated_at' => now()]);
 

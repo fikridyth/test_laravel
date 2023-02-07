@@ -37,7 +37,7 @@ class UserDataTable extends DataTable
             })
             ->editColumn('is_blokir', function ($row) {
                 $btnUnblock = '-';
-                $routeUnblock = route('manajemen-user.buka-blokir', $row->id);
+                $routeUnblock = route('manajemen-user.buka-blokir', enkrip($row->id));
                 if ($row->is_blokir === 1) {
                     $btnUnblock = '<span class="badge badge-light-danger">
                                         <a href="' . $routeUnblock . '"
@@ -53,7 +53,7 @@ class UserDataTable extends DataTable
             })
             ->editColumn('ip_address', function ($row) {
                 $btnIp = '';
-                $routeIp = route('manajemen-user.lepas-ip', $row->id);
+                $routeIp = route('manajemen-user.lepas-ip', enkrip($row->id));
                 if ($row->ip_address) {
                     $btnIp = '
                         <span class="badge badge-light-primary">
@@ -68,7 +68,7 @@ class UserDataTable extends DataTable
             })
             ->addColumn('aksi', function ($row) {
                 $btnUpdate = '-';
-                $routeEdit = route('manajemen-user.edit', $row->id);
+                $routeEdit = route('manajemen-user.edit', enkrip($row->id));
                 if (Gate::allows('user_edit')) {
                     $btnUpdate = '<a href="' . $routeEdit . '" class="btn btn-primary btn-sm">Ubah</a>';
                 }

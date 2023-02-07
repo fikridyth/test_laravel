@@ -52,7 +52,8 @@
                                             <td>{{ dateWithFullMonthAndTimeFormat($role->updated_at) }}</td>
                                             @can('role_edit')
                                                 <td class="text-center">
-                                                    <a class="btn btn-secondary" href="{{ route('roles.edit', $role->id) }}">
+                                                    <a class="btn btn-secondary"
+                                                        href="{{ route('roles.edit', enkrip($role->id)) }}">
                                                         Ubah
                                                     </a>
                                                 </td>

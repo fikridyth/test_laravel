@@ -36,14 +36,14 @@ class RoleRequest extends FormRequest
                 'sometimes',
                 'numeric',
                 'between:1,100',
-                Rule::unique('roles', 'id')->ignore($this->id)
+                Rule::unique('roles', 'id')->ignore(dekrip($this->id))
             ];
             $name = [
                 'required',
                 'string',
                 'between:2,50',
                 'regex:/^[a-zA-Z0-9\s]+$/',
-                Rule::unique('roles', 'name')->ignore($this->id)
+                Rule::unique('roles', 'name')->ignore(dekrip($this->id))
             ];
         }
 

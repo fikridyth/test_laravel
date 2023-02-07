@@ -84,6 +84,7 @@ class MenuController extends Controller
     {
         $this->authorize('menu_edit');
         $title = 'Ubah ' . self::$title;
+        $id = dekrip($id);
 
         $query = Menu::with(['roles']);
         $menu = $query->find($id);
@@ -91,7 +92,7 @@ class MenuController extends Controller
         $breadcrumbs = [
             HomeController::breadcrumb(),
             self::breadcrumb(),
-            [$title, route('menus.edit', $menu->id)],
+            [$title, route('menus.edit', $id)],
         ];
 
         $menus = $this->picklistMenu([
@@ -110,6 +111,7 @@ class MenuController extends Controller
     public function update(MenuRequest $request, $id)
     {
         $this->authorize('menu_edit');
+        $id = dekrip($id);
         $menu = Menu::find($id);
         $menu->update([
             'route' => $request->route,
@@ -131,6 +133,7 @@ class MenuController extends Controller
 
     public function delete($id)
     {
+        $id = dekrip($id);
         $menu = Menu::find($id);
         $menu->roles()->sync([]);
         $menu->delete();
@@ -184,10 +187,10 @@ class MenuController extends Controller
                         <td class='text-center'>{$child['order']}</td>
                         <td>";
             if (Gate::allows('menu_edit')) {
-                $html .= '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menus.edit', ['id' => $child['id']]) . '\'>Ubah</a>';
+                $html .= '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menus.edit', ['id' => enkrip($child['id'])]) . '\'>Ubah</a>';
             }
             if (Gate::allows('menu_delete')) {
-                $html .= '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menus.delete', ['id' => $child['id']]) . '\'>Hapus</a>';
+                $html .= '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menus.delete', ['id' => enkrip($child['id'])]) . '\'>Hapus</a>';
             }
             $html .= "</td>
                 </tr>

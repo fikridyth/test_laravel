@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // untuk manajemen user
-    Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'user']])->except('destroy');
+    Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'id']])->except('destroy');
     Route::name('manajemen-user.')->group(function () {
         Route::get('/manajemen-user/{user}/buka-blokir', [UserController::class, 'unlockUser'])->name('buka-blokir')->middleware('permission:user_unblock');
         Route::get('/manajemen-user/{user}/lepas-ip', [UserController::class, 'resetIPUser'])->name('lepas-ip')->middleware('permission:user_remove_ip');
