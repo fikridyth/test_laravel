@@ -44,12 +44,12 @@ class User extends Authenticatable
         'ip_address'
     ];
 
-    public function unitKerja()
+    function unitKerja()
     {
         return $this->belongsTo(UnitKerja::class, 'id_unit_kerja', 'id_unit_kerja');
     }
 
-    public function foto()
+    function foto()
     {
         return $this->belongsTo(HistoryFile::class, 'id_file_foto');
     }
@@ -59,14 +59,14 @@ class User extends Authenticatable
         return $this->belongsTo(self::class, 'updated_by');
     }
 
-    public function scopeSearchByName($query, array $filters)
+    function scopeSearchByName($query, array $filters)
     {
         $query->when($filters['nama'] ?? false, function ($query, $nama) {
             return $query->where('name', 'ILIKE', '%' . $nama . '%');
         });
     }
 
-    public function scopeFilter($query, array $filters)
+    function scopeFilter($query, array $filters)
     {
         $query->when($filters['role'] ?? false, function ($query, $role) {
             return $query->whereHas('roles', function (Builder $query) use ($role) {

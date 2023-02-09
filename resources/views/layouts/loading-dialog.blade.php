@@ -4,7 +4,7 @@
             <div class="modal-body">
                 <div class="row" style="margin: 40px; auto">
                     <div class="col-12 text-center">
-                        Mohon menunggu beberapa saat..
+                        Mohon tunggu beberapa saat..
                     </div>
                 </div>
             </div>

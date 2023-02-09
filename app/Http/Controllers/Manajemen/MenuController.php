@@ -9,7 +9,7 @@ use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Services\MenuService;
-use App\Statics\User\Role as UserRole;
+use App\Statics\User\Role as StaticRole;
 use Illuminate\Support\Facades\Gate;
 
 class MenuController extends Controller
@@ -37,7 +37,7 @@ class MenuController extends Controller
         $html = '<table class=\'table align-middle table-row-dashed fs-6 gy-5 kt_default_datatable\'>'
             . '<thead><tr class=\'text-muted fw-bold fs-7 text-uppercase gs-0\'><th>Title</th><th>Route</th><th>Icon</th><th>Roles</th><th>Order</th><th class=\'text-center\'>Action</th></tr></thead>';
         $menu = [
-            'children' => MenuService::getMenus(0, UserRole::getAll()),
+            'children' => MenuService::getMenus(0, StaticRole::getAll()),
         ];
         $html .= $this->printMenu($menu);
         $html .= '</table>';
@@ -58,7 +58,7 @@ class MenuController extends Controller
 
         $menu = new Menu();
         $menus = $this->picklistMenu([
-            'children' => MenuService::getMenus(0, UserRole::getAll())
+            'children' => MenuService::getMenus(0, StaticRole::getAll())
         ]);
         $roles = Role::all();
         $menuRoles = [];
@@ -96,7 +96,7 @@ class MenuController extends Controller
         ];
 
         $menus = $this->picklistMenu([
-            'children' => MenuService::getMenus(0, UserRole::getAll())
+            'children' => MenuService::getMenus(0, StaticRole::getAll())
         ]);
         $roles = Role::all();
         $menuRoles = [];

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HistoryPenerimaBansos;
-
 class HomeController extends Controller
 {
     private static $title = 'Dashboard';
@@ -14,23 +12,6 @@ class HomeController extends Controller
             self::$title, route('index')
         ];
     }
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
 
     public function index()
     {

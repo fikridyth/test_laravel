@@ -16,39 +16,14 @@ class NRIK
     static function getAllForCreate()
     {
         return [
-            [
-                'nrik' => self::$SUPER_ADMIN,
-                'roles' => [Role::$SUPER_ADMIN,],
-            ],
-            [
-                'nrik' => self::$DEVELOPER,
-                'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN],
-            ],
-            [
-                'nrik' => self::$ADI,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-            [
-                'nrik' => self::$RENDY,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-            [
-                'nrik' => self::$KUSDHIAN,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-            [
-                'nrik' => self::$FIQQI,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-            [
-                'nrik' => self::$KAUTSAR,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-            [
-                'nrik' => self::$WILDAN,
-                'roles' => [Role::$DEVELOPER,],
-            ],
-
+            ['nrik' => self::$SUPER_ADMIN, 'roles' => [Role::$SUPER_ADMIN]],
+            ['nrik' => self::$DEVELOPER, 'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN]],
+            ['nrik' => self::$ADI, 'roles' => [Role::$DEVELOPER]],
+            ['nrik' => self::$RENDY, 'roles' => [Role::$DEVELOPER]],
+            ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$DEVELOPER]],
+            ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER]],
+            ['nrik' => self::$KAUTSAR, 'roles' => [Role::$DEVELOPER]],
+            ['nrik' => self::$WILDAN, 'roles' => [Role::$DEVELOPER]],
         ];
     }
 }

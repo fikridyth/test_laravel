@@ -1,5 +1,5 @@
 @extends('main')
-@section('page.title', 'Manajemen Permission')
+@section('page.title', 'Manajemen Akses')
 @section('content')
 
     @include('layouts.toolbar')

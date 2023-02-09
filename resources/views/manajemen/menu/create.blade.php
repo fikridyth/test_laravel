@@ -1,5 +1,5 @@
 @extends('main')
-@section('page.title', 'Form Menu')
+@section('page.title', 'Manajemen Menu')
 @section('content')
 
     @include('layouts.toolbar')

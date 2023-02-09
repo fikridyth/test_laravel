@@ -1,5 +1,5 @@
 @extends('main')
-@section('page.title', 'Manajemen Roles')
+@section('page.title', 'Manajemen Role')
 @section('content')
 
     @include('layouts.toolbar')

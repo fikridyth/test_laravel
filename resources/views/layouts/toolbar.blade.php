@@ -3,7 +3,6 @@
         <div class="page-title d-flex flex-column me-3">
             <h1 class="d-flex text-white fw-bold my-1 fs-3">{{ $title ?? 'No Title' }}</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                {{-- @dd($breadcrumbs) --}}
                 @foreach ($breadcrumbs ?? [] as $key => $breadcrumb)
                     <li class="breadcrumb-item text-white opacity-75">
                         <a href="{{ $breadcrumb[1] }}" class="text-white text-hover-primary">{{ $breadcrumb[0] }}</a>
