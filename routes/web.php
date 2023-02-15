@@ -50,7 +50,6 @@ Route::middleware('auth')->group(function () {
     });
 
     // manajemen user
-    Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'id']])->except('destroy');
     Route::name('manajemen-user.')->group(function () {
         Route::get('/manajemen-user/{user}/buka-blokir', [UserController::class, 'unlockUser'])->name('buka-blokir')->middleware('permission:user_unblock');
         Route::get('/manajemen-user/{user}/lepas-ip', [UserController::class, 'resetIPUser'])->name('lepas-ip')->middleware('permission:user_remove_ip');
@@ -58,10 +57,11 @@ Route::middleware('auth')->group(function () {
         Route::put('/update-profile', [UserController::class, 'updateProfile'])->name('update-profile');
         Route::get('/remove-profile-picture', [UserController::class, 'removeProfilePicture'])->name('remove-profile-picture');
     });
+    Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'id']])->except('destroy');
 
     // manajemen menu
-    Route::resource('/menus', MenuController::class, ['parameters' => ['menus' => 'id']])->except(['show', 'destroy']);
     Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('menus.delete')->middleware('permission:menu_delete');
+    Route::resource('/menus', MenuController::class, ['parameters' => ['menus' => 'id']])->except(['show', 'destroy']);
 
     // manajemen role
     Route::resource('/roles', RoleController::class, ['parameters' => ['roles' => 'id']])->except(['show', 'destroy']);
