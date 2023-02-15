@@ -48,5 +48,11 @@
         if (!blockContainerLogin.isBlocked()) {
             blockContainerLogin.block();
         }
+        $("#form-login")
+            .find(":submit")
+            .html(
+                "<span class='spinner-border spinner-border-sm align-middle ms-2'></span>"
+            )
+            .prop("disabled", true);
     });
 </script>
