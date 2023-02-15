@@ -13,17 +13,16 @@
                                 <span class="svg-icon svg-icon-1 me-2">
                                     {!! file_get_contents('metronic/demo2/assets/media/icons/duotune/communication/com006.svg') !!}
                                 </span>
-                                <h2>Ubah Profil</h2>
+                                <h2>Ubah Profile</h2>
                             </div>
                         </div>
-                        <form id="kt_modal_add_user_form" class="form"
-                            action="{{ route('manajemen-user.update-profil') }}" method="POST"
+                        <form action="{{ route('manajemen-user.update-profile') }}" method="POST" id="form"
                             enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <div class="card-body">
                                 <div class="fv-row mb-7">
-                                    <label for="foto" class="d-block fw-semibold fs-6 mb-5">Foto Profil</label>
+                                    <label for="foto" class="d-block fw-semibold fs-6 mb-5">Foto Profile</label>
                                     <div class="image-input image-input-outline image-input-placeholder"
                                         data-kt-image-input="true">
                                         <div id="preview-image" class="image-input-wrapper w-125px h-125px"
@@ -116,6 +115,19 @@
         $('#remove-avatar').on('click', function() {
             $('#preview-image').css('background-image', 'url(' + imageUrl + ')');
             $('#foto').val(null);
+
+            $.ajax({
+                url: "{{ route('manajemen-user.remove-profile-picture') }}",
+                type: 'GET',
+                contentType: 'application/json',
+                success: (data) => {
+                    Swal.fire({
+                        title: "Info",
+                        html: data,
+                        icon: "success",
+                    });
+                }
+            });
         });
     </script>
 @endsection

@@ -17,8 +17,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form role="form" method="POST" id="form"
-                                action="{{ $permission->id == null ? route('permissions.store') : route('permissions.update', ['id' => $permission->id]) }}">
+                            <form
+                                action="{{ $permission->id == null ? route('permissions.store') : route('permissions.update', ['id' => $permission->id]) }}"
+                                method="POST" id="form">
                                 @csrf
                                 @if ($permission->id != null)
                                     @method('put')
@@ -45,7 +46,7 @@
                                             title="Nama akses harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
                                     </label>
                                     <input type="text"
-                                        class="form-control form-control-solid @error('name') is-invalid @enderror"
+                                        class="form-control form-control-solid text-lowercase @error('name') is-invalid @enderror"
                                         name="name" value="{{ old('name', $permission->name) }}" id="name" />
                                     @error('name')
                                         <div class="invalid-feedback">
@@ -69,22 +70,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            const container = document.querySelector("#kt_content");
-
-            const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
-            });
-
-            $('#form').on('submit', function() {
-                if (!blockContainer.isBlocked()) {
-                    blockContainer.block();
-                }
-            });
-        });
-    </script>
 @endsection

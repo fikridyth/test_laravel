@@ -19,4 +19,32 @@
         @endif
 
     });
+
+    function show_alert_dialog(status, message) {
+        if (!(typeof message === "string" || message instanceof String)) {
+            message = message.responseText;
+        }
+
+        message = message.replace(/(\r\n|\n|\r)/g, " ");
+
+        if (status == "00") {
+            Swal.fire({
+                title: "Berhasil",
+                html: message,
+                icon: "success",
+            });
+        } else if (status == "000") {
+            Swal.fire({
+                title: "Info",
+                html: message,
+                icon: "info",
+            });
+        } else {
+            Swal.fire({
+                title: "Proses Gagal",
+                html: message,
+                icon: "warning",
+            });
+        }
+    }
 </script>

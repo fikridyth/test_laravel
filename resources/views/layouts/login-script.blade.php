@@ -37,4 +37,16 @@
     function stop_loading() {
         $("#loading-dialog").modal("hide");
     }
+
+    const containerLogin = document.querySelector("#kt_body");
+
+    const blockContainerLogin = new KTBlockUI(containerLogin, {
+        message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>',
+    });
+
+    $("#form-login").on("submit", function() {
+        if (!blockContainerLogin.isBlocked()) {
+            blockContainerLogin.block();
+        }
+    });
 </script>

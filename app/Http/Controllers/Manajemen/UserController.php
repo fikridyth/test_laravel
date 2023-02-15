@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Statics\User\NRIK;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
@@ -223,18 +224,18 @@ class UserController extends Controller
             ->with('alert.message', "Berhasil melepaskan IP Address User {$user->name}");
     }
 
-    public function changeProfil()
+    public function changeProfile()
     {
-        $title = 'Ubah Profil';
+        $title = 'Ubah Profile';
 
         $breadcrumbs = [
-            [$title, route('manajemen-user.change-profil')]
+            [$title, route('manajemen-user.change-profile')]
         ];
 
-        return view('manajemen.user.change-profil', compact('title', 'breadcrumbs'));
+        return view('manajemen.user.change-profile', compact('title', 'breadcrumbs'));
     }
 
-    public function updateProfil(Request $request)
+    public function updateProfile(Request $request)
     {
         $user = User::find(Auth::id());
 
@@ -263,10 +264,26 @@ class UserController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
         ]);
 
-        createLogActivity("Memperbarui profil");
+        createLogActivity("Memperbarui profile");
 
-        return Redirect::route('manajemen-user.change-profil')
+        return Redirect::route('manajemen-user.change-profile')
             ->with('alert.status', '00')
-            ->with('alert.message', "Profil Anda berhasil diperbarui");
+            ->with('alert.message', "Profile Anda berhasil diperbarui");
+    }
+
+    public function removeProfilePicture()
+    {
+        $user = User::find(Auth::id());
+
+        $pathFile = '/storage/' . $user->foto->path_file;
+        File::delete(public_path($pathFile));
+        
+        $user->foto->delete();
+        
+        $user->update(['id_file_foto' => null]);
+
+        createLogActivity("Menghapus foto profile");
+
+        return "Berhasil menghapus foto profile";
     }
 }

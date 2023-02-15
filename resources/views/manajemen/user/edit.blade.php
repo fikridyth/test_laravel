@@ -17,8 +17,8 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-user.update', enkrip($stmtUser->id)) }}" class="form"
-                                id="form" method="POST">
+                            <form action="{{ route('manajemen-user.update', enkrip($stmtUser->id)) }}" method="POST"
+                                id="form">
                                 @method('put')
                                 @csrf
                                 <div class="fv-row mb-7">
@@ -148,22 +148,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            const container = document.querySelector("#kt_content");
-
-            const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang memperbarui data...</div>',
-            });
-
-            $('#form').on('submit', function() {
-                if (!blockContainer.isBlocked()) {
-                    blockContainer.block();
-                }
-            });
-        });
-    </script>
 @endsection

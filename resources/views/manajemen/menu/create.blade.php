@@ -1,7 +1,6 @@
 @extends('main')
 @section('page.title', 'Manajemen Menu')
 @section('content')
-
     @include('layouts.toolbar')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
@@ -17,8 +16,9 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form role="form" method="POST" id="form"
-                                action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => enkrip($menu->id)]) }}">
+                            <form
+                                action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => enkrip($menu->id)]) }}"
+                                method="POST" id="form">
                                 @csrf
                                 @if ($menu->id == null)
                                     <div class="fv-row mb-7">
@@ -163,23 +163,4 @@
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            const container = document.querySelector("#kt_content");
-
-            const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
-            });
-
-            $('#form').on('submit', function() {
-                if (!blockContainer.isBlocked()) {
-                    blockContainer.block();
-                }
-            });
-        });
-    </script>
 @endsection

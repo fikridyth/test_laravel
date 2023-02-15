@@ -43,7 +43,7 @@
             <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
                 <div class="bg-body d-flex flex-center rounded-4 w-md-600px p-10">
                     <div class="w-md-400px">
-                        <form class="form w-100" action="{{ route('auth.login-submit') }}" method="POST">
+                        <form action="{{ route('auth.login-submit') }}" method="POST" id="form-login">
                             @csrf
                             <div class="text-center mb-11">
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
@@ -60,8 +60,6 @@
                             <div class="d-grid mb-10">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
                                     <span class="indicator-label">Sign In</span>
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
                             </div>
                         </form>
@@ -70,11 +68,8 @@
             </div>
         </div>
     </div>
-
     @include('layouts.login-script')
-
     @include('layouts.alert-dialog')
-
 </body>
 
 </html>

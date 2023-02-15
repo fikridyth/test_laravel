@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-sekuriti.update') }}" class="form" method="POST">
+                            <form action="{{ route('manajemen-sekuriti.update') }}" method="POST" id="form">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="min_pass" class="fs-6 fw-semibold form-label mt-3">
@@ -89,8 +89,6 @@
                                         class="btn btn-light me-3">Cancel</button>
                                     <button type="submit" data-kt-contacts-type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Update</span>
-                                        <span class="indicator-progress">Please wait...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
                             </form>

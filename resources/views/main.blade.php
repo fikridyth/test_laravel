@@ -16,9 +16,6 @@
     <meta property="og:site_name" content="{{ config('app.name') }}" />
     @include('layouts.styles')
     @yield('styles')
-    @stack('content_styles')
-
-    <script src="{{ asset('js/theme.js') }}" defer></script>
 </head>
 
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
@@ -37,7 +34,6 @@
     @include('layouts.alert-dialog')
 
     @yield('scripts')
-    @stack('content_scripts')
 
 </body>
 

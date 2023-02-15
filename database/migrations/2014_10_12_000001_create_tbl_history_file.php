@@ -24,6 +24,7 @@ class CreateTblHistoryFile extends Migration
             // 99 = gagal upload
             $table->foreignId('created_by')->references('id')->on('users');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

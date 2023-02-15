@@ -7,10 +7,9 @@
         <div class="content flex-row-fluid" id="kt_content">
             <div class="row justify-content-center">
                 <div class="col">
-                    <form action="{{ route('auth.change-password-submit') }}" method="POST">
-                        @csrf
-
-                        <div class="card">
+                    <div class="card">
+                        <form action="{{ route('auth.change-password-submit') }}" method="POST" id="form">
+                            @csrf
                             <div class="card-body">
                                 <div class="form-group mb-4">
                                     <label class="form-label fw-semibold fs-6 mb-2" for="password">Password Lama</label>
@@ -28,7 +27,6 @@
                                         <label class="form-label fw-semibold fs-6 mb-2" for="password_baru">
                                             Password Baru
                                         </label>
-
 
                                         <div class="position-relative mb-3">
                                             <input
@@ -85,8 +83,8 @@
                                     <button type="submit" class="btn btn-primary me-4">Simpan</button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

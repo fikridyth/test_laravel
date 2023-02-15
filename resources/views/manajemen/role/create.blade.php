@@ -1,9 +1,9 @@
 @extends('main')
 @section('page.title', 'Manajemen Role')
 
-@push('content_styles')
+@section('styles')
     <link href="{{ asset('dual-listbox/dual-listbox.css') }}" rel="stylesheet" />
-@endpush
+@endsection
 @section('content')
 
     @include('layouts.toolbar')
@@ -21,8 +21,9 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form role="form" method="POST" id="form"
-                                action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => enkrip($role->id)]) }}">
+                            <form
+                                action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => enkrip($role->id)]) }}"
+                                method="POST" id="form">
                                 @csrf
                                 @if ($role->id == null)
                                     <div class="fv-row mb-7">
@@ -126,18 +127,6 @@
         $(document).ready(function() {
             new DualListbox('#permissions');
             new DualListbox('#menus');
-
-            const container = document.querySelector("#kt_content");
-
-            const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
-            });
-
-            $('#form').on('submit', function() {
-                if (!blockContainer.isBlocked()) {
-                    blockContainer.block();
-                }
-            });
         });
     </script>
 @endsection

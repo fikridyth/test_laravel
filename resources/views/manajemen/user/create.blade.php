@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-user.store') }}" class="form" method="POST" id="form">
+                            <form action="{{ route('manajemen-user.store') }}" method="POST" id="form">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="nrik" class="fs-6 fw-semibold form-label mt-3">
@@ -85,7 +85,8 @@
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Hanya unit kerja yang aktif saja yang dapat dipilih"></i>
                                     </label>
-                                    <select class="form-select form-select-solid @error('id_unit_kerja') is-invalid @enderror"
+                                    <select
+                                        class="form-select form-select-solid @error('id_unit_kerja') is-invalid @enderror"
                                         id="id_unit_kerja" name="id_unit_kerja" data-control="select2"
                                         data-placeholder="---Pilih Unit Kerja---">
                                         <option></option>
@@ -108,8 +109,8 @@
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Role wajib dipilih minimal 1 dan dapat dipilih lebih dari 1"></i>
                                     </label>
-                                    <select class="form-select form-select-solid @error('id_role') is-invalid @enderror" id="id_role"
-                                        name="id_role[]" data-control="select2" multiple
+                                    <select class="form-select form-select-solid @error('id_role') is-invalid @enderror"
+                                        id="id_role" name="id_role[]" data-control="select2" multiple
                                         data-placeholder="---Pilih Role---">
                                         <option></option>
                                         @foreach ($stmtRole as $role)
@@ -139,22 +140,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            const container = document.querySelector("#kt_content");
-
-            const blockContainer = new KTBlockUI(container, {
-                message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
-            });
-
-            $('#form').on('submit', function() {
-                if (!blockContainer.isBlocked()) {
-                    blockContainer.block();
-                }
-            });
-        });
-    </script>
 @endsection
