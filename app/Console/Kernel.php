@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\SendEmailJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,18 +17,7 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('new SendEmailJob')->dailyAt('09:00');
-        $schedule->command('new SendEmailJob')->everyMinute();
-
-        // $now = Carbon::now();
-        // $month = $now->format('F');
-        // $year = $now->format('yy');
-
-
-        // $fourthFridayMonthly = new Carbon('fourth friday of ' . $month . ' ' . $year);
-
-        // $schedule->job(new SendEmailJob)->dailyAt('09:00');
-        $schedule->job(new SendEmailJob)->everyMinute();
+        // 
     }
 
 
