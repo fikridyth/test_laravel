@@ -8,7 +8,7 @@
             var status = `01`;
             var message = ``;
             @foreach ($errors->all() as $error)
-                message += `{{ $error }}`;
+                message += `{{ $error }}<br/>`;
             @endforeach
             message += ``;
             show_alert_dialog(status, message);
@@ -25,7 +25,7 @@
             message = message.responseText;
         }
 
-        message = message.replace(/(\r\n|\n|\r)/g, " ");
+        // message = message.replace(/(\r\n|\n|\r)/g, " ");
 
         if (status == "00") {
             Swal.fire({
