@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\PasswordRule;
 use App\Statics\User\NRIK;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -134,22 +135,21 @@ class AuthController extends Controller
             ],
             'password_baru' => [
                 'required',
-                'min:' . config('secure.APP_SEKURITI_LENGTH_PASS_MIN') . '',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@#$%]).*$/',
+                PasswordRule::min(config('secure.APP_SEKURITI_LENGTH_PASS_MIN'))
+                    ->mixedCase()
+                    ->letters()
+                    ->numbers()
+                    ->symbols(),
                 'different:password',
             ],
             'konfirmasi_password' => [
                 'required',
                 'same:password_baru',
             ],
-        ], [
-            'password.required' => 'Password lama wajib diisi.',
-            'password_baru.required' => 'Password baru wajib diisi.',
-            'password_baru.min' => 'Password baru minimal berisi 8 karakter',
-            'password_baru.regex' => 'Password baru tidak sesuai dengan ketentuan.',
-            'password_baru.different' => 'Password baru harus berbeda dengan password lama.',
-            'konfirmasi_password.required' => 'Konfirmasi password wajib diisi.',
-            'konfirmasi_password.same' => 'Konfirmasi password dan password baru harus sama.',
+        ], [], [
+            'password' => 'Password',
+            'password_baru' => 'Password baru',
+            'konfirmasi_password' => 'Konfirmasi password baru',
         ]);
 
         $nrik = Auth::user()->nrik;
