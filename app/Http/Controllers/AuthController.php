@@ -25,9 +25,12 @@ class AuthController extends Controller
         $expiredPassword = '1970-01-01';
         $user = User::where('nrik', $request->nrik)->first();
 
-        $request->validate([
+        $this->validate($request, [
             'nrik' => 'required',
             'password' => 'required',
+        ], [], [
+            'nrik' => 'NRIK',
+            'password' => 'Password',
         ]);
 
         if (!empty($user) && $user->is_blokir == 1) {
