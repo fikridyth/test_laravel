@@ -43,7 +43,7 @@
             <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
                 <div class="bg-body d-flex flex-center rounded-4 w-md-600px p-10">
                     <div class="w-md-400px">
-                        <form action="{{ route('auth.login-submit') }}" method="POST" id="form-login">
+                        <form action="{{ route('auth.login-submit') }}" method="POST" class="form">
                             @csrf
                             <div class="text-center mb-11">
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>

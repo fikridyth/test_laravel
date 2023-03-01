@@ -18,7 +18,7 @@
                         </div>
                         <div class="card-body pt-5">
                             <form action="{{ route('manajemen-user.update', enkrip($stmtUser->id)) }}" method="POST"
-                                id="form">
+                                class="form">
                                 @method('put')
                                 @csrf
                                 <div class="fv-row mb-7">

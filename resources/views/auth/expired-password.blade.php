@@ -33,7 +33,7 @@
         <div class="d-flex flex-column flex-center flex-column-fluid">
             <div class="d-flex flex-column flex-center p-10">
                 <div class="card card-flush w-lg-650px py-5">
-                    <form action="{{ route('auth.change-password-submit') }}" method="POST" id="form">
+                    <form action="{{ route('auth.change-password-submit') }}" method="POST" class="form">
                         @csrf
                         <div class="card-body py-15 py-lg-20">
                             <div class="card-title d-block mb-10">

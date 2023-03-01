@@ -23,7 +23,7 @@
                         <div class="card-body pt-5">
                             <form
                                 action="{{ $role->id == null ? route('roles.store') : route('roles.update', ['id' => enkrip($role->id)]) }}"
-                                method="POST" id="form">
+                                method="POST" class="form">
                                 @csrf
                                 @if ($role->id == null)
                                     <div class="fv-row mb-7">

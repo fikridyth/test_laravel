@@ -8,7 +8,7 @@
             <div class="row justify-content-center">
                 <div class="col">
                     <div class="card">
-                        <form action="{{ route('auth.change-password-submit') }}" method="POST" id="form">
+                        <form action="{{ route('auth.change-password-submit') }}" method="POST" class="form">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group mb-4">

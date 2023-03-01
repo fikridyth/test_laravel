@@ -18,7 +18,7 @@
                         <div class="card-body pt-5">
                             <form
                                 action="{{ $menu->id == null ? route('menus.store') : route('menus.update', ['id' => enkrip($menu->id)]) }}"
-                                method="POST" id="form">
+                                method="POST" class="form">
                                 @csrf
                                 @if ($menu->id == null)
                                     <div class="fv-row mb-7">

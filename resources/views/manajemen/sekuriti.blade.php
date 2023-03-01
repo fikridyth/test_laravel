@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-                            <form action="{{ route('manajemen-sekuriti.update') }}" method="POST" id="form">
+                            <form action="{{ route('manajemen-sekuriti.update') }}" method="POST" class="form">
                                 @csrf
                                 <div class="fv-row mb-7">
                                     <label for="min_pass" class="fs-6 fw-semibold form-label mt-3">

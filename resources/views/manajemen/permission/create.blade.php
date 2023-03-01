@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <form
                                 action="{{ $permission->id == null ? route('permissions.store') : route('permissions.update', ['id' => $permission->id]) }}"
-                                method="POST" id="form">
+                                method="POST" class="form">
                                 @csrf
                                 @if ($permission->id != null)
                                     @method('put')

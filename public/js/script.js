@@ -29,18 +29,8 @@ $(function () {
 
   // function to disabled button submit on form that you submitted
   // you must create id="form" on your form element
-  const container = document.querySelector("#kt_content");
-
-  const blockContainer = new KTBlockUI(container, {
-    message:
-      '<div class="blockui-message"><span class="spinner-border text-primary"></span> Sedang menyimpan data...</div>',
-  });
-
-  $("#form").on("submit", function () {
-    if (!blockContainer.isBlocked()) {
-      blockContainer.block();
-    }
-    $("#form")
+  $(".form").on("submit", function () {
+    $(this)
       .find(":submit")
       .html(
         "<span class='spinner-border spinner-border-sm align-middle ms-2'></span>"

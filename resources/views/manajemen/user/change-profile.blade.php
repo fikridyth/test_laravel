@@ -16,7 +16,7 @@
                                 <h2>Ubah Profile</h2>
                             </div>
                         </div>
-                        <form action="{{ route('manajemen-user.update-profile') }}" method="POST" id="form"
+                        <form action="{{ route('manajemen-user.update-profile') }}" method="POST" class="form"
                             enctype="multipart/form-data">
                             @method('put')
                             @csrf
