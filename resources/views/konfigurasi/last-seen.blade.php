@@ -41,7 +41,7 @@
                                 <div class="separator border-gray-200"></div>
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                     <form action="{{ route('konfigurasi.last-seen') }}">
-                                        <div class="mb-10">
+                                        <div class="mb-7">
                                             <label class="form-label fs-6 fw-semibold">Role :</label>
                                             <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                                 data-placeholder="Pilih Role" data-allow-clear="true" name="role">
@@ -57,9 +57,6 @@
                                             </select>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button type="reset"
-                                                class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                                data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
                                             <button type="submit" class="btn btn-primary fw-semibold px-6"
                                                 data-kt-menu-dismiss="true"
                                                 data-kt-user-table-filter="filter">Apply</button>
