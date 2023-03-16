@@ -28,7 +28,7 @@ $(function () {
   });
 
   // function to disabled button submit on form that you submitted
-  // you must create id="form" on your form element
+  // you must create class="form" on your form element
   $(".form").on("submit", function () {
     $(this)
       .find(":submit")

@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'name' => 'Developer',
                 'nrik' => NRIK::$DEVELOPER,
                 'user_bv' => 'DE' . NRIK::$DEVELOPER,
-                'email' => 'noncoredev@gmail.com',
+                'email' => 'steamd32@gmail.com',
                 'password' => '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG',
                 'tanggal_lahir' => '1999-09-09',
                 'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
