@@ -25,7 +25,7 @@
                                     <label for="nrik" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">NRIK</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="NRIK hanya dapat diisi dengan angka, harus berbeda dengan yang sudah ada dan berisi 8 karakter"></i>
+                                            title="NRIK hanya bisa diisi dengan angka, harus berbeda dengan yang sudah ada dan berisi 8 karakter"></i>
                                     </label>
                                     <input type="text" maxlength="8" autocomplete="off"
                                         class="form-control form-control-solid positive-numeric @error('nrik') is-invalid @enderror"
@@ -40,7 +40,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama hanya boleh diisi dengan huruf dan/atau spasi saja."></i>
+                                            title="Nama hanya bisa diisi dengan huruf dan/atau spasi saja."></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"

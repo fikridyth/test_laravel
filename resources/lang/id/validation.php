@@ -148,5 +148,6 @@ return [
     'attributes' => [
         'id' => 'Id',
         'id_menu' => 'Menu',
+        'nrik' => 'NRIK',
     ],
 ];
