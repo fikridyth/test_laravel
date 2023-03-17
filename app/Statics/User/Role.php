@@ -50,12 +50,14 @@ class Role
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
+
                     Menu::$UTILITY,
                     Menu::$UTILITY_USER,
                     Menu::$UTILITY_ROLE,
                     Menu::$UTILITY_MENU,
                     Menu::$UTILITY_PERMISSION,
                     Menu::$UTILITY_SECURITY,
+
                     Menu::$USERS_ACTIVITY,
                     Menu::$USERS_ACTIVITY_LAST_SEEN,
                     Menu::$USERS_ACTIVITY_LOG_ACTIVITY,
@@ -94,12 +96,14 @@ class Role
                 ],
                 'menus' => [
                     Menu::$DASHBOARD,
+
                     Menu::$UTILITY,
                     Menu::$UTILITY_USER,
                     Menu::$UTILITY_ROLE,
                     Menu::$UTILITY_MENU,
                     Menu::$UTILITY_PERMISSION,
                     Menu::$UTILITY_SECURITY,
+                    
                     Menu::$USERS_ACTIVITY,
                     Menu::$USERS_ACTIVITY_LAST_SEEN,
                     Menu::$USERS_ACTIVITY_LOG_ACTIVITY,
