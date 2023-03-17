@@ -124,6 +124,7 @@ class AuthController extends Controller
         $title = 'Change Password';
 
         $breadcrumbs = [
+            HomeController::breadcrumb(),
             [$title, route('auth.change-password')]
         ];
 

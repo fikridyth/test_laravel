@@ -79,6 +79,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
+                                    <a href="{{ route('index') }}" class="btn btn-light me-3">Kembali</a>
                                     <button type="submit" class="btn btn-primary me-4">Simpan</button>
                                 </div>
                             </div>

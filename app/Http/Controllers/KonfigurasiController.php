@@ -20,6 +20,7 @@ class KonfigurasiController extends Controller
         $title = 'Last Seen User';
 
         $breadcrumbs = [
+            HomeController::breadcrumb(),
             [$title, route('konfigurasi.last-seen')]
         ];
 
@@ -56,6 +57,7 @@ class KonfigurasiController extends Controller
         $title = 'Konfigurasi Keamanan';
 
         $breadcrumbs = [
+            HomeController::breadcrumb(),
             [$title, route('manajemen-sekuriti.index')]
         ];
 

@@ -229,6 +229,7 @@ class UserController extends Controller
         $title = 'Ubah Profile';
 
         $breadcrumbs = [
+            HomeController::breadcrumb(),
             [$title, route('manajemen-user.change-profile')]
         ];
 
