@@ -108,7 +108,6 @@
                                 @enderror
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light me-4">Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </div>

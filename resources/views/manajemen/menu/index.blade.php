@@ -35,10 +35,25 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
-
-            $('.btn-del').on('click', function() {
-                return confirm('Are you sure want to delete?');
-            });
         });
+
+        function confirmation(e) {
+            e.preventDefault();
+            let url = e.currentTarget.getAttribute('href');
+            let namaMenu = e.currentTarget.getAttribute('data-menu');
+            Swal.fire({
+                title: 'Konfirmasi',
+                html: `Apakah anda yakin ingin menghapus menu <b>${namaMenu}</b> ?<br/>
+                <small><i>*Menu yang dihapus tidak dapat dikembalikan</i></small>`,
+                icon: 'warning',
+                confirmButtonColor: '#0095E8',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            })
+        }
     </script>
 @endsection

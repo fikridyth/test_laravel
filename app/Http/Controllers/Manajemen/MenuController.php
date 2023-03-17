@@ -187,10 +187,12 @@ class MenuController extends Controller
                         <td class='text-center'>{$child['order']}</td>
                         <td>";
             if (Gate::allows('menu_edit')) {
-                $html .= '<a class=\'btn btn-small btn-secondary me-2\' href=\'' . route('menus.edit', ['id' => enkrip($child['id'])]) . '\'>Ubah</a>';
+                $routeEdit = route('menus.edit', enkrip($child['id']));
+                $html .= '<a href="' . $routeEdit . '" class="btn btn-small btn-secondary me-2">Ubah</a>';
             }
             if (Gate::allows('menu_delete')) {
-                $html .= '<a class=\'btn btn-small btn-danger btn-del\' href=\'' . route('menus.delete', ['id' => enkrip($child['id'])]) . '\'>Hapus</a>';
+                $routeDelete = route('menus.delete', enkrip($child['id']));
+                $html .= '<a href="' . $routeDelete . '" class="btn btn-small btn-danger me-2" data-menu="' . $child['title'] . '" onclick="confirmation(event)">Hapus</a>';
             }
             $html .= "</td>
                 </tr>

@@ -85,10 +85,9 @@
                                 </div>
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="reset" data-kt-contacts-type="cancel"
-                                        class="btn btn-light me-3">Cancel</button>
+                                    <a href="{{ route('index') }}" class="btn btn-light me-3">Kembali</a>
                                     <button type="submit" data-kt-contacts-type="submit" class="btn btn-primary">
-                                        <span class="indicator-label">Update</span>
+                                        <span class="indicator-label">Perbarui</span>
                                     </button>
                                 </div>
                             </form>

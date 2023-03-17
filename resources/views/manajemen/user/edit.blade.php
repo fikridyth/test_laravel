@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="separator mb-6"></div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light me-3">Reset</button>
+                                    <a href="{{ route('manajemen-user.index') }}" class="btn btn-light me-3">Kembali</a>
                                     <button type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Perbarui</span>
                                     </button>

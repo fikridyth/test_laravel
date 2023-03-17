@@ -79,7 +79,6 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light me-4">Reset</button>
                                     <button type="submit" class="btn btn-primary me-4">Simpan</button>
                                 </div>
                             </div>
