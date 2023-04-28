@@ -2,6 +2,8 @@
 
 namespace App\Statics\User;
 
+use Illuminate\Support\Facades\App;
+
 class NRIK
 {
     static $SUPER_ADMIN = '00000000';
@@ -15,15 +17,24 @@ class NRIK
 
     static function getAllForCreate()
     {
-        return [
+        $user = [
             ['nrik' => self::$SUPER_ADMIN, 'roles' => [Role::$SUPER_ADMIN]],
-            ['nrik' => self::$DEVELOPER, 'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN]],
-            ['nrik' => self::$ADI, 'roles' => [Role::$DEVELOPER]],
-            ['nrik' => self::$RENDY, 'roles' => [Role::$DEVELOPER]],
-            ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$DEVELOPER]],
-            ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER]],
-            ['nrik' => self::$KAUTSAR, 'roles' => [Role::$DEVELOPER]],
-            ['nrik' => self::$WILDAN, 'roles' => [Role::$DEVELOPER]],
         ];
+
+        if (App::environment(['local', 'development'])) {
+            $userDev = [
+                ['nrik' => self::$DEVELOPER, 'roles' => [Role::$DEVELOPER, Role::$SUPER_ADMIN]],
+                ['nrik' => self::$ADI, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$RENDY, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$KUSDHIAN, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$FIQQI, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$KAUTSAR, 'roles' => [Role::$DEVELOPER]],
+                ['nrik' => self::$WILDAN, 'roles' => [Role::$DEVELOPER]],
+            ];
+
+            $user = array_merge($user, $userDev);
+        }
+
+        return $user;
     }
 }
