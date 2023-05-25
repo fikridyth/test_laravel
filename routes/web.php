@@ -24,48 +24,52 @@ Route::middleware('auth')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // ganti password
-        Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
         Route::post('/change-password/proses', [AuthController::class, 'changePasswordSubmit'])->name('change-password-submit');
         Route::get('/expired-password', [AuthController::class, 'expiredPassword'])->name('expired-password');
     });
+    
+    Route::middleware('auth.check-users-expired')->group(function () {
+        // form change password
+        Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
 
-    // dashboard
-    Route::redirect('/', '/dashboard');
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
+        // dashboard
+        Route::redirect('/', '/dashboard');
+        Route::get('/dashboard', [HomeController::class, 'index'])->name('index');
 
-    // konfigurasi
-    Route::name('konfigurasi.')->group(function () {
-        // users last seen
-        Route::get('/last-seen', [KonfigurasiController::class, 'lastSeen'])->name('last-seen')->middleware('permission:user_last_seen');
+        // konfigurasi
+        Route::name('konfigurasi.')->group(function () {
+            // users last seen
+            Route::get('/last-seen', [KonfigurasiController::class, 'lastSeen'])->name('last-seen')->middleware('permission:user_last_seen');
 
-        // users log activity
-        Route::get('/user-activity', [KonfigurasiController::class, 'userActivity'])->name('log-activity')->middleware('permission:user_log_activity');
-        Route::post('/decrypt', [KonfigurasiController::class, 'decrypt'])->name('decrypt')->middleware('permission:decrypt');
+            // users log activity
+            Route::get('/user-activity', [KonfigurasiController::class, 'userActivity'])->name('log-activity')->middleware('permission:user_log_activity');
+            Route::post('/decrypt', [KonfigurasiController::class, 'decrypt'])->name('decrypt')->middleware('permission:decrypt');
+        });
+
+        // manajemen sekuriti
+        Route::prefix('manajemen-sekuriti')->name('manajemen-sekuriti.')->middleware('permission:security')->group(function () {
+            Route::get('/', [KonfigurasiController::class, 'sekuriti'])->name('index');
+            Route::post('/update', [KonfigurasiController::class, 'sekuritiUpdate'])->name('update');
+        });
+
+        // manajemen user
+        Route::name('manajemen-user.')->group(function () {
+            Route::get('/manajemen-user/{user}/buka-blokir', [UserController::class, 'unlockUser'])->name('buka-blokir')->middleware('permission:user_unblock');
+            Route::get('/manajemen-user/{user}/lepas-ip', [UserController::class, 'resetIPUser'])->name('lepas-ip')->middleware('permission:user_remove_ip');
+            Route::get('/profile', [UserController::class, 'changeProfile'])->name('change-profile');
+            Route::put('/update-profile', [UserController::class, 'updateProfile'])->name('update-profile');
+            Route::get('/remove-profile-picture', [UserController::class, 'removeProfilePicture'])->name('remove-profile-picture');
+        });
+        Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'id']])->except('destroy');
+
+        // manajemen menu
+        Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('menus.delete')->middleware('permission:menu_delete');
+        Route::resource('/menus', MenuController::class, ['parameters' => ['menus' => 'id']])->except(['show', 'destroy']);
+
+        // manajemen role
+        Route::resource('/roles', RoleController::class, ['parameters' => ['roles' => 'id']])->except(['show', 'destroy']);
+
+        // manajemen akses
+        Route::resource('/permissions', PermissionController::class, ['parameters' => ['permissions' => 'id']])->except(['show', 'destroy']);
     });
-
-    // manajemen sekuriti
-    Route::prefix('manajemen-sekuriti')->name('manajemen-sekuriti.')->middleware('permission:security')->group(function () {
-        Route::get('/', [KonfigurasiController::class, 'sekuriti'])->name('index');
-        Route::post('/update', [KonfigurasiController::class, 'sekuritiUpdate'])->name('update');
-    });
-
-    // manajemen user
-    Route::name('manajemen-user.')->group(function () {
-        Route::get('/manajemen-user/{user}/buka-blokir', [UserController::class, 'unlockUser'])->name('buka-blokir')->middleware('permission:user_unblock');
-        Route::get('/manajemen-user/{user}/lepas-ip', [UserController::class, 'resetIPUser'])->name('lepas-ip')->middleware('permission:user_remove_ip');
-        Route::get('/profile', [UserController::class, 'changeProfile'])->name('change-profile');
-        Route::put('/update-profile', [UserController::class, 'updateProfile'])->name('update-profile');
-        Route::get('/remove-profile-picture', [UserController::class, 'removeProfilePicture'])->name('remove-profile-picture');
-    });
-    Route::resource('/manajemen-user', UserController::class, ['parameters' => ['manajemen-user' => 'id']])->except('destroy');
-
-    // manajemen menu
-    Route::get('/menus/{id}/delete', [MenuController::class, 'delete'])->name('menus.delete')->middleware('permission:menu_delete');
-    Route::resource('/menus', MenuController::class, ['parameters' => ['menus' => 'id']])->except(['show', 'destroy']);
-
-    // manajemen role
-    Route::resource('/roles', RoleController::class, ['parameters' => ['roles' => 'id']])->except(['show', 'destroy']);
-
-    // manajemen akses
-    Route::resource('/permissions', PermissionController::class, ['parameters' => ['permissions' => 'id']])->except(['show', 'destroy']);
 });
