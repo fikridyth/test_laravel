@@ -47,7 +47,7 @@ This repo requires PHP >= 7.3.
    - Example : `git clone http://10.100.111.95/noncore/laravel-apps-v3.git portal-bansos`
 2. Change remote url git : `git remote set-url origin {url_destination_git}`
    - Example : `git remote set-url origin https://github.com/USERNAME/REPOSITORY.git`
-3. Edit your own config in `.env`, just copy `.env.example`.
+3. Edit your own config in `.env`, just copy `.env.example` and rename to `.env`.
 4. Add file `secure.php` in `config`.
 5. Run `composer install`.
 6. Run `php artisan key:generate`.
@@ -56,6 +56,8 @@ This repo requires PHP >= 7.3.
 9. Run `php artisan serve`.
 10. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
 
+- When create new user, the password default is `Bankdki1!` 
+- When unblock user, the new password is `Bankdki1!` 
 - Login with:
 - `username`: `28451215`
 - `password`: `28451215@bdki`
