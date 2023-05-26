@@ -133,7 +133,7 @@
 
                 $('#preview-image').css('background-image', 'url(' + backgroundImage + ')');
                 $('#nrik').text(`: ${dataObject.nrik}`);
-                $('#user_bv').text(`: ${dataObject.user_bv}`);
+                $('#username').text(`: ${dataObject.username}`);
                 $('#roles').text(`: ${rolesName.join(', ')}`);
                 $('#name').text(`: ${dataObject.name}`);
                 $('#email').text(`: ${dataObject.email}`);

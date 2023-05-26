@@ -81,14 +81,14 @@ class UserController extends Controller
         $this->authorize('user_create');
         $nama = explode(' ', $request->name);
         $nrik = $request->nrik;
-        $userBV = strtoupper(substr($nama[0], 0, 2) . $nrik);
+        $username = strtoupper(substr($nama[0], 0, 2) . $nrik);
         if (count($nama) >= 2) {
-            $userBV = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
+            $username = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
         }
         // $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY');
         $password = 'Bankdki1!'; // ketentuan baru dari IT sec
         $user =  User::create($request->validated() + [
-            'user_bv' => $userBV,
+            'username' => $username,
             'password' => bcrypt($password),
             'expired_password' => '1970-01-01',
             'created_by' => Auth::id(),
@@ -156,14 +156,14 @@ class UserController extends Controller
         $user = User::find($id);
         $nama = explode(' ', $request->name);
         $nrik = $request->nrik;
-        $userBV = strtoupper(substr($nama[0], 0, 2) . $nrik);
+        $username = strtoupper(substr($nama[0], 0, 2) . $nrik);
         if (count($nama) >= 2) {
-            $userBV = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
+            $username = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
         }
         $user->update([
             'name' => $request->name,
             'nrik' => $nrik,
-            'user_bv' => $userBV,
+            'username' => $username,
             'email' => $request->email,
             'tanggal_lahir' => $request->tanggal_lahir,
             'id_unit_kerja' => $request->id_unit_kerja,

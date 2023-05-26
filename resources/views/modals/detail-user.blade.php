@@ -32,7 +32,7 @@
                                 <div class="fw-semibold text-gray-600 fs-7">User BV</div>
                             </div>
                             <div class="col-md-9">
-                                <div class="fw-bold text-gray-800 fs-6" id="user_bv"></div>
+                                <div class="fw-bold text-gray-800 fs-6" id="username"></div>
                             </div>
                         </div>
                         <div class="row mb-4">

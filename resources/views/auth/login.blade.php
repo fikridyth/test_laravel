@@ -49,9 +49,9 @@
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                             </div>
                             <div class="fv-row mb-8">
-                                <input type="text" placeholder="NRIK" name="nrik" maxlength="8"
-                                    autocomplete="off" class="form-control bg-transparent" value="{{ old('nrik') }}"
-                                    autofocus />
+                                <input type="text" placeholder="Username" name="username"
+                                    maxlength="10" autocomplete="off" class="form-control bg-transparent text-uppercase"
+                                    value="{{ old('username') }}" autofocus />
                             </div>
                             <div class="fv-row mb-3">
                                 <input type="password" placeholder="Password" name="password" autocomplete="off"

@@ -23,13 +23,13 @@ class AuthController extends Controller
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
         $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
         $expiredPassword = '1970-01-01';
-        $user = User::where('nrik', $request->nrik)->first();
+        $user = User::where('username', $request->username)->first();
 
         $this->validate($request, [
-            'nrik' => 'required',
+            'username' => 'required',
             'password' => 'required',
         ], [], [
-            'nrik' => 'NRIK',
+            'username' => 'Username',
             'password' => 'Password',
         ]);
 
@@ -37,7 +37,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->withErrors(["Akun anda terblokir karena sudah {$max_fail} kali melakukan kesalahan"]);
         }
 
-        $credentials = $request->only('nrik', 'password');
+        $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) { //berhasil login
 
             // cek dulu sedang login di IP lain atau tidak
@@ -46,36 +46,36 @@ class AuthController extends Controller
                 Auth::logout();
 
                 return redirect()->back()->withInput()->withErrors(["User sedang login di IP {$user->ip_address}"]);
-            } else { // berhasil login
-                // update IP Address
-                User::where('nrik', $request->nrik)->update([
-                    'ip_address' => $recentIpAddress
-                ]);
-
-                Session::put('errorLogin', 0);
-
-                return redirect(route('index'));
             }
+            // berhasil login
+            // update IP Address
+            User::where('username', $request->username)->update([
+                'ip_address' => $recentIpAddress
+            ]);
+
+            Session::put('errorLogin', 0);
+
+            return redirect(route('index'));
         } else { //jika salah password / keblokir
             if (Session::get('errorLogin') !== null) {
                 $sessionErrorLogin = Session::get('errorLogin') + 1;
-                $sessionErrorLoginNRIK = Session::get('errorLoginNRIK');
+                $sessionErrorLoginUsername = Session::get('errorLoginUsername');
                 Session::put('errorLogin', $sessionErrorLogin);
 
-                if ($request->nrik === NRIK::$DEVELOPER) {
+                if ($request->username === 'DE' . NRIK::$DEVELOPER) {
                     $expiredPassword = Carbon::now()->addMonths(config('secure.APP_SEKURITI_PASSWORD_EXP'));
                 }
 
                 // jika yg login sekarang berbeda dengan yg login sebelumnya, session error login kembalikan ke 1
-                if ($request->nrik != $sessionErrorLoginNRIK) {
+                if ($request->username != $sessionErrorLoginUsername) {
                     Session::put('errorLogin', 1);
                 }
 
-                if ($sessionErrorLogin >= $max_fail && $sessionErrorLoginNRIK == $request->nrik) {
-                    //cek NRIK ada / tidak di DB
-                    $countNRIK = User::where('nrik', $request->nrik)->count();
-                    if ($countNRIK > 0) {
-                        User::where('nrik', $request->nrik)->update([
+                if ($sessionErrorLogin >= $max_fail && $sessionErrorLoginUsername == $request->username) {
+                    //cek username ada / tidak di DB
+                    $isUsernameExists = User::where('username', $request->username)->exists();
+                    if ($isUsernameExists) {
+                        User::where('username', $request->username)->update([
                             'password' => bcrypt(Hash::make(rand(1000000000, 9999999999))),
                             'expired_password' => $expiredPassword,
                             'is_blokir' => '1'
@@ -85,14 +85,14 @@ class AuthController extends Controller
                         return redirect()->back()->withInput()->withErrors(["Akun tidak ditemukan"]);
                     }
                 }
-                Session::put('errorLoginNRIK', $request->nrik);
+                Session::put('errorLoginUsername', $request->username);
             } else {
                 Session::put('errorLogin', 1);
-                Session::put('errorLoginNRIK', $request->nrik);
+                Session::put('errorLoginUsername', $request->username);
                 $sessionErrorLogin = Session::get('errorLogin');
             }
 
-            return redirect()->back()->withInput()->withErrors(["NRIK atau password salah"]);
+            return redirect()->back()->withInput()->withErrors(["Username atau password salah"]);
         }
     }
 
