@@ -22,6 +22,7 @@ class LogActivityDataTable extends DataTable
                     ->with(['user', 'user.roles', 'user.unitKerja', 'user.foto'])
                     ->filter(request(['user', 'role']))
             )
+            ->addIndexColumn()
             ->editColumn('user_id', function ($row) {
                 return '<a href="#" class="btnModalUser" data-bs-toggle="modal" data-bs-target="#modalUser" data-object="' . base64_encode($row->user) . '">
                                 ' . $row->user->name . '
@@ -68,7 +69,7 @@ class LogActivityDataTable extends DataTable
             ->scrollY('500px')
             ->fixedColumns(['left' => 2, 'right' => 1])
             ->language(['processing' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'])
-            ->orderBy(0)
+            ->orderBy(9)
             ->parameters([
                 "lengthMenu" => [
                     [10, 25, 50, 100],
@@ -86,7 +87,7 @@ class LogActivityDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id')->searchable(false)->addClass('text-center'),
+            Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
             Column::make('user_id')->orderable(false)->searchable(false)->title('User')->addClass('text-center'),
             Column::make('activity_content')->title('Aktivitas'),
             Column::make('ip_access')->title('IP Address'),

@@ -22,12 +22,13 @@ class UserDataTable extends DataTable
                 $query->with(['roles', 'unitKerja', 'foto'])
                     ->filter(request(['role', 'status_blokir']))
             )
+            ->addIndexColumn()
             ->editColumn('id_file_foto', function ($row) {
                 if (!$row->id_file_foto) {
                     return '-';
                 }
                 $path = "/storage/" . $row->foto?->path_file;
-                return '<a href="' . $path . '" target="blank">' . $row->name . '</a>';
+                return '<a href="' . $path . '" target="blank">Lihat</a>';
             })
             ->editColumn('tanggal_lahir', function ($row) {
                 return dateWithFullMonthFormat($row->tanggal_lahir);
@@ -108,7 +109,7 @@ class UserDataTable extends DataTable
             ->scrollY('500px')
             ->fixedColumns(['left' => 3, 'right' => 3])
             ->language(['processing' => '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'])
-            ->orderBy(0, 'asc')
+            ->orderBy(1, 'asc')
             ->parameters([
                 "lengthMenu" => [
                     [10, 25, 50, 100],
@@ -126,10 +127,10 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id')->searchable(false)->addClass('text-center'),
-            Column::make('nrik')->title('NRIK'),
-            Column::make('username')->title('User Bank Vision'),
+            Column::make('DT_RowIndex')->title('No.')->searchable(false)->orderable(false)->addClass('text-center'),
             Column::make('name')->title('Nama'),
+            Column::make('nrik')->title('NRIK'),
+            Column::make('username'),
             Column::make('id_file_foto')
                 ->title('Foto')
                 ->searchable(false)
