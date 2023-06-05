@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->smallInteger('status_data')->default(1);
             $table->smallInteger('is_blokir')->nullable();
             $table->string('ip_address')->nullable();
+            $table->text('session_id')->nullable();
             $table->timestamp('last_seen')->nullable();
             $table->dateTime('last_activity')->nullable();
             $table->date('expired_password')->default('1970-01-01');

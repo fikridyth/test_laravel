@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'auth.check-users-expired'=>\App\Http\Middleware\AuthenticateWithCheckUsersExpired::class,
+        'auth.session-browser' => \App\Http\Middleware\SessionBrowser::class,
     ];
 }

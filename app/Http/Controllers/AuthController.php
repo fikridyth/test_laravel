@@ -48,12 +48,17 @@ class AuthController extends Controller
                 return redirect()->back()->withInput()->withErrors(["User sedang login di IP {$user->ip_address}"]);
             }
             // berhasil login
+            // create session browser
+            $sessionId = bin2hex(random_bytes(40));
+
             // update IP Address
             User::where('username', $request->username)->update([
-                'ip_address' => $recentIpAddress
+                'ip_address' => $recentIpAddress,
+                'session_id' => $sessionId,
             ]);
 
             Session::put('errorLogin', 0);
+            Session::put('session_browser', $sessionId);
 
             return redirect(route('index'));
         } else { //jika salah password / keblokir

@@ -25,11 +25,13 @@ Route::middleware('auth')->group(function () {
 
         // ganti password
         Route::post('/change-password/proses', [AuthController::class, 'changePasswordSubmit'])->name('change-password-submit');
+
+        // form expired password
         Route::get('/expired-password', [AuthController::class, 'expiredPassword'])->name('expired-password');
     });
-    
-    Route::middleware('auth.check-users-expired')->group(function () {
-        // form change password
+
+    Route::middleware(['auth.session-browser', 'auth.check-users-expired'])->group(function () {
+        // form ganti password
         Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
 
         // dashboard
