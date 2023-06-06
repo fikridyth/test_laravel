@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/expired-password', [AuthController::class, 'expiredPassword'])->name('expired-password');
         });
 
-        Route::middleware(['auth.session-browser', 'auth.check-users-expired'])->group(function () {
+        Route::middleware('auth.check-users-expired')->group(function () {
             // form ganti password
             Route::get('/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
 
