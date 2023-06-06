@@ -59,8 +59,8 @@ This repo requires PHP >= 7.3.
 - When create new user, the password default is `Bankdki1!` 
 - When unblock user, the new password is `Bankdki1!` 
 - Login with:
-- `username`: `28451215`
-- `password`: `28451215@bdki`
+- `username`: `FN42101120`
+- `password`: `42101120@bdki`
 
 ### Step To Push Gitlab
 
