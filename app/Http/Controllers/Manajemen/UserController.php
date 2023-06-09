@@ -86,7 +86,8 @@ class UserController extends Controller
             $username = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
         }
         // $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY');
-        $password = 'Bankdki1!'; // ketentuan baru dari IT sec
+        // $password = 'Bankdki1!'; // ketentuan baru dari IT sec
+        $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY') . 'Bankdki1!';
         $user =  User::create($request->validated() + [
             'username' => $username,
             'password' => bcrypt($password),
