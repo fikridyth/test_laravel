@@ -56,8 +56,8 @@ This repo requires PHP >= 7.3.
 9. Run `php artisan serve`.
 10. If you don't run the command `php artisan serve` anywhere, you can access `127.0.0.1:8000` to see application.
 
-- When create new user, the password default is birthdate(format : ddmmyyyy) with `Bankdki1!` -> `09091999Bankdki1!`
-- When unblock user, the new password is birthdate(format : ddmmyyyy) with `Bankdki1!` -> `09091999Bankdki1!`
+- When create new user, the password default is birthdate(format : ddmmyyyy) with `@Bdki` -> `09091999@Bdki`
+- When unblock user, the new password is birthdate(format : ddmmyyyy) with `@Bdki` -> `09091999@Bdki`
 - Login with:
 - `username`: `FN42101120`
 - `password`: `42101120@bdki`
