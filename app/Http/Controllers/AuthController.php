@@ -23,6 +23,7 @@ class AuthController extends Controller
         $recentIpAddress = $_SERVER['REMOTE_ADDR'];
         $max_fail = config('secure.APP_SEKURITI_FAIL_LOGIN');
         $expiredPassword = '1970-01-01';
+        $request['username'] = strtoupper($request->username);
         $user = User::where('username', $request->username)->first();
 
         $this->validate($request, [
