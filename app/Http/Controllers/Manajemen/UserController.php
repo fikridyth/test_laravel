@@ -86,7 +86,8 @@ class UserController extends Controller
             $username = strtoupper(substr($nama[0], 0, 1) . substr($nama[1], 0, 1) . $nrik);
         }
         // $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY');
-        $password = date_format(date_create_from_format('Y-m-d', $request->tanggal_lahir), 'dmY') . '@Bdki';
+        // ketentuan baru dari IT sec
+        $password = config('app.default_password_users');
         $user =  User::create($request->validated() + [
             'username' => $username,
             'password' => bcrypt($password),
@@ -197,7 +198,7 @@ class UserController extends Controller
         $user = User::find($id);
         // $password = bcrypt(date_format(date_create_from_format('Y-m-d', $user->tanggal_lahir), 'dmY'));
         // ketentuan baru dari IT sec
-        $password = bcrypt(date_format(date_create_from_format('Y-m-d', $user->tanggal_lahir), 'dmY') . '@Bdki');
+        $password = bcrypt(config('app.default_password_users'));
         if ($user->nrik === NRIK::$DEVELOPER) {
             $password = '$2y$10$T2czGDqcdZfqpBB.5NDj/edSRKs31MIvs8fDbmKvtUC9TteS6fVhG';
         }

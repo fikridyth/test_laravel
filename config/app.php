@@ -13,6 +13,7 @@ return [
 
     'api_timeout' => env('API_TIMEOUT', 30),
     'array_chunks_limit' => env('ARRAY_CHUNKS_LIMIT', 1000),
+    'default_password_users' => env('DEFAULT_PASSWORD_USERS'),
 
     /*
     |--------------------------------------------------------------------------
