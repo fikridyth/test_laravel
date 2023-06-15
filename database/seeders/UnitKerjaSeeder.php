@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\UnitKerja;
+use App\Models\Master\UnitKerja;
 use Illuminate\Database\Seeder;
 
 class UnitKerjaSeeder extends Seeder

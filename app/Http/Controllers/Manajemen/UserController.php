@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
-use App\Models\UnitKerja;
+use App\Models\Master\UnitKerja;
 use App\Models\User;
 use App\Statics\User\NRIK;
 use Illuminate\Http\Request;

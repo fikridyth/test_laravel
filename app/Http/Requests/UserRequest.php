@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Role;
-use App\Models\UnitKerja;
+use App\Models\Master\UnitKerja;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

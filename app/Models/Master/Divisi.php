@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UnitKerja extends Model
+class Divisi extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_master_unit_kerja';
+    protected $table = 'tbl_master_divisi';
 
     protected $guarded = ['id'];
 

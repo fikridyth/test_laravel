@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Divisi;
+use App\Models\Master\Divisi;
 use Illuminate\Database\Seeder;
 
 class DivisiSeeder extends Seeder
