@@ -47,10 +47,10 @@ class UserRequest extends FormRequest
         return [
             'id_role' => "required|array|min:1|in:{$roleIds}",
             'id_role.*' => "required|numeric",
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'name' => 'required|regex:/^[a-zA-Z0-9.,\s]+$/',
             'nrik' => $nrik,
             'email' => $email,
-            'tanggal_lahir' => 'required|date',
+            'tanggal_lahir' => 'nullable|date',
             'id_unit_kerja' => "required|numeric|in:{$unkerIds}",
         ];
     }
@@ -70,7 +70,7 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.regex' => 'Nama hanya boleh diisi menggunakan huruf atau spasi saja.'
+            'name.regex' => ':attribute hanya bisa diisi menggunakan huruf, titik, koma dan/atau spasi saja.'
         ];
     }
 }

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->date('tanggal_lahir');
+            $table->date('tanggal_lahir')->nullable();
             $table->foreignId('id_file_foto')->nullable();
             $table->foreignId('id_unit_kerja')->references('id_unit_kerja')->on('tbl_master_unit_kerja');
             $table->smallInteger('status_data')->default(1);

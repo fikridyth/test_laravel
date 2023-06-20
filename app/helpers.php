@@ -25,12 +25,18 @@ function formatRupiah($number)
 // reformat date to 'd-MMM-Y' -> Ex : 1 Januari 2023
 function dateWithFullMonthFormat($date)
 {
+    if (!$date) {
+        return '-';
+    }
     return Carbon::parse($date)->locale(config('app.locale'))->translatedFormat('j F Y');
 }
 
 // reformat date to 'd-MMM-Y, h:i:s' -> Ex : 1 Januari 2023, 12:30:00
 function dateWithFullMonthAndTimeFormat($date)
 {
+    if (!$date) {
+        return '-';
+    }
     return Carbon::parse($date)->locale(config('app.locale'))->translatedFormat('j F Y, H:i:s');
 }
 

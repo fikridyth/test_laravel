@@ -40,7 +40,7 @@
                                     <label for="name" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama hanya bisa diisi dengan huruf dan/atau spasi saja."></i>
+                                            title="Nama hanya bisa diisi dengan huruf, titik, koma dan/atau spasi saja."></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('name') is-invalid @enderror"
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold form-label mt-3">
-                                        <span class="required">Tanggal Lahir</span>
+                                        <span>Tanggal Lahir</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                             title="Masukkan tanggal lahir dengan format 'YYYY-MM-DD' contoh: 1999-01-21"></i>
                                     </label>

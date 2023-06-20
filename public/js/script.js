@@ -73,7 +73,9 @@ const rupiahIndonesia = new Intl.NumberFormat("id-ID", {
 $("#kt_default_daterangepicker").daterangepicker({
   singleDatePicker: true,
   showDropdowns: true,
+  autoUpdateInput: false,
   locale: {
+    cancelLabel: "Clear",
     format: "YYYY-MM-DD",
     monthNames: [
       "Januari",
@@ -91,3 +93,17 @@ $("#kt_default_daterangepicker").daterangepicker({
     ],
   },
 });
+
+$("#kt_default_daterangepicker").on(
+  "apply.daterangepicker",
+  function (ev, picker) {
+    $(this).val(picker.startDate.format("YYYY-MM-DD"));
+  }
+);
+
+$("#kt_default_daterangepicker").on(
+  "cancel.daterangepicker",
+  function () {
+    $(this).val('');
+  }
+);

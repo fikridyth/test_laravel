@@ -17,14 +17,12 @@ Route::name('auth.')->middleware('guest')->group(function () {
 
 // routes di web/user.php yang digunakan oleh semua role
 Route::middleware('auth')->group(function () {
-
     // logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::middleware('auth.session-browser')->group(function () {
         // authentication
         Route::name('auth.')->group(function () {
-
             // ganti password
             Route::post('/change-password/proses', [AuthController::class, 'changePasswordSubmit'])->name('change-password-submit');
 
