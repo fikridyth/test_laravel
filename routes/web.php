@@ -7,6 +7,7 @@ use App\Http\Controllers\Manajemen\UserController;
 use App\Http\Controllers\Manajemen\MenuController;
 use App\Http\Controllers\Manajemen\PermissionController;
 use App\Http\Controllers\Manajemen\RoleController;
+use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 
 // login
@@ -73,6 +74,11 @@ Route::middleware('auth')->group(function () {
 
             // manajemen akses
             Route::resource('/permissions', PermissionController::class, ['parameters' => ['permissions' => 'id']])->except(['show', 'destroy']);
+
+            // crud
+            Route::resource('/crud', CrudController::class, ['parameters' => ['crud' => 'id']])->except(['show']);
+
+            Route::resource('/asasa', CrudController::class, ['parameters' => ['permissions' => 'id']])->except(['show']);
         });
     });
 });

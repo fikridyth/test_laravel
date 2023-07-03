@@ -71,11 +71,11 @@ class UserSeeder extends Seeder
                     'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
                 ],
                 [
-                    'name' => 'Fiqqi Nurrakhman',
+                    'name' => 'Fiqqi Nurrakhman', // FN42101120
                     'nrik' => NRIK::$FIQQI,
                     'username' => 'FN' . NRIK::$FIQQI,
                     'email' => 'fiqqirahman@gmail.com',
-                    'password' => '$2y$10$t520Y0ZzcZCo5NkVScmrcO8Lev4cFUXm5tqXf86dXNXX7WWdRZFVe', // 42101120@bdki
+                    'password' => '$2y$10$t520Y0ZzcZCo5NkVScmrcO8Lev4cFUXm5tqXf86dXNXX7WWdRZFVe', // 42101120@bdki -> 42101120@Bdki
                     'tanggal_lahir' => '1994-04-19',
                     'id_unit_kerja' => StaticUnitKerja::$GRUP_TEKNOLOGI_INFORMASI,
                 ],

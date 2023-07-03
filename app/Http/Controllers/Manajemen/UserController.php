@@ -282,9 +282,9 @@ class UserController extends Controller
 
         $pathFile = '/storage/' . $user->foto->path_file;
         File::delete(public_path($pathFile));
-        
+
         $user->foto->delete();
-        
+
         $user->update(['id_file_foto' => null]);
 
         createLogActivity("Menghapus foto profile");

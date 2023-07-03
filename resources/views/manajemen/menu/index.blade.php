@@ -33,9 +33,9 @@
 
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
+        // $(document).ready(function() {
+        //     $('.select2').select2();
+        // });
 
         function confirmation(e) {
             e.preventDefault();
