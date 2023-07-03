@@ -99,6 +99,9 @@ class UserSeeder extends Seeder
                 ],
             ];
 
+            // FH12345678 - 12345678@Bdki
+            // TE12345679 - 12345679@Bdk
+
             $collections = array_merge($collections, $userDeveloper);
         }
 

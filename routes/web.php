@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
             // crud
             Route::resource('/crud', CrudController::class, ['parameters' => ['crud' => 'id']])->except(['show']);
 
-            Route::resource('/asasa', CrudController::class, ['parameters' => ['permissions' => 'id']])->except(['show']);
+            Route::resource('/asasa', RoleController::class, ['parameters' => ['roles' => 'id']])->except(['show']);
         });
     });
 });
