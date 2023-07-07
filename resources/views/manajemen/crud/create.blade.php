@@ -29,7 +29,7 @@
                                     <label for="nama" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Nama</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="Nama role harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
+                                            title="Nama nasabah harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('nama') is-invalid @enderror"
@@ -44,7 +44,7 @@
                                     <label for="alamat" class="fs-6 fw-semibold form-label mt-3">
                                         <span class="required">Alamat</span>
                                         <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                            title="alamat role harus berbeda dengan yang sudah ada dan harus berisi antara 2 sampai 50 karakter"></i>
+                                            title="Masukkan alamat nasabah"></i>
                                     </label>
                                     <input type="text"
                                         class="form-control form-control-solid @error('alamat') is-invalid @enderror"
@@ -72,13 +72,24 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="profesi" class="col-form-label">Profesi:</label>
-                                    <select class="form-select" name="profesi" title="Pilih profesi">
+                                    <label for="profesi" class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">Profesi</span>
+                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                            title="Profesi wajib dipilih"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid @error('profesi') is-invalid @enderror"
+                                        name="profesi" data-control="select2" data-placeholder="---Pilih Profesi---">
                                         <option value="{{ old('model_box', $crud->profesi) }}">
                                             {{ old('model_box', $crud->profesi) }}</option>
-                                        <option value="Guru">Guru</option>
+                                        {{-- <option value="Guru">Guru</option>
                                         <option value="Atlet">Atlet</option>
-                                        <option value="Dokter">Dokter</option>
+                                        <option value="Dokter">Dokter</option> --}}
+                                        @foreach ($professions as $profession)
+                                            {{-- @if ($profession !== $professions) --}}
+                                            <option value="{{ $profession->Name }}">{{ $profession->Name }}</option>
+                                            {{-- @endif --}}
+                                        @endforeach
+
                                     </select>
                                 </div>
 

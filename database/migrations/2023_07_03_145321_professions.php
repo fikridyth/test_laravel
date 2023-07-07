@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Nasabah extends Migration
+class Professions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Nasabah extends Migration
      */
     public function up()
     {
-        Schema::create('nasabah', function (Blueprint $table) {
+        Schema::create('professions', function (Blueprint $table) {
             $table->id();
-            $table->text('nama');
-            $table->text('alamat');
-            $table->date('tgl_lahir');
+            $table->text('Name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class Nasabah extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nasabah');
+        Schema::dropIfExists('professions');
     }
 }

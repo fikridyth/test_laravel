@@ -82,3 +82,5 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+
+// Route::get('/files', UploadController::class, ['parameters' => ['files' => 'id']]);

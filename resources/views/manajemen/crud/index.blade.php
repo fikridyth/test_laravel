@@ -1,8 +1,8 @@
 @extends('main')
-
+@section('page.title', 'Manajemen Nasabah')
 @section('content')
-    @include('layouts.toolbar')
 
+    @include('layouts.toolbar')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">
             <div class="row">
@@ -41,9 +41,8 @@
                                         <th>Profesi</th>
                                         <th>Created</th>
                                         <th>Updated</th>
-                                        @can('crud_edit')
-                                            <th class="text-center">Aksi</th>
-                                        @endcan
+                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

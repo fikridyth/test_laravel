@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Crud;
-use App\Http\Requests\StoreCrudRequest;
-use App\Http\Requests\UpdateCrudRequest;
+use App\Models\Profession;
 use Illuminate\Support\Facades\View;
+// use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Validator;
@@ -38,7 +39,8 @@ class CrudController extends Controller
             self::breadcrumb()
         ];
 
-        $cruds = Crud::orderBy('id')->get();
+        // $cruds = Crud::orderBy('id')->get();
+        $cruds = \DB::table('cruds')->orderBy('id')->get();
 
         return View::make('manajemen.crud.index', compact('title', 'breadcrumbs', 'cruds'));
     }
@@ -51,7 +53,7 @@ class CrudController extends Controller
     public function create()
     {
         $this->authorize('crud_create');
-        $title = 'Tambah Nasabah Baru';
+        $title = 'Tambah ' . self::$title . ' Baru';
 
         $breadcrumbs = [
             HomeController::breadcrumb(),
@@ -60,22 +62,27 @@ class CrudController extends Controller
         ];
 
         $crud = new crud();
+        $professions = Profession::all();
 
-        return View::make('manajemen.crud.create', compact('title', 'breadcrumbs', 'crud'));
+        return View::make('manajemen.crud.create', compact('title', 'breadcrumbs', 'crud', 'professions'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCrudRequest  $request
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Crud  $crud
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCrudRequest $request)
+    public function store(Request $request)
     {
         $this->authorize('crud_create');
 
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:cruds',
+            'alamat' => 'required',
+            'tgl_lahir' => 'required',
+            'profesi' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -135,22 +142,46 @@ class CrudController extends Controller
         ];
 
         $crud = Crud::find($id);
+        // $professions = Profession::where('Name', '!=', $crud->nama)->pluck('Name');
+        $professions = Profession::all();
 
-        return view('manajemen.crud.create', compact('title', 'breadcrumbs', 'crud'));
+        return view('manajemen.crud.create', compact('title', 'breadcrumbs', 'crud', 'professions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCrudRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Crud  $crud
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCrudRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->authorize('crud_edit');
         $id = dekrip($id);
         $crud = Crud::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:cruds,nama,' . $crud->id,
+            'alamat' => 'required',
+            'tgl_lahir' => 'required',
+            'profesi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $out = [
+                "message" => $validator->messages()->all(),
+            ];
+
+            foreach ($out as $key => $value) {
+                Alert::error('Failed!', $value);
+                return back();
+            }
+
+            Alert::error('Failed!', $out);
+            return back();
+        }
+
         $crud->update($request->all());
 
         return Redirect()->route('crud.index')
